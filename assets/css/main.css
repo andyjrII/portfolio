@@ -951,7 +951,7 @@ input, select, textarea {
 				}
 
 				.row > .col-12-medium {
-					width: 100%;
+					width: 50%;
 				}
 
 				.row > .off-12-medium {
@@ -1062,7 +1062,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (max-width: 736px) {
+		@media screen and (max-width: 580px) {
 
 			.row {
 				display: flex;
@@ -1597,6 +1597,8 @@ input, select, textarea {
 				margin: 0 auto;
 				width: auto;
 			}
+
+	
 
 /* Button */
 
