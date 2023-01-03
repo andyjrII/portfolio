@@ -1334,6 +1334,10 @@ input, select, textarea {
 			width: 100%;
 		}
 
+		.fit:hover {
+			opacity: 0.2;
+		}
+
 		.image.featured {
 			display: block;
 			width: 100%;
@@ -1354,8 +1358,6 @@ input, select, textarea {
 				margin: 0 auto;
 				width: auto;
 			}
-
-	
 
 /* Button */
 
