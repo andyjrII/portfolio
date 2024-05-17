@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic");
-@import url("fontawesome-all.min.css");
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300italic,400italic');
+@import url('fontawesome-all.min.css');
 
 html,
 body,
@@ -14,7 +14,6 @@ p,
 a,
 form,
 article,
-footer,
 header,
 nav,
 section {
@@ -29,22 +28,12 @@ section {
 article,
 footer,
 nav,
-section,
-footer {
+section {
   display: block;
 }
 
 body {
   line-height: 1;
-}
-
-p {
-  text-align: justify;
-}
-
-#resume {
-  text-decoration: none;
-  color: #17a2b8;
 }
 
 body {
@@ -177,7 +166,7 @@ html {
 }
 
 body {
-  background-image: url("../images/bg.jpg");
+  background-image: url('../images/bg.jpg');
   background-position: center;
   background-repeat: repeat, no-repeat;
   background-size: auto, 100% 100%;
@@ -201,7 +190,7 @@ body.is-preload *:after {
 body,
 input,
 textarea {
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
   color: #777777;
   font-size: 20pt;
@@ -286,8 +275,8 @@ form {
 
 /* Form */
 
-form input[type="text"],
-form input[type="email"],
+form input[type='text'],
+form input[type='email'],
 form textarea {
   -webkit-appearance: none;
   border: 0;
@@ -300,14 +289,14 @@ form textarea {
   transition: background-color 0.25s ease-in-out;
 }
 
-form input[type="text"]:focus,
-form input[type="email"]:focus,
+form input[type='text']:focus,
+form input[type='email']:focus,
 form textarea:focus {
   background: #f8f8f8;
 }
 
-form input[type="text"],
-form input[type="email"] {
+form input[type='text'],
+form input[type='email'] {
   line-height: 1.35em;
 }
 
@@ -358,7 +347,7 @@ header > p {
 
 /* Button */
 
-input[type="submit"] {
+input[type='submit'] {
   -moz-transition: background-color 0.25s ease-in-out;
   -webkit-transition: background-color 0.25s ease-in-out;
   -ms-transition: background-color 0.25s ease-in-out;
@@ -373,16 +362,16 @@ input[type="submit"] {
   padding: 0.7em 1.5em 0.7em 1.5em;
 }
 
-input[type="submit"]:hover {
+input[type='submit']:hover {
   background-color: #333333;
 }
 
-input[type="submit"]:active {
+input[type='submit']:active {
   background-color: #444444;
 }
 
 @media screen and (max-width: 736px) {
-  input[type="submit"] button,
+  input[type='submit'] button,
   .button {
     width: 100%;
   }
@@ -405,7 +394,7 @@ input[type="submit"]:active {
   text-rendering: auto;
   line-height: 1;
   text-transform: none !important;
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 400;
 }
 
@@ -414,7 +403,7 @@ input[type="submit"]:active {
 }
 
 .icon.brands:before {
-  font-family: "Font Awesome 5 Brands";
+  font-family: 'Font Awesome 5 Brands';
 }
 
 .icon:before {
@@ -464,7 +453,7 @@ input[type="submit"]:active {
 
 #nav a:after,
 #footer a:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: 50%;
@@ -501,7 +490,7 @@ input[type="submit"]:active {
 
 #nav a span:after,
 #footer a span:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: -0.4em;
@@ -638,7 +627,7 @@ body.is-preload #wrapper {
 
 #main > .panel.intro {
   padding: 0;
-  height: 20em;
+  height: 40em;
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
@@ -669,11 +658,11 @@ body.is-preload #wrapper {
 }
 
 #main > .panel.intro .pic:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  background: url("../images/overlay.png");
+  background: url('../images/overlay.png');
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -720,6 +709,9 @@ body.is-preload #wrapper {
   letter-spacing: -0.015em;
   font-size: 1.15em;
   margin: 0.25em 0 0 0;
+  color: #4d4a4a;
+  text-align: justify;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 980px) {
@@ -772,7 +764,7 @@ body.is-preload #wrapper {
 }
 
 .bd-placeholder-img {
-  height: 150px;
+  width: 100%;
 }
 
 .row svg {
