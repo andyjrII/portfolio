@@ -767,10 +767,13 @@ body.is-preload #wrapper {
   width: 100%;
 }
 
+.skills .row {
+  justify-content: center;
+}
 .row svg {
   width: 80px;
   height: 80px;
-  margin: 20px 0;
+  margin: 20px 10px;
 }
 
 .card-text {
