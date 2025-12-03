@@ -5,48 +5,51 @@ import { portfolioItems } from '../../utils/portfolioData'
 
 function Portfolio() {
   const isotopeRef = useRef(null)
-  const isotopeInstance = useRef(null)
   const { theme } = useTheme()
   const [activeFilter, setActiveFilter] = useState('*')
 
   useEffect(() => {
+    // Initialize GLightbox only, skip Isotope layout
+    // We'll use CSS Grid for layout and simple display toggle for filtering
     if (isotopeRef.current) {
-      import('isotope-layout').then((Isotope) => {
-        import('imagesloaded').then((imagesLoaded) => {
-          imagesLoaded.default(isotopeRef.current, () => {
-            isotopeInstance.current = new Isotope.default(isotopeRef.current, {
-              itemSelector: '.isotope-item',
-              layoutMode: 'masonry',
-              filter: '*',
-              sortBy: 'original-order',
-            })
-          })
-        })
-      })
-    }
-
-    return () => {
-      if (isotopeInstance.current) {
-        isotopeInstance.current.destroy()
-      }
-    }
-  }, [])
-
-  useEffect(() => {
-    if (isotopeRef.current && isotopeInstance.current) {
       import('glightbox').then((GLightbox) => {
         GLightbox.default({
           selector: '.glightbox',
         })
       })
+      
+      // Ensure all items are visible initially and reset any positioning
+      const items = isotopeRef.current.querySelectorAll('.isotope-item')
+      items.forEach((item) => {
+        item.style.position = 'relative'
+        item.style.left = 'auto'
+        item.style.top = 'auto'
+        item.style.transform = 'none'
+        item.style.display = ''
+      })
     }
   }, [])
 
+
   const handleFilter = (filter) => {
     setActiveFilter(filter)
-    if (isotopeInstance.current) {
-      isotopeInstance.current.arrange({ filter })
-    }
+    // Use simple CSS filtering - no Isotope needed
+    const items = isotopeRef.current?.querySelectorAll('.isotope-item')
+    const filterClass = filter === '*' ? '*' : filter.replace('.filter-', '')
+    
+    items?.forEach((item) => {
+      if (filter === '*' || item.classList.contains(`filter-${filterClass}`)) {
+        item.style.display = ''
+      } else {
+        item.style.display = 'none'
+      }
+      // Ensure CSS Grid positioning
+      item.style.position = 'relative'
+      item.style.left = 'auto'
+      item.style.top = 'auto'
+      item.style.transform = 'none'
+      item.style.margin = '0'
+    })
   }
 
   const categories = ['*', 'web', 'product', 'branding', 'books', 'app']
@@ -133,6 +136,7 @@ function Portfolio() {
         >
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 isotope-container"
+            style={{ display: 'grid' }}
             data-aos="fade-up"
             data-aos-delay="200"
             ref={isotopeRef}
@@ -145,17 +149,17 @@ function Portfolio() {
                 data-aos-delay={200 + index * 100}
               >
                 <div
-                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group ${
+                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col ${
                     theme === 'dark'
                       ? 'bg-white/10 border border-white/20'
                       : 'bg-white/80 border border-gray-200/50'
                   } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2`}
                 >
                   {/* Image Container */}
-                  <div className="relative overflow-hidden rounded-t-2xl">
+                  <div className="relative overflow-hidden rounded-t-2xl aspect-video bg-gray-200">
                     <img
                       src={item.image}
-                      className="w-full h-auto transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       alt={item.title}
                       loading="lazy"
                     />
@@ -221,12 +225,12 @@ function Portfolio() {
 
                   {/* Bottom Info Bar */}
                   <div
-                    className={`p-4 ${
+                    className={`p-4 min-h-[80px] flex flex-col justify-center ${
                       theme === 'dark' ? 'bg-white/5' : 'bg-white/50'
                     } backdrop-blur-sm`}
                   >
                     <h5
-                      className={`font-semibold ${
+                      className={`font-semibold text-lg ${
                         theme === 'dark' ? 'text-white' : 'text-heading'
                       }`}
                     >

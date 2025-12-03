@@ -42,35 +42,11 @@ export const portfolioItems = [
   },
   {
     id: 6,
-    slug: 'tgo',
-    title: 'The George Omoraro',
-    category: 'product',
-    image: '/assets/img/portfolio/tgo.png',
-    detailPage: '/portfolio/tgo',
-  },
-  {
-    id: 7,
-    slug: 'printnow',
-    title: 'Printnow',
-    category: 'branding',
-    image: '/assets/img/portfolio/printnow.png',
-    detailPage: '/portfolio/printnow',
-  },
-  {
-    id: 8,
     slug: 'yiaiki',
     title: 'YiAiki',
     category: 'books',
     image: '/assets/img/portfolio/yiaiki.png',
     detailPage: '/portfolio/yiaiki',
-  },
-  {
-    id: 9,
-    slug: 'wolbm',
-    title: 'Word of Life Bible Ministry',
-    category: 'app',
-    image: '/assets/img/portfolio/wolbm.png',
-    detailPage: '/portfolio/wolbm',
   },
 ]
 

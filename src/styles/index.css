@@ -144,7 +144,7 @@ h6 {
 @media (min-width: 1200px) {
   .header ~ main,
   .header ~ #footer {
-    margin-left: 300px;
+    margin-left: 260px;
   }
 }
 
@@ -252,7 +252,7 @@ h6 {
 
 @media (min-width: 1200px) {
   .main {
-    margin-left: 320px;
+    margin-left: 260px;
   }
 }
 
@@ -318,5 +318,39 @@ h6 {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Portfolio Grid - Force 3 columns and override Isotope positioning */
+.isotope-container {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  gap: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+  .isotope-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .isotope-container {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+.isotope-item {
+  width: 100% !important;
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .isotope-item {
+    width: 100% !important;
+  }
 }
 

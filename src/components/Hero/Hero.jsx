@@ -13,9 +13,12 @@ function Hero() {
         new Typed.default(typedRef.current, {
           strings: personalInfo.typedItems,
           loop: true,
-          typeSpeed: 100,
-          backSpeed: 50,
-          backDelay: 2000,
+          typeSpeed: 80,
+          backSpeed: 40,
+          backDelay: 3000,
+          startDelay: 500,
+          showCursor: true,
+          cursorChar: '|',
         })
       })
     }
@@ -35,14 +38,14 @@ function Hero() {
           src="/assets/img/hero-bg.jpg"
           alt=""
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
-            theme === 'dark' ? 'opacity-20' : 'opacity-10'
+            theme === 'dark' ? 'opacity-20' : 'opacity-30'
           }`}
         />
         <div
           className={`absolute inset-0 ${
             theme === 'dark'
               ? 'bg-gradient-to-br from-dark-bg/80 via-dark-bg/60 to-dark-bg/80'
-              : 'bg-gradient-to-br from-white/60 via-white/40 to-white/60'
+              : 'bg-gradient-to-br from-white/30 via-white/20 to-white/30'
           }`}
         ></div>
       </div>
@@ -63,7 +66,7 @@ function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div
