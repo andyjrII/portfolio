@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useTheme } from '../../contexts/ThemeContext'
 
 function ScrollTop() {
   const [isVisible, setIsVisible] = useState(false)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -29,11 +31,15 @@ function ScrollTop() {
       href="#"
       id="scroll-top"
       onClick={scrollToTop}
-      className={`scroll-top flex items-center justify-center fixed bottom-8 right-8 w-12 h-12 bg-accent text-contrast rounded-full z-[999] transition-all duration-300 ${
+      className={`scroll-top flex items-center justify-center fixed bottom-8 right-8 w-14 h-14 rounded-full z-[999] transition-all duration-300 transform hover:scale-110 backdrop-blur-md border shadow-lg ${
         isVisible ? 'active opacity-100' : 'opacity-0 pointer-events-none'
-      } hover:bg-accent/80`}
+      } ${
+        theme === 'dark'
+          ? 'bg-accent text-white hover:bg-accent/90 border-accent/30 shadow-accent/30'
+          : 'bg-accent text-white hover:bg-accent/90 border-accent/20 shadow-accent/20'
+      }`}
     >
-      <i className="bi bi-arrow-up-short text-xl"></i>
+      <i className="bi bi-arrow-up-short text-2xl"></i>
     </a>
   )
 }

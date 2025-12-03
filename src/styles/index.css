@@ -247,11 +247,76 @@ h6 {
 .main {
   margin-top: 0;
   padding: 0;
+  transition: margin-left 0.3s ease-in-out;
 }
 
 @media (min-width: 1200px) {
   .main {
-    margin-left: 300px;
+    margin-left: 320px;
   }
+}
+
+/* Dark Mode Styles */
+.dark {
+  --background-color: #040b14;
+  --default-color: #ffffff;
+  --heading-color: #ffffff;
+  --surface-color: #151f2b;
+  --contrast-color: #ffffff;
+  --nav-color: #a8a9b4;
+  --nav-hover-color: #ffffff;
+}
+
+.dark body {
+  background-color: #040b14;
+  color: #ffffff;
+}
+
+.dark .light-background {
+  --background-color: #0a1520;
+  --surface-color: #151f2b;
+}
+
+/* Light Mode Styles */
+.light {
+  --background-color: #ffffff;
+  --default-color: #272829;
+  --heading-color: #050d18;
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
+  --nav-color: #6b7280;
+  --nav-hover-color: #149ddd;
+}
+
+.light body {
+  background-color: #ffffff;
+  color: #272829;
+}
+
+.light .light-background {
+  --background-color: #f4fafd;
+  --surface-color: #ffffff;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(4, 11, 20, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth Transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 

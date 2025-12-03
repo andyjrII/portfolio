@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 import { socialLinks, navItems, personalInfo } from '../../utils/portfolioData'
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const { theme, toggleTheme } = useTheme()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -59,66 +61,129 @@ function Header() {
       ></i>
       <header
         id="header"
-        className={`header dark-background flex flex-col fixed top-0 left-0 bottom-0 w-[300px] p-4 transition-all duration-300 ease-in-out overflow-y-auto z-[997] border-r border-default/10 ${
+        className={`header flex flex-col fixed top-0 left-0 bottom-0 w-[320px] p-6 transition-all duration-500 ease-in-out overflow-y-auto z-[997] ${
           isMenuOpen ? 'header-show' : ''
+        } ${
+          theme === 'dark'
+            ? 'bg-dark-bg/95 backdrop-blur-md border-r border-white/10'
+            : 'bg-white/80 backdrop-blur-md border-r border-gray-200/50 shadow-lg'
         }`}
       >
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className={`absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+            theme === 'dark'
+              ? 'bg-accent/20 text-accent hover:bg-accent/30'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          } backdrop-blur-sm border ${
+            theme === 'dark' ? 'border-accent/30' : 'border-gray-300'
+          }`}
+          aria-label="Toggle theme"
+        >
+          <i className={`bi ${theme === 'dark' ? 'bi-sun' : 'bi-moon'}`}></i>
+        </button>
 
-      <div className="profile-img">
-        <img
-          src={personalInfo.profileImage}
-          alt={personalInfo.name}
-          className="w-[120px] h-[120px] rounded-full mx-auto my-4 block border-8 border-default/85"
-        />
-      </div>
-
-      <Link
-        to="/"
-        className="logo flex items-center justify-center mb-4"
-        onClick={() => handleNavClick('#hero')}
-      >
-        <h1 className="sitename text-2xl font-bold m-0 text-heading">{personalInfo.name}</h1>
-      </Link>
-
-      <div className="social-links text-center mb-5">
-        {socialLinks.map((social) => (
-          <a
-            key={social.name}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${social.name} inline-flex items-center justify-center bg-default/10 text-default mx-0.5 rounded-full text-center w-10 h-10 transition-all duration-300 hover:text-contrast hover:bg-accent`}
+        {/* Profile Image with Glassmorphism Frame */}
+        <div className="profile-img mt-8 mb-6">
+          <div
+            className={`relative w-[140px] h-[140px] mx-auto rounded-full p-1 ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-accent/30 to-accent/10 backdrop-blur-sm'
+                : 'bg-gradient-to-br from-accent/20 to-gray-200/50 backdrop-blur-sm'
+            }`}
           >
-            <i className={`bi ${social.icon}`}></i>
-          </a>
-        ))}
-      </div>
+            <img
+              src={personalInfo.profileImage}
+              alt={personalInfo.name}
+              className="w-full h-full rounded-full object-cover border-4 border-transparent"
+            />
+            <div
+              className={`absolute inset-0 rounded-full ${
+                theme === 'dark' ? 'bg-accent/5' : 'bg-white/20'
+              } backdrop-blur-sm`}
+            ></div>
+          </div>
+        </div>
 
-      <nav id="navmenu" className="navmenu">
-        <ul className="list-none p-0 m-0">
-          {navItems.map((item) => {
-            const sectionId = item.href.substring(1)
-            return (
-              <li key={item.name}>
-                <a
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handleNavClick(item.href)
-                  }}
-                  className={`flex items-center py-2 px-4 text-nav transition-all duration-300 ${
-                    activeSection === sectionId ? 'active text-nav-hover' : ''
-                  } hover:text-nav-hover`}
-                >
-                  <i className={`bi ${item.icon} navicon mr-2`}></i>
-                  {item.name}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      </nav>
-    </header>
+        {/* Logo */}
+        <Link
+          to="/"
+          className="logo flex items-center justify-center mb-6 group"
+          onClick={() => handleNavClick('#hero')}
+        >
+          <h1
+            className={`sitename text-2xl font-bold m-0 transition-all duration-300 ${
+              theme === 'dark' ? 'text-white' : 'text-heading'
+            } group-hover:text-accent`}
+          >
+            {personalInfo.name}
+          </h1>
+        </Link>
+
+        {/* Social Links with Glassmorphism */}
+        <div className="social-links text-center mb-6">
+          {socialLinks.map((social) => (
+            <a
+              key={social.name}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${social.name} inline-flex items-center justify-center mx-1 rounded-full text-center w-11 h-11 transition-all duration-300 transform hover:scale-110 hover:rotate-5 ${
+                theme === 'dark'
+                  ? 'bg-white/10 text-white/80 hover:bg-accent/30 hover:text-accent backdrop-blur-sm border border-white/10'
+                  : 'bg-gray-100/80 text-gray-700 hover:bg-accent hover:text-white backdrop-blur-sm border border-gray-200/50'
+              }`}
+            >
+              <i className={`bi ${social.icon} text-lg`}></i>
+            </a>
+          ))}
+        </div>
+
+        {/* Navigation Menu */}
+        <nav id="navmenu" className="navmenu">
+          <ul className="list-none p-0 m-0">
+            {navItems.map((item) => {
+              const sectionId = item.href.substring(1)
+              const isActive = activeSection === sectionId
+              return (
+                <li key={item.name} className="mb-1">
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleNavClick(item.href)
+                    }}
+                    className={`relative flex items-center py-3 px-4 rounded-lg transition-all duration-300 group ${
+                      isActive
+                        ? theme === 'dark'
+                          ? 'bg-accent/20 text-accent border-l-4 border-accent'
+                          : 'bg-accent/10 text-accent border-l-4 border-accent'
+                        : theme === 'dark'
+                        ? 'text-white/70 hover:text-white hover:bg-white/5'
+                        : 'text-gray-700 hover:text-accent hover:bg-gray-100/50'
+                    }`}
+                  >
+                    <i
+                      className={`bi ${item.icon} navicon mr-3 text-xl transition-transform duration-300 group-hover:scale-110 ${
+                        isActive ? 'text-accent' : ''
+                      }`}
+                    ></i>
+                    <span className="font-medium">{item.name}</span>
+                    {isActive && (
+                      <div
+                        className={`absolute right-4 w-2 h-2 rounded-full ${
+                          theme === 'dark' ? 'bg-accent' : 'bg-accent'
+                        } animate-pulse`}
+                      ></div>
+                    )}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
+      </header>
     </>
   )
 }
