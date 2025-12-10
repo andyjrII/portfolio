@@ -1,44 +1,102 @@
-import { useEffect, useRef } from 'react'
 import { useTheme } from '../../contexts/ThemeContext'
 import { skills } from '../../utils/portfolioData'
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiNodedotjs,
+  SiExpress,
+  SiNestjs,
+  SiPython,
+  SiDjango,
+  SiHtml5,
+  SiCss3,
+  SiSass,
+  SiBootstrap,
+  SiTailwindcss,
+  SiWordpress,
+  SiDocker,
+  SiGit,
+  SiGithub,
+  SiMysql,
+  SiPostgresql,
+  SiMongodb,
+  SiGoogleanalytics,
+} from 'react-icons/si'
+import { FaNetworkWired, FaMicrosoft } from 'react-icons/fa'
+
+const groupedSkills = [
+  {
+    title: 'Frontend',
+    items: [
+      'HTML',
+      'CSS',
+      'Bootstrap',
+      'Tailwind CSS',
+      'React.js',
+      'Next.js',
+      'JavaScript',
+      'TypeScript',
+    ],
+  },
+  {
+    title: 'Backend & APIs',
+    items: ['Node.js/Express.js', 'Nest.js', 'Microservices', 'Python', 'Django'],
+  },
+  {
+    title: 'Data & Databases',
+    items: ['MySQL', 'PostgreSQL', 'MongoDB'],
+  },
+  {
+    title: 'DevOps & Tooling',
+    items: ['Docker', 'Git/Github'],
+  },
+  {
+    title: 'Content & SEO',
+    items: ['WordPress', 'SEO'],
+  },
+  {
+    title: 'Other',
+    items: ['Microsoft Office Suite'],
+  },
+]
+
+// Build a lookup for the available skills to ensure we only render what exists in data
+const skillSet = new Set(skills.map((s) => s.name))
+
+const iconMap = {
+  HTML: SiHtml5,
+  CSS: SiCss3,
+  Sass: SiSass,
+  Bootstrap: SiBootstrap,
+  'Tailwind CSS': SiTailwindcss,
+  'React.js': SiReact,
+  'Next.js': SiNextdotjs,
+  JavaScript: SiJavascript,
+  TypeScript: SiTypescript,
+  'Node.js/Express.js': SiNodedotjs,
+  'Express.js': SiExpress,
+  'Nest.js': SiNestjs,
+  Microservices: FaNetworkWired,
+  Python: SiPython,
+  Django: SiDjango,
+  MySQL: SiMysql,
+  PostgreSQL: SiPostgresql,
+  MongoDB: SiMongodb,
+  Docker: SiDocker,
+  'Git/Github': SiGit,
+  Git: SiGit,
+  Github: SiGithub,
+  WordPress: SiWordpress,
+  SEO: SiGoogleanalytics,
+  'Microsoft Office Suite': FaMicrosoft,
+}
+
+const getIcon = (name) => iconMap[name] || null
 
 function Skills() {
-  const skillsRef = useRef(null)
   const { theme } = useTheme()
-
-  useEffect(() => {
-    if (skillsRef.current) {
-      // Use Intersection Observer as a modern alternative to Waypoints
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const progressBars = entry.target.querySelectorAll('.progress-bar')
-              progressBars.forEach((el, index) => {
-                const percentage = el.getAttribute('data-percentage')
-                setTimeout(() => {
-                  el.style.width = percentage + '%'
-                }, index * 50) // Stagger animation
-              })
-              observer.unobserve(entry.target)
-            }
-          })
-        },
-        { threshold: 0.2 }
-      )
-
-      observer.observe(skillsRef.current)
-
-      return () => {
-        if (skillsRef.current) {
-          observer.unobserve(skillsRef.current)
-        }
-      }
-    }
-  }, [])
-
-  const leftColumn = skills.slice(0, Math.ceil(skills.length / 2))
-  const rightColumn = skills.slice(Math.ceil(skills.length / 2))
 
   return (
     <section
@@ -84,132 +142,63 @@ function Skills() {
       </div>
 
       <div className="container mx-auto px-4 mt-16" data-aos="fade-up" data-aos-delay="100">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 skills-animation" ref={skillsRef}>
-          {/* Left Column */}
-          <div className="space-y-6">
-            {leftColumn.map((skill, index) => (
-              <div
-                key={index}
-                className={`p-6 rounded-xl backdrop-blur-md border transition-all duration-300 transform hover:scale-105 ${
-                  theme === 'dark'
-                    ? 'bg-white/10 border-white/20 hover:bg-white/15'
-                    : 'bg-white/80 border-gray-200/50 hover:bg-white shadow-lg'
-                }`}
-                data-aos="fade-right"
-                data-aos-delay={100 + index * 50}
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <span
-                    className={`text-lg font-semibold ${
-                      theme === 'dark' ? 'text-white' : 'text-heading'
-                    }`}
-                  >
-                    {skill.name}
-                  </span>
-                  <span
-                    className={`text-xl font-bold ${
-                      theme === 'dark'
-                        ? 'text-accent bg-accent/20 px-3 py-1 rounded-lg'
-                        : 'text-accent'
-                    }`}
-                  >
-                    {skill.percentage}%
-                  </span>
-                </div>
-                <div
-                  className={`progress-bar-wrap rounded-full h-3 overflow-hidden ${
-                    theme === 'dark' ? 'bg-white/10' : 'bg-gray-200'
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {groupedSkills.map((group, idx) => (
+            <div
+              key={group.title}
+              className={`p-6 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'bg-white/10 border-white/20 hover:bg-white/15'
+                  : 'bg-white/80 border-gray-200/60 hover:bg-white shadow-lg'
+              }`}
+              data-aos="fade-up"
+              data-aos-delay={100 + idx * 50}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3
+                  className={`text-xl font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-heading'
                   }`}
                 >
-                  <div
-                    className="progress-bar h-full transition-all duration-1000 ease-out rounded-full relative overflow-hidden"
-                    role="progressbar"
-                    aria-valuenow={skill.percentage}
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    data-percentage={skill.percentage}
-                    style={{ width: '0%' }}
-                  >
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${
-                        theme === 'dark'
-                          ? 'from-accent to-blue-400'
-                          : 'from-accent to-blue-500'
-                      }`}
-                    ></div>
-                    <div
-                      className={`absolute inset-0 ${
-                        theme === 'dark' ? 'bg-accent/20' : 'bg-accent/10'
-                      } animate-pulse`}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-6">
-            {rightColumn.map((skill, index) => (
-              <div
-                key={index}
-                className={`p-6 rounded-xl backdrop-blur-md border transition-all duration-300 transform hover:scale-105 ${
-                  theme === 'dark'
-                    ? 'bg-white/10 border-white/20 hover:bg-white/15'
-                    : 'bg-white/80 border-gray-200/50 hover:bg-white shadow-lg'
-                }`}
-                data-aos="fade-left"
-                data-aos-delay={100 + index * 50}
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <span
-                    className={`text-lg font-semibold ${
-                      theme === 'dark' ? 'text-white' : 'text-heading'
-                    }`}
-                  >
-                    {skill.name}
-                  </span>
-                  <span
-                    className={`text-xl font-bold ${
-                      theme === 'dark'
-                        ? 'text-accent bg-accent/20 px-3 py-1 rounded-lg'
-                        : 'text-accent'
-                    }`}
-                  >
-                    {skill.percentage}%
-                  </span>
-                </div>
-                <div
-                  className={`progress-bar-wrap rounded-full h-3 overflow-hidden ${
-                    theme === 'dark' ? 'bg-white/10' : 'bg-gray-200'
+                  {group.title}
+                </h3>
+                <span
+                  className={`text-xs px-3 py-1 rounded-full ${
+                    theme === 'dark'
+                      ? 'bg-accent/20 text-accent border border-accent/30'
+                      : 'bg-accent/10 text-accent border border-accent/20'
                   }`}
                 >
-                  <div
-                    className="progress-bar h-full transition-all duration-1000 ease-out rounded-full relative overflow-hidden"
-                    role="progressbar"
-                    aria-valuenow={skill.percentage}
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    data-percentage={skill.percentage}
-                    style={{ width: '0%' }}
-                  >
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${
-                        theme === 'dark'
-                          ? 'from-accent to-blue-400'
-                          : 'from-accent to-blue-500'
-                      }`}
-                    ></div>
-                    <div
-                      className={`absolute inset-0 ${
-                        theme === 'dark' ? 'bg-accent/20' : 'bg-accent/10'
-                      } animate-pulse`}
-                    ></div>
-                  </div>
-                </div>
+                  {group.items.length} tools
+                </span>
               </div>
-            ))}
-          </div>
+              <div className="flex flex-wrap gap-2">
+                {group.items
+                  .filter((name) => skillSet.has(name))
+                  .map((name) => {
+                    const Icon = getIcon(name)
+                    return (
+                      <span
+                        key={name}
+                        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium ${
+                          theme === 'dark'
+                            ? 'bg-white/10 text-white border border-white/10'
+                            : 'bg-gray-100 text-gray-800 border border-gray-200'
+                        }`}
+                      >
+                        <span
+                          className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-accent/10 text-accent text-sm"
+                          aria-hidden="true"
+                        >
+                          {Icon ? <Icon /> : name.slice(0, 2).toUpperCase()}
+                        </span>
+                        {name}
+                      </span>
+                    )
+                  })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

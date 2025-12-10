@@ -9,16 +9,12 @@ function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('*')
 
   useEffect(() => {
-    // Initialize GLightbox only, skip Isotope layout
-    // We'll use CSS Grid for layout and simple display toggle for filtering
     if (isotopeRef.current) {
       import('glightbox').then((GLightbox) => {
         GLightbox.default({
           selector: '.glightbox',
         })
       })
-      
-      // Ensure all items are visible initially and reset any positioning
       const items = isotopeRef.current.querySelectorAll('.isotope-item')
       items.forEach((item) => {
         item.style.position = 'relative'
@@ -31,35 +27,24 @@ function Portfolio() {
   }, [])
 
 
-  const handleFilter = (filter) => {
-    setActiveFilter(filter)
-    // Use simple CSS filtering - no Isotope needed
-    const items = isotopeRef.current?.querySelectorAll('.isotope-item')
-    const filterClass = filter === '*' ? '*' : filter.replace('.filter-', '')
-    
-    items?.forEach((item) => {
-      if (filter === '*' || item.classList.contains(`filter-${filterClass}`)) {
-        item.style.display = ''
-      } else {
-        item.style.display = 'none'
-      }
-      // Ensure CSS Grid positioning
-      item.style.position = 'relative'
-      item.style.left = 'auto'
-      item.style.top = 'auto'
-      item.style.transform = 'none'
-      item.style.margin = '0'
-    })
+  const handleFilter = () => {
+    // Filters are disabled for now (all projects are web)
   }
 
-  const categories = ['*', 'web', 'product', 'branding', 'books', 'app']
+  // Future platform filters (uncomment when mobile/desktop projects are added):
+  // const categories = ['*', 'web', 'mobile', 'desktop']
+  // const categoryLabels = {
+  //   '*': 'All',
+  //   web: 'Web',
+  //   mobile: 'Mobile',
+  //   desktop: 'Desktop',
+  // }
+  // Current filters (all projects are web):
+
+  const categories = ['*', 'web']
   const categoryLabels = {
     '*': 'All',
     web: 'Web',
-    product: 'Product',
-    branding: 'Branding',
-    books: 'Books',
-    app: 'App',
   }
 
   return (
@@ -104,28 +89,31 @@ function Portfolio() {
         </p>
       </div>
 
-      {/* Filter Buttons */}
-      <div className="container mx-auto px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
-        <div className="flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleFilter(category === '*' ? '*' : `.filter-${category}`)}
-              className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                activeFilter === (category === '*' ? '*' : `.filter-${category}`)
-                  ? theme === 'dark'
-                    ? 'bg-accent text-white shadow-lg shadow-accent/30'
-                    : 'bg-accent text-white shadow-lg shadow-accent/20'
-                  : theme === 'dark'
-                  ? 'bg-white/10 text-white/70 hover:bg-white/15 border border-white/20'
-                  : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200/50'
-              } backdrop-blur-md`}
-            >
-              {categoryLabels[category]}
-            </button>
-          ))}
+      {/*
+        Filter Buttons (commented out because all projects are web for now).
+        Uncomment and adjust when adding other platforms.
+        <div className="container mx-auto px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleFilter(category === '*' ? '*' : `.filter-${category}`)}
+                className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  activeFilter === (category === '*' ? '*' : `.filter-${category}`)
+                    ? theme === 'dark'
+                      ? 'bg-accent text-white shadow-lg shadow-accent/30'
+                      : 'bg-accent text-white shadow-lg shadow-accent/20'
+                    : theme === 'dark'
+                    ? 'bg-white/10 text-white/70 hover:bg-white/15 border border-white/20'
+                    : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200/50'
+                } backdrop-blur-md`}
+              >
+                {categoryLabels[category]}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      */}
 
       <div className="container mx-auto px-4">
         <div
@@ -176,7 +164,7 @@ function Portfolio() {
                   <div
                     className={`absolute inset-0 ${
                       theme === 'dark' ? 'bg-dark-bg/95' : 'bg-white/95'
-                    } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6`}
+                    } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6 pb-10`}
                   >
                     <div className="text-center space-y-4">
                       <span
@@ -241,7 +229,7 @@ function Portfolio() {
                         theme === 'dark' ? 'text-white/60' : 'text-gray-600'
                       }`}
                     >
-                      {item.category.charAt(0).toUpperCase() + item.category.slice(1)} Project
+                      Web Project
                     </p>
                   </div>
                 </div>

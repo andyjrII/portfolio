@@ -320,7 +320,7 @@ h6 {
   transition-duration: 150ms;
 }
 
-/* Portfolio Grid - Force 3 columns and override Isotope positioning */
+/* Portfolio Grid - 3 columns and reset positioning */
 .isotope-container {
   display: grid !important;
   grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
@@ -346,11 +346,5 @@ h6 {
   top: auto !important;
   transform: none !important;
   margin: 0 !important;
-}
-
-@media (min-width: 768px) {
-  .isotope-item {
-    width: 100% !important;
-  }
 }
 
