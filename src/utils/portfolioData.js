@@ -126,6 +126,149 @@ export const socialLinks = [
   { name: 'github', url: 'https://github.com/andyjrII', icon: 'bi-github' },
 ]
 
+// Project detail data
+export const projectDetails = {
+  'visit-rage': {
+    title: 'VisitRage – Visitor Management System for Rage Media Group',
+    role: 'Backend Developer (with minor frontend contributions)',
+    timeline: 'November 25, 2024 – February 13, 2025',
+    outcome:
+      'Digitized and secured the entire visitor approval process, replacing manual gate calls with a structured backend-driven workflow.',
+    summary:
+      'VisitRage is a custom-built visitor management system for Rage Media Group designed to streamline guest approval, check-in, and check-out. It provides a secure approval pipeline, real-time visitor tracking, and automated access slip generation—replacing phone-based verification to improve efficiency, security, and accountability.',
+    context: [
+      'No prior visitor management; guests arrived unannounced and verification was manual via gate calls.',
+      'No records of approvals, check-ins, or duration of visits; no pre-registration or approval mechanism.',
+      'Goal: centralize pre-approval, eliminate gatehouse phone calls, track entry/exit, improve security, and provide real-time visibility of active visitors.',
+    ],
+    responsibilities: [
+      'Designed backend architecture, endpoints, approval logic, and visitor lifecycle management.',
+      'Implemented authentication (JWT), role-based access, and secure API routing.',
+      'Built approval workflow: register → approve/reject → generate slip → check-in → check-out.',
+      'Implemented real-time status tracking for active visitors.',
+      'Integrated Prisma ORM; migrated from PostgreSQL (dev) to MySQL (production).',
+      'API testing with Postman; collaborated with frontend for minor UI adjustments.',
+      'Managed deployment pipelines and environment configs across Render (dev) and Namecheap (prod).',
+      'Authored technical docs and supported internal testing/feedback loops.',
+    ],
+    stack: {
+      frontend: ['React', 'Tailwind CSS'],
+      backend: ['NestJS', 'REST API architecture', 'JWT Authentication', 'Role-based access control'],
+      database: ['Prisma ORM', 'PostgreSQL (development)', 'MySQL (production)'],
+      infra: ['Render (development/internal testing)', 'Namecheap (production hosting)'],
+      tooling: ['Git', 'GitHub', 'Postman', 'Manual QA with internal stakeholders'],
+    },
+    challenges: [
+      {
+        title: 'No existing workflow for visitor approval',
+        detail:
+          'Built a complete backend approval pipeline to validate visitors, assign approval roles, and ensure only authorized individuals receive access slips.',
+      },
+      {
+        title: 'Gatehouse reliance on phone calls and no visitor records',
+        detail:
+          'Developed check-in/check-out APIs that log visitor movements, generate time-stamped slips, and provide real-time visibility to staff dashboards.',
+      },
+      {
+        title: 'Migrating from PostgreSQL (dev) to MySQL (production)',
+        detail:
+          'Used Prisma to abstract data access and streamline schema migration, ensuring smooth transition without breaking endpoints or business logic.',
+      },
+    ],
+    results: [
+      'Eliminated manual gate phone calls, reducing check-in time.',
+      '100% traceability of visitor entries, approvals, and movements.',
+      'Improved security via controlled approval and digital slip validation.',
+      'Reduced administrative errors with centralized visitor records.',
+      'Staff reported faster, more reliable workflows after pilot testing.',
+    ],
+    links: {
+      demo: 'https://www.visitrage.com/',
+      repo: 'Private',
+    },
+    gallery: [
+      '/assets/img/portfolio/visit-rage.png',
+      '/assets/img/portfolio/visit-rage1.png',
+      '/assets/img/portfolio/visit-rage2.png',
+      '/assets/img/portfolio/visit-rage3.png',
+    ],
+  },
+  'lo-publications': {
+    title: 'LO Publications',
+    role: '',
+    timeline: '',
+    outcome: 'Case study coming soon.',
+    summary: 'Detailed case study coming soon.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: [
+      '/assets/img/portfolio/LO-publications.png',
+      '/assets/img/portfolio/LO-publications1.png',
+      '/assets/img/portfolio/LO-publications2.png',
+    ],
+  },
+  'isaac-oyedepo': {
+    title: 'Anazao Generation Connect',
+    role: '',
+    timeline: '',
+    outcome: 'Case study coming soon.',
+    summary: 'Detailed case study coming soon.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/isaac.png', '/assets/img/portfolio/isaac1.png', '/assets/img/portfolio/isaac2.png'],
+  },
+  'spiritual-woman': {
+    title: 'The Spiritual Woman Fellowship',
+    role: '',
+    timeline: '',
+    outcome: 'Case study coming soon.',
+    summary: 'Detailed case study coming soon.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/spiritual.png', '/assets/img/portfolio/spiritual1.png', '/assets/img/portfolio/spiritual2.png'],
+  },
+  vdp: {
+    title: 'Villas de Paradis',
+    role: '',
+    timeline: '',
+    outcome: 'Case study coming soon.',
+    summary: 'Detailed case study coming soon.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/vdp.png', '/assets/img/portfolio/vdp1.png', '/assets/img/portfolio/vdp2.png'],
+  },
+  yiaiki: {
+    title: 'YiAiki',
+    role: '',
+    timeline: '',
+    outcome: 'Case study coming soon.',
+    summary: 'Detailed case study coming soon.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/yiaiki.png', '/assets/img/portfolio/yiaiki1.png', '/assets/img/portfolio/yiaiki2.png'],
+  },
+}
+
 // Navigation items
 export const navItems = [
   { name: 'Home', href: '#hero', icon: 'bi-house' },

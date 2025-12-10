@@ -187,7 +187,7 @@ function Portfolio() {
                         <a
                           href={item.image}
                           title={item.title}
-                          data-gallery={`portfolio-gallery-${item.category}`}
+                        data-gallery={`portfolio-item-${item.slug}`}
                           className={`glightbox preview-link w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${
                             theme === 'dark'
                               ? 'bg-accent text-white hover:bg-accent/90'
