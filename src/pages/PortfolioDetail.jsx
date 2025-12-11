@@ -84,7 +84,7 @@ function PortfolioDetail() {
   const results = detail?.results || []
   const links = detail?.links || {}
   const gallery = detail?.gallery || (fallbackItem ? [fallbackItem.image] : [])
-  const hasRepo = links?.repo && links.repo !== 'Private'
+  const hasVideo = links?.video
   const headingClass = isDark ? 'text-white/90' : 'text-heading'
   const subTextClass = isDark ? 'text-white/80' : 'text-gray-700'
   const cardBg = isDark ? 'bg-white/10' : 'bg-white/80'
@@ -119,39 +119,41 @@ function PortfolioDetail() {
                   {outcome}
                 </div>
               )}
-              <div className="flex gap-3 flex-wrap pt-1">
-                {links?.demo && (
-                  <a
-                    href={links.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-5 py-2 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition"
-                  >
-                    View Live
-                  </a>
-                )}
-                <button
-                  disabled={!hasRepo}
-                  onClick={() => {
-                    if (hasRepo) window.open(links.repo, '_blank', 'noopener,noreferrer')
-                  }}
-                  className={`px-5 py-2 rounded-lg font-semibold border transition ${
-                    hasRepo ? codeBtnEnabled : codeBtnDisabled
-                  }`}
-                >
-                  View Code
-                </button>
-              </div>
             </div>
             {/* Hero image */}
             {gallery?.[0] && (
-              <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100">
-                <img
-                  src={gallery[0]}
-                  alt={title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+              <div className="flex flex-col items-start space-y-4">
+                <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 bg-black/5">
+                  <img
+                    src={gallery[0]}
+                    alt={title}
+                    className="w-full h-[220px] md:h-[260px] lg:h-[300px] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex gap-3 flex-wrap">
+                  {links?.demo && (
+                    <a
+                      href={links.demo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-5 py-2 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition"
+                    >
+                      View Live
+                    </a>
+                  )}
+                  <button
+                    disabled={!hasVideo}
+                    onClick={() => {
+                      if (hasVideo) window.open(links.video, '_blank', 'noopener,noreferrer')
+                    }}
+                    className={`px-5 py-2 rounded-lg font-semibold border transition ${
+                      hasVideo ? codeBtnEnabled : codeBtnDisabled
+                    }`}
+                  >
+                    Video Demo
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -218,7 +220,12 @@ function PortfolioDetail() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {gallery.slice(1).map((src) => (
                   <div key={src} className={`rounded-xl overflow-hidden border shadow-sm ${cardBorder}`}>
-                    <img src={src} alt={title} className="w-full h-full object-cover" loading="lazy" />
+                    <img
+                      src={src}
+                      alt={title}
+                      className="w-full h-48 md:h-56 object-cover"
+                      loading="lazy"
+                    />
                   </div>
                 ))}
               </div>

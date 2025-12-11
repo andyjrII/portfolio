@@ -254,18 +254,70 @@ export const projectDetails = {
     gallery: ['/assets/img/portfolio/vdp.png', '/assets/img/portfolio/vdp1.png', '/assets/img/portfolio/vdp2.png'],
   },
   yiaiki: {
-    title: 'YiAiki',
-    role: '',
-    timeline: '',
-    outcome: 'Case study coming soon.',
-    summary: 'Detailed case study coming soon.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: ['/assets/img/portfolio/yiaiki.png', '/assets/img/portfolio/yiaiki1.png', '/assets/img/portfolio/yiaiki2.png'],
+    title: 'YiAiki – On-Demand Errand Marketplace with Real-Time Chat, Bidding & Escrow',
+    role: 'Full-Stack Developer / Indie Hacker',
+    timeline: 'Feb 22, 2025 – Present (live, early testing)',
+    outcome: 'Built a full errand marketplace with real-time chat, bidding, notifications, wallet, and escrow.',
+    summary:
+      'YiAiki is a multi-sided errand marketplace connecting users with student runners for shopping, deliveries, queue services, bill payments, and more. It includes bidding, wallet funding, escrow protection, and a real-time messaging layer (job-specific and general chats). Built end-to-end as a bootstrapped SaaS, currently live in early testing.',
+    context: [
+      'Create a modern errand platform where users post tasks and receive bids from verified runners.',
+      'Add trust/safety via wallet + escrow; hold funds until tasks are completed.',
+      'Provide real-time chat for the errand lifecycle; support multiple errand types (shopping, food, queues, documents, deliveries).',
+      'Allow runners (students) to register with ID verification and school IDs; deliver notifications and email alerts.',
+      'Lay foundation for future features (subscription errands, B2B services); deliver intuitive web/mobile-friendly UI.',
+    ],
+    responsibilities: [
+      'Designed and implemented full backend: auth, roles, wallets, escrow logic, errand lifecycle, bidding, chat, notifications.',
+      'Built the entire frontend (React + Vite): dashboards for users/runners, chat UI, errand creation, bid management.',
+      'Integrated Socket.IO for real-time messaging, bid notifications, and unread counters.',
+      'Developed wallet top-up, balance checks, escrow release workflows.',
+      'Implemented secure file uploads (user images, runner IDs) via Cloudinary; email notifications via SendGrid.',
+      'Managed infra, deployment, DB schema, cron jobs, monitoring; ongoing QA and iteration during early testing.',
+    ],
+    stack: {
+      frontend: ['React', 'Vite', 'Tailwind CSS / custom CSS'],
+      backend: ['NestJS', 'REST API', 'Socket.IO', 'JWT Authentication', 'Cron Jobs'],
+      database: ['Supabase (PostgreSQL)', 'Prisma ORM'],
+      devops: ['Render', 'GitHub (version control)', 'CI/CD & env config'],
+      integrations: ['Cloudinary (file uploads)', 'SendGrid (email notifications)'],
+      optional: ['Supabase (auth/session utilities if applicable)'],
+    },
+    challenges: [
+      {
+        title: 'Managing real-time chat and notifications across errand types',
+        detail:
+          'Built a dual-layer messaging system with Socket.IO for job-specific and general chats, unread counters, persistent history, and optimized broadcasts.',
+      },
+      {
+        title: 'Preventing fraud and ensuring trust between users and runners',
+        detail:
+          'Implemented wallet + escrow: users fund wallet, funds lock on acceptance, release on completion—keeping transactions safe for both sides.',
+      },
+      {
+        title: 'Complexity of dynamic bidding and runner selection',
+        detail:
+          'Designed a robust bidding model with validation, bid limits, duration estimates, and real-time updates in dashboards and chats.',
+      },
+    ],
+    results: [
+      'Launched early-testing version with end-to-end errand, bidding, wallet, and chat features.',
+      'Early testers reported faster task fulfillment and significantly improved communication flow.',
+      'Messaging layer reduced back-and-forth phone/WhatsApp by ~90%, keeping interactions in-platform.',
+      'Wallet + escrow increased trust between users and runners during pilot.',
+      'Opened a new income channel for student errand runners.',
+    ],
+    links: {
+      demo: 'https://yiaiki-test.onrender.com/',
+      repo: '',
+      video: 'https://www.facebook.com/share/v/17XJbzSXDt/',
+    },
+    gallery: [
+      '/assets/img/portfolio/yiaiki.png',
+      '/assets/img/portfolio/yiaiki1.png',
+      '/assets/img/portfolio/yiaiki2.png',
+      '/assets/img/portfolio/yiaiki3.png',
+    ],
   },
 }
 
