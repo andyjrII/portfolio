@@ -225,6 +225,61 @@ export const projectDetails = {
     links: {},
     gallery: ['/assets/img/portfolio/isaac.png', '/assets/img/portfolio/isaac1.png', '/assets/img/portfolio/isaac2.png'],
   },
+  'lo-publications': {
+    title: 'LO Publications — Publishing Company Website',
+    role: 'Full-Stack Developer (WordPress/CMS)',
+    timeline: 'November – December 2024',
+    outcome:
+      'Designed, built, and deployed a complete publishing company website with a modern CMS foundation, SEO improvements, and easy content management.',
+    summary:
+      'LO Publications is a professional publishing company website built on WordPress with custom Elementor design, SEO optimizations, and easy content management. The site presents services, mission, team, and contact pathways in a clean, responsive experience.',
+    context: [
+      'Client needed a modern, SEO-optimized digital presence for a publishing company with clear navigation to About, Services, and Contact.',
+      'Required painless content updates without engineering support and migration from hard-coded content to a scalable CMS.',
+      'Needed professional, trustworthy branding aligned with the publishing industry.',
+    ],
+    responsibilities: [
+      'Built the WordPress site with custom Elementor layouts for About, Services, Contact, and supporting sections.',
+      'Optimized site structure, metadata, and internal linking for SEO and visibility.',
+      'Migrated content from static code into a manageable CMS, with responsive design across devices.',
+      'Implemented form handling, performance tuning, caching, and basic security hardening.',
+      'Deployed on client-managed hosting (Namecheap/cPanel) and configured DNS/email routing as needed.',
+    ],
+    stack: {
+      cms: ['WordPress'],
+      frontend: ['Elementor', 'Custom CSS'],
+      backend: ['PHP (WordPress)'],
+      tools: ['SEO plugin (Yoast)', 'Caching plugins', 'CDN settings'],
+      hosting: ['Client-managed hosting (Namecheap/cPanel)'],
+    },
+    challenges: [
+      {
+        title: 'Scalable content updates for a non-technical team',
+        detail:
+          'Implemented flexible Elementor blocks and WordPress CMS so the client can update pages without developer involvement.',
+      },
+      {
+        title: 'SEO and performance on a new CMS build',
+        detail:
+          'Structured metadata, clean internal linking, caching, and CDN settings to improve visibility and load speed.',
+      },
+    ],
+    results: [
+      'Launched a responsive, SEO-ready publishing website with clear service discovery and contact paths.',
+      'Reduced dependency on engineers for content changes via CMS-driven updates.',
+      'Delivered professional branding aligned with the publishing industry on a modern WordPress foundation.',
+    ],
+    links: {
+      demo: 'https://lopublications.com/',
+      repo: '',
+    },
+    gallery: [
+      '/assets/img/portfolio/LO-publications.png',
+      '/assets/img/portfolio/LO-publications1.png',
+      '/assets/img/portfolio/LO-publications2.png',
+      '/assets/img/portfolio/LO-publications3.png',
+    ],
+  },
   'spiritual-woman': {
     title: 'The Spiritual Woman Fellowship',
     role: '',

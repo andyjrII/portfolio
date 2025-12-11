@@ -127,7 +127,7 @@ function PortfolioDetail() {
                   <img
                     src={gallery[0]}
                     alt={title}
-                    className="w-full h-[220px] md:h-[260px] lg:h-[300px] object-cover"
+                    className="w-full h-[200px] md:h-[240px] lg:h-[260px] object-cover"
                     loading="lazy"
                   />
                 </div>
