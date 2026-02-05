@@ -120,7 +120,6 @@ function PortfolioDetail() {
   const context = detail?.context || []
   const responsibilities = detail?.responsibilities || []
   const stack = detail?.stack || {}
-  const challenges = detail?.challenges || []
   const results = detail?.results || []
   const links = detail?.links || {}
   const gallery = detail?.gallery || (fallbackItem ? [fallbackItem.image] : [])
@@ -129,7 +128,6 @@ function PortfolioDetail() {
   const subTextClass = isDark ? 'text-white/80' : 'text-gray-700'
   const cardBg = isDark ? 'bg-white/10' : 'bg-white/80'
   const cardBorder = isDark ? 'border-white/10' : 'border-gray-100'
-  const challengeBg = isDark ? 'bg-white/5 border-white/10' : 'bg-gray-50/60 border-gray-100'
   const outcomeClass = isDark
     ? 'bg-accent/15 border border-accent/30 text-accent'
     : 'bg-accent/10 border border-accent/20 text-accent'
@@ -236,23 +234,6 @@ function PortfolioDetail() {
                 </div>
               ))}
               {!Object.keys(stack).length && <p className="text-gray-600">Details coming soon.</p>}
-            </div>
-          </div>
-
-          {/* Challenges */}
-          <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-4 ${cardBg} ${cardBorder}`}>
-            <SectionTitle title="Challenges & Solutions" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {challenges.map((c) => (
-                <div
-                  key={c.title}
-                  className={`p-4 rounded-xl border shadow-sm space-y-2 ${challengeBg}`}
-                >
-                  <h4 className={`font-semibold mb-2 ${headingClass}`}>{c.title}</h4>
-                  <p className={`text-sm leading-relaxed ${subTextClass}`}>{c.detail}</p>
-                </div>
-              ))}
-              {!challenges.length && <p className="text-gray-600">Details coming soon.</p>}
             </div>
           </div>
 

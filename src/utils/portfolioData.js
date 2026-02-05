@@ -11,12 +11,12 @@ export const portfolioItems = [
   },
   {
     id: 2,
-    slug: 'project-2',
-    title: 'Project 2',
+    slug: 'swbc',
+    title: 'SWBC Website',
     caption: '',
     category: 'web',
-    image: '/assets/img/portfolio/yiaiki.png', // placeholder – replace with your image
-    detailPage: '/portfolio/project-2',
+    image: '/assets/img/portfolio/swbc.png',
+    detailPage: '/portfolio/swbc',
   },
   {
     id: 3,
@@ -137,23 +137,6 @@ export const projectDetails = {
       integrations: ['Cloudinary (file uploads)', 'SendGrid (email notifications)'],
       optional: ['Supabase (auth/session utilities if applicable)'],
     },
-    challenges: [
-      {
-        title: 'Managing real-time chat and notifications across errand types',
-        detail:
-          'Built a dual-layer messaging system with Socket.IO for job-specific and general chats, unread counters, persistent history, and optimized broadcasts.',
-      },
-      {
-        title: 'Preventing fraud and ensuring trust between users and runners',
-        detail:
-          'Implemented wallet + escrow: users fund wallet, funds lock on acceptance, release on completion—keeping transactions safe for both sides.',
-      },
-      {
-        title: 'Complexity of dynamic bidding and runner selection',
-        detail:
-          'Designed a robust bidding model with validation, bid limits, duration estimates, and real-time updates in dashboards and chats.',
-      },
-    ],
     results: [
       'Launched early-testing version with end-to-end errand, bidding, wallet, and chat features.',
       'Early testers reported faster task fulfillment and significantly improved communication flow.',
@@ -174,19 +157,51 @@ export const projectDetails = {
       '/assets/img/portfolio/yiaiki4.png',
     ],
   },
-  'project-2': {
-    title: 'Project 2',
+  swbc: {
+    title: 'SWBC Website',
     role: '',
     timeline: '',
-    outcome: 'Details coming soon.',
-    summary: 'Case study will be added here.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: ['/assets/img/portfolio/yiaiki.png'],
+    outcome: 'A church website with CRM for posting devotionals, book store, sermon downloads, and online giving.',
+    summary:
+      'SWBC (Soul Winning Believers Church) is a church website designed to showcase the ministry, service times, gallery, and news & events, while also providing features such as devotionals management, sermon downloads, an online bookstore, and secure online giving to support digital ministry and member engagement.',
+    context: [
+      'Church needed a professional online presence to share service times, beliefs, and events.',
+      'Required a CRM for posting of devotionals and manage content.',
+      'Needed an online book store where users can purchase books from the church.',
+      'Wanted sermon downloads and online giving, with reliable media storage.',
+      'Goal: easy-to-update site that works well on mobile and desktop.',
+    ],
+    responsibilities: [
+      'Built CRM feature for posting and managing devotionals.',
+      'Implemented an online book store where users can purchase books from the church.',
+      'Enabled sermon downloads with media stored on Cloudinary.',
+      'Integrated Paystack for online giving and product purchases.',
+    ],
+    stack: {
+      frontend: ['HTML', 'JavaScript', 'CSS', 'Bootstrap'],
+      backend: ['Python', 'Django'],
+      database: ['PostgreSQL'],
+      integrations: ['Paystack (payments)', 'Cloudinary (images, files, audio)'],
+      hosting: ['Render'],
+    },
+    results: [
+      'Launched a centralized digital platform for church information, sermons, devotionals, and events, replacing fragmented communication channels.',
+      'Improved member access to sermons and devotionals, enabling continuous spiritual engagement beyond physical services.',
+      'Streamlined content publishing for church administrators through a single dashboard, reducing manual updates and turnaround time.',
+      'Enabled online giving and digital book purchases, creating convenient, trackable income channels for church support.',
+      'Enhanced church visibility and outreach by providing a publicly accessible, mobile-friendly web presence for new and existing members.',
+    ],
+    links: {
+      demo: 'https://swbchurch.onrender.com/',
+      repo: '',
+    },
+    gallery: [
+      '/assets/img/portfolio/swbc.png',
+      '/assets/img/portfolio/swbc1.png',
+      '/assets/img/portfolio/swbc2.png',
+      '/assets/img/portfolio/swbc3.png',
+      '/assets/img/portfolio/swbc4.png',
+    ],
   },
   'project-3': {
     title: 'Project 3',
@@ -197,7 +212,6 @@ export const projectDetails = {
     context: ['Details coming soon.'],
     responsibilities: ['Details coming soon.'],
     stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
     results: ['Details coming soon.'],
     links: {},
     gallery: ['/assets/img/portfolio/yiaiki.png'],
