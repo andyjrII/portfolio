@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
@@ -11,6 +12,22 @@ import Contact from '../components/Contact/Contact'
 import ScrollTop from '../components/ScrollTop/ScrollTop'
 
 function Home() {
+  const location = useLocation()
+
+  // When navigating from a subpage with a hash (e.g. /#portfolio), scroll to that section
+  useEffect(() => {
+    const hash = location.hash?.slice(1)
+    if (hash) {
+      const el = document.getElementById(hash)
+      if (el) {
+        const timeout = setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 100)
+        return () => clearTimeout(timeout)
+      }
+    }
+  }, [location.pathname, location.hash])
+
   useEffect(() => {
     // Initialize AOS
     import('aos').then((AOS) => {
@@ -22,12 +39,17 @@ function Home() {
       })
     })
 
-    // Remove preloader
+    // Remove preloader (works for both initial load and client-side navigation to Home)
     const preloader = document.querySelector('#preloader')
     if (preloader) {
+      const removePreloader = () => preloader.remove()
+      // On client-side navigation, load never fires again — remove after a short delay
+      const timeout = setTimeout(removePreloader, 150)
       window.addEventListener('load', () => {
-        preloader.remove()
+        clearTimeout(timeout)
+        removePreloader()
       })
+      return () => clearTimeout(timeout)
     }
   }, [])
 

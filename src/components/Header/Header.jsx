@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useTheme } from '../../contexts/ThemeContext'
 import { socialLinks, navItems, personalInfo } from '../../utils/portfolioData'
 
@@ -7,13 +7,27 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const { theme, toggleTheme } = useTheme()
+  const location = useLocation()
+  const isHomePage = location.pathname === '/'
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  // When on a subpage (e.g. portfolio detail), highlight the correct nav item from the route
   useEffect(() => {
-    // Scrollspy functionality
+    if (!isHomePage) {
+      if (location.pathname.startsWith('/portfolio')) {
+        setActiveSection('portfolio')
+      } else {
+        setActiveSection('hero')
+      }
+    }
+  }, [location.pathname, isHomePage])
+
+  useEffect(() => {
+    if (!isHomePage) return
+    // Scrollspy: only run on home page
     const handleScroll = () => {
       const sections = navItems.map(item => item.href.substring(1))
       const scrollPosition = window.scrollY + 200
@@ -33,10 +47,10 @@ function Header() {
     }
 
     window.addEventListener('scroll', handleScroll)
-    handleScroll() // Initial check
+    handleScroll()
 
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isHomePage])
 
   const handleNavClick = (href) => {
     setIsMenuOpen(false)
@@ -106,7 +120,7 @@ function Header() {
         <Link
           to="/"
           className="logo flex items-center justify-center mb-5 group"
-          onClick={() => handleNavClick('#hero')}
+          onClick={() => isHomePage && handleNavClick('#hero')}
         >
           <h1
             className={`sitename text-xl font-bold m-0 transition-all duration-300 ${
@@ -142,38 +156,61 @@ function Header() {
             {navItems.map((item) => {
               const sectionId = item.href.substring(1)
               const isActive = activeSection === sectionId
+              const navLinkClass = `relative flex items-center py-2.5 px-3 rounded-lg transition-all duration-300 group text-sm ${
+                isActive
+                  ? theme === 'dark'
+                    ? 'bg-accent/20 text-accent border-l-4 border-accent'
+                    : 'bg-accent/10 text-accent border-l-4 border-accent'
+                  : theme === 'dark'
+                  ? 'text-white/70 hover:text-white hover:bg-white/5'
+                  : 'text-gray-700 hover:text-accent hover:bg-gray-100/50'
+              }`
               return (
                 <li key={item.name} className="mb-1">
-                  <a
-                    href={item.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleNavClick(item.href)
-                    }}
-                    className={`relative flex items-center py-2.5 px-3 rounded-lg transition-all duration-300 group text-sm ${
-                      isActive
-                        ? theme === 'dark'
-                          ? 'bg-accent/20 text-accent border-l-4 border-accent'
-                          : 'bg-accent/10 text-accent border-l-4 border-accent'
-                        : theme === 'dark'
-                        ? 'text-white/70 hover:text-white hover:bg-white/5'
-                        : 'text-gray-700 hover:text-accent hover:bg-gray-100/50'
-                    }`}
-                  >
-                    <i
-                      className={`bi ${item.icon} navicon mr-2.5 text-lg transition-transform duration-300 group-hover:scale-110 ${
-                        isActive ? 'text-accent' : ''
-                      }`}
-                    ></i>
-                    <span className="font-medium">{item.name}</span>
-                    {isActive && (
-                      <div
-                        className={`absolute right-4 w-2 h-2 rounded-full ${
-                          theme === 'dark' ? 'bg-accent' : 'bg-accent'
-                        } animate-pulse`}
-                      ></div>
-                    )}
-                  </a>
+                  {isHomePage ? (
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleNavClick(item.href)
+                      }}
+                      className={navLinkClass}
+                    >
+                      <i
+                        className={`bi ${item.icon} navicon mr-2.5 text-lg transition-transform duration-300 group-hover:scale-110 ${
+                          isActive ? 'text-accent' : ''
+                        }`}
+                      ></i>
+                      <span className="font-medium">{item.name}</span>
+                      {isActive && (
+                        <div
+                          className={`absolute right-4 w-2 h-2 rounded-full ${
+                            theme === 'dark' ? 'bg-accent' : 'bg-accent'
+                          } animate-pulse`}
+                        ></div>
+                      )}
+                    </a>
+                  ) : (
+                    <Link
+                      to={{ pathname: '/', hash: sectionId }}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={navLinkClass}
+                    >
+                      <i
+                        className={`bi ${item.icon} navicon mr-2.5 text-lg transition-transform duration-300 group-hover:scale-110 ${
+                          isActive ? 'text-accent' : ''
+                        }`}
+                      ></i>
+                      <span className="font-medium">{item.name}</span>
+                      {isActive && (
+                        <div
+                          className={`absolute right-4 w-2 h-2 rounded-full ${
+                            theme === 'dark' ? 'bg-accent' : 'bg-accent'
+                          } animate-pulse`}
+                        ></div>
+                      )}
+                    </Link>
+                  )}
                 </li>
               )
             })}

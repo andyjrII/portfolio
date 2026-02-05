@@ -1,52 +1,31 @@
-// Portfolio items data
+// Portfolio items data (featured: 3 projects)
 export const portfolioItems = [
   {
     id: 1,
-    slug: 'visit-rage',
-    title: 'VisitRage',
+    slug: 'yiaiki',
+    title: 'YiAiki',
+    caption: 'On-Demand Errand Marketplace with Real-Time Chat, Bidding & Escrow',
     category: 'web',
-    image: '/assets/img/portfolio/visit-rage.png',
-    detailPage: '/portfolio/visit-rage',
+    image: '/assets/img/portfolio/yiaiki.png',
+    detailPage: '/portfolio/yiaiki',
   },
   {
     id: 2,
-    slug: 'lo-publications',
-    title: 'LO Publications',
-    category: 'product',
-    image: '/assets/img/portfolio/LO-publications.png',
-    detailPage: '/portfolio/lo-publications',
+    slug: 'project-2',
+    title: 'Project 2',
+    caption: '',
+    category: 'web',
+    image: '/assets/img/portfolio/yiaiki.png', // placeholder – replace with your image
+    detailPage: '/portfolio/project-2',
   },
   {
     id: 3,
-    slug: 'isaac-oyedepo',
-    title: 'Anazao Generation Connect',
-    category: 'branding',
-    image: '/assets/img/portfolio/isaac.png',
-    detailPage: '/portfolio/isaac-oyedepo',
-  },
-  {
-    id: 4,
-    slug: 'spiritual-woman',
-    title: 'The Spiritual Woman Fellowship',
-    category: 'books',
-    image: '/assets/img/portfolio/spiritual.png',
-    detailPage: '/portfolio/spiritual-woman',
-  },
-  {
-    id: 5,
-    slug: 'vdp',
-    title: 'Villas de Paradis',
-    category: 'app',
-    image: '/assets/img/portfolio/vdp.png',
-    detailPage: '/portfolio/vdp',
-  },
-  {
-    id: 6,
-    slug: 'yiaiki',
-    title: 'YiAiki',
-    category: 'books',
-    image: '/assets/img/portfolio/yiaiki.png',
-    detailPage: '/portfolio/yiaiki',
+    slug: 'project-3',
+    title: 'Project 3',
+    caption: '',
+    category: 'web',
+    image: '/assets/img/portfolio/yiaiki.png', // placeholder – replace with your image
+    detailPage: '/portfolio/project-3',
   },
 ]
 
@@ -128,190 +107,10 @@ export const socialLinks = [
 
 // Project detail data
 export const projectDetails = {
-  'visit-rage': {
-    title: 'VisitRage – Visitor Management System for Rage Media Group',
-    role: 'Backend Developer (with minor frontend contributions)',
-    timeline: 'November 25, 2024 – February 13, 2025',
-    outcome:
-      'Digitized and secured the entire visitor approval process, replacing manual gate calls with a structured backend-driven workflow.',
-    summary:
-      'VisitRage is a custom-built visitor management system for Rage Media Group designed to streamline guest approval, check-in, and check-out. It provides a secure approval pipeline, real-time visitor tracking, and automated access slip generation—replacing phone-based verification to improve efficiency, security, and accountability.',
-    context: [
-      'No prior visitor management; guests arrived unannounced and verification was manual via gate calls.',
-      'No records of approvals, check-ins, or duration of visits; no pre-registration or approval mechanism.',
-      'Goal: centralize pre-approval, eliminate gatehouse phone calls, track entry/exit, improve security, and provide real-time visibility of active visitors.',
-    ],
-    responsibilities: [
-      'Designed backend architecture, endpoints, approval logic, and visitor lifecycle management.',
-      'Implemented authentication (JWT), role-based access, and secure API routing.',
-      'Built approval workflow: register → approve/reject → generate slip → check-in → check-out.',
-      'Implemented real-time status tracking for active visitors.',
-      'Integrated Prisma ORM; migrated from PostgreSQL (dev) to MySQL (production).',
-      'API testing with Postman; collaborated with frontend for minor UI adjustments.',
-      'Managed deployment pipelines and environment configs across Render (dev) and Namecheap (prod).',
-      'Authored technical docs and supported internal testing/feedback loops.',
-    ],
-    stack: {
-      frontend: ['React', 'Tailwind CSS'],
-      backend: ['NestJS', 'REST API architecture', 'JWT Authentication', 'Role-based access control'],
-      database: ['Prisma ORM', 'PostgreSQL (development)', 'MySQL (production)'],
-      infra: ['Render (development/internal testing)', 'Namecheap (production hosting)'],
-      tooling: ['Git', 'GitHub', 'Postman', 'Manual QA with internal stakeholders'],
-    },
-    challenges: [
-      {
-        title: 'No existing workflow for visitor approval',
-        detail:
-          'Built a complete backend approval pipeline to validate visitors, assign approval roles, and ensure only authorized individuals receive access slips.',
-      },
-      {
-        title: 'Gatehouse reliance on phone calls and no visitor records',
-        detail:
-          'Developed check-in/check-out APIs that log visitor movements, generate time-stamped slips, and provide real-time visibility to staff dashboards.',
-      },
-      {
-        title: 'Migrating from PostgreSQL (dev) to MySQL (production)',
-        detail:
-          'Used Prisma to abstract data access and streamline schema migration, ensuring smooth transition without breaking endpoints or business logic.',
-      },
-    ],
-    results: [
-      'Eliminated manual gate phone calls, reducing check-in time.',
-      '100% traceability of visitor entries, approvals, and movements.',
-      'Improved security via controlled approval and digital slip validation.',
-      'Reduced administrative errors with centralized visitor records.',
-      'Staff reported faster, more reliable workflows after pilot testing.',
-    ],
-    links: {
-      demo: 'https://www.visitrage.com/',
-      repo: 'Private',
-    },
-    gallery: [
-      '/assets/img/portfolio/visit-rage.png',
-      '/assets/img/portfolio/visit-rage1.png',
-      '/assets/img/portfolio/visit-rage2.png',
-      '/assets/img/portfolio/visit-rage3.png',
-    ],
-  },
-  'lo-publications': {
-    title: 'LO Publications',
-    role: '',
-    timeline: '',
-    outcome: 'Case study coming soon.',
-    summary: 'Detailed case study coming soon.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: [
-      '/assets/img/portfolio/LO-publications.png',
-      '/assets/img/portfolio/LO-publications1.png',
-      '/assets/img/portfolio/LO-publications2.png',
-    ],
-  },
-  'isaac-oyedepo': {
-    title: 'Anazao Generation Connect',
-    role: '',
-    timeline: '',
-    outcome: 'Case study coming soon.',
-    summary: 'Detailed case study coming soon.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: ['/assets/img/portfolio/isaac.png', '/assets/img/portfolio/isaac1.png', '/assets/img/portfolio/isaac2.png'],
-  },
-  'lo-publications': {
-    title: 'LO Publications — Publishing Company Website',
-    role: 'Full-Stack Developer (WordPress/CMS)',
-    timeline: 'November – December 2024',
-    outcome:
-      'Designed, built, and deployed a complete publishing company website with a modern CMS foundation, SEO improvements, and easy content management.',
-    summary:
-      'LO Publications is a professional publishing company website built on WordPress with custom Elementor design, SEO optimizations, and easy content management. The site presents services, mission, team, and contact pathways in a clean, responsive experience.',
-    context: [
-      'Client needed a modern, SEO-optimized digital presence for a publishing company with clear navigation to About, Services, and Contact.',
-      'Required painless content updates without engineering support and migration from hard-coded content to a scalable CMS.',
-      'Needed professional, trustworthy branding aligned with the publishing industry.',
-    ],
-    responsibilities: [
-      'Built the WordPress site with custom Elementor layouts for About, Services, Contact, and supporting sections.',
-      'Optimized site structure, metadata, and internal linking for SEO and visibility.',
-      'Migrated content from static code into a manageable CMS, with responsive design across devices.',
-      'Implemented form handling, performance tuning, caching, and basic security hardening.',
-      'Deployed on client-managed hosting (Namecheap/cPanel) and configured DNS/email routing as needed.',
-    ],
-    stack: {
-      cms: ['WordPress'],
-      frontend: ['Elementor', 'Custom CSS'],
-      backend: ['PHP (WordPress)'],
-      tools: ['SEO plugin (Yoast)', 'Caching plugins', 'CDN settings'],
-      hosting: ['Client-managed hosting (Namecheap/cPanel)'],
-    },
-    challenges: [
-      {
-        title: 'Scalable content updates for a non-technical team',
-        detail:
-          'Implemented flexible Elementor blocks and WordPress CMS so the client can update pages without developer involvement.',
-      },
-      {
-        title: 'SEO and performance on a new CMS build',
-        detail:
-          'Structured metadata, clean internal linking, caching, and CDN settings to improve visibility and load speed.',
-      },
-    ],
-    results: [
-      'Launched a responsive, SEO-ready publishing website with clear service discovery and contact paths.',
-      'Reduced dependency on engineers for content changes via CMS-driven updates.',
-      'Delivered professional branding aligned with the publishing industry on a modern WordPress foundation.',
-    ],
-    links: {
-      demo: 'https://lopublications.com/',
-      repo: '',
-    },
-    gallery: [
-      '/assets/img/portfolio/LO-publications.png',
-      '/assets/img/portfolio/LO-publications1.png',
-      '/assets/img/portfolio/LO-publications2.png',
-      '/assets/img/portfolio/LO-publications3.png',
-    ],
-  },
-  'spiritual-woman': {
-    title: 'The Spiritual Woman Fellowship',
-    role: '',
-    timeline: '',
-    outcome: 'Case study coming soon.',
-    summary: 'Detailed case study coming soon.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: ['/assets/img/portfolio/spiritual.png', '/assets/img/portfolio/spiritual1.png', '/assets/img/portfolio/spiritual2.png'],
-  },
-  vdp: {
-    title: 'Villas de Paradis',
-    role: '',
-    timeline: '',
-    outcome: 'Case study coming soon.',
-    summary: 'Detailed case study coming soon.',
-    context: ['Details coming soon.'],
-    responsibilities: ['Details coming soon.'],
-    stack: {},
-    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
-    results: ['Details coming soon.'],
-    links: {},
-    gallery: ['/assets/img/portfolio/vdp.png', '/assets/img/portfolio/vdp1.png', '/assets/img/portfolio/vdp2.png'],
-  },
   yiaiki: {
     title: 'YiAiki – On-Demand Errand Marketplace with Real-Time Chat, Bidding & Escrow',
     role: 'Full-Stack Developer / Indie Hacker',
-    timeline: 'Feb 22, 2025 – Present (live, early testing)',
+    timeline: 'Feb 2025 – Present (live, early testing)',
     outcome: 'Built a full errand marketplace with real-time chat, bidding, notifications, wallet, and escrow.',
     summary:
       'YiAiki is a multi-sided errand marketplace connecting users with student runners for shopping, deliveries, queue services, bill payments, and more. It includes bidding, wallet funding, escrow protection, and a real-time messaging layer (job-specific and general chats). Built end-to-end as a bootstrapped SaaS, currently live in early testing.',
@@ -372,7 +171,36 @@ export const projectDetails = {
       '/assets/img/portfolio/yiaiki1.png',
       '/assets/img/portfolio/yiaiki2.png',
       '/assets/img/portfolio/yiaiki3.png',
+      '/assets/img/portfolio/yiaiki4.png',
     ],
+  },
+  'project-2': {
+    title: 'Project 2',
+    role: '',
+    timeline: '',
+    outcome: 'Details coming soon.',
+    summary: 'Case study will be added here.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/yiaiki.png'],
+  },
+  'project-3': {
+    title: 'Project 3',
+    role: '',
+    timeline: '',
+    outcome: 'Details coming soon.',
+    summary: 'Case study will be added here.',
+    context: ['Details coming soon.'],
+    responsibilities: ['Details coming soon.'],
+    stack: {},
+    challenges: [{ title: 'Details coming soon', detail: 'More information will be added here.' }],
+    results: ['Details coming soon.'],
+    links: {},
+    gallery: ['/assets/img/portfolio/yiaiki.png'],
   },
 }
 

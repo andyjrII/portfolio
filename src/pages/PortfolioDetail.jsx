@@ -1,8 +1,45 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import { projectDetails, portfolioItems } from '../utils/portfolioData'
 import { useTheme } from '../contexts/ThemeContext'
+
+function ImageLightbox({ src, alt, onClose }) {
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) onClose()
+  }
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [onClose])
+  return (
+    <div
+      className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/90 p-4"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Enlarged image"
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30 transition"
+        aria-label="Close"
+      >
+        <i className="bi bi-x-lg text-xl" />
+      </button>
+      <img
+        src={src}
+        alt={alt}
+        className="max-w-full max-h-[90vh] w-auto h-auto object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
+  )
+}
 
 function Badge({ label }) {
   return (
@@ -43,6 +80,9 @@ function PortfolioDetail() {
   const { slug } = useParams()
   const { theme } = useTheme()
   const isDark = theme === 'dark'
+  const [zoomedImage, setZoomedImage] = useState(null)
+  const openZoom = useCallback((src) => () => setZoomedImage(src), [])
+  const closeZoom = useCallback(() => setZoomedImage(null), [])
 
   const detail = projectDetails[slug]
   const fallbackItem = useMemo(
@@ -102,6 +142,9 @@ function PortfolioDetail() {
 
   return (
     <div className="portfolio-details-page">
+      {zoomedImage && (
+        <ImageLightbox src={zoomedImage} alt={title} onClose={closeZoom} />
+      )}
       <Header />
       <main className="main">
         <div className="container mx-auto px-4 py-12 space-y-12">
@@ -122,22 +165,26 @@ function PortfolioDetail() {
             </div>
             {/* Hero image */}
             {gallery?.[0] && (
-              <div className="flex flex-col items-start space-y-4">
-                <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 bg-black/5">
+              <div className="flex flex-col items-start">
+                <button
+                  type="button"
+                  onClick={openZoom(gallery[0])}
+                  className="w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-2xl overflow-hidden"
+                >
                   <img
                     src={gallery[0]}
                     alt={title}
-                    className="w-full h-[200px] md:h-[240px] lg:h-[260px] object-cover"
+                    className="w-full h-auto max-h-[50vh] block"
                     loading="lazy"
                   />
-                </div>
-                <div className="flex gap-3 flex-wrap">
+                </button>
+                <div className="w-full flex gap-3 flex-wrap mt-8 justify-center">
                   {links?.demo && (
                     <a
                       href={links.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-5 py-2 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition"
+                      className="px-5 py-2.5 rounded-lg bg-accent font-semibold transition-all duration-200 hover:scale-[1.03] hover:shadow-lg active:scale-[0.98] text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4)] hover:text-white"
                     >
                       View Live
                     </a>
@@ -147,8 +194,10 @@ function PortfolioDetail() {
                     onClick={() => {
                       if (hasVideo) window.open(links.video, '_blank', 'noopener,noreferrer')
                     }}
-                    className={`px-5 py-2 rounded-lg font-semibold border transition ${
-                      hasVideo ? codeBtnEnabled : codeBtnDisabled
+                    className={`px-5 py-2.5 rounded-lg font-semibold border transition-all duration-200 ${
+                      hasVideo
+                        ? `${codeBtnEnabled} hover:scale-[1.03] hover:shadow-md hover:border-accent/40 active:scale-[0.98]`
+                        : codeBtnDisabled
                     }`}
                   >
                     Video Demo
@@ -217,16 +266,21 @@ function PortfolioDetail() {
           {gallery?.length > 1 && (
             <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-3 ${cardBg} ${cardBorder}`}>
               <SectionTitle title="Gallery" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {gallery.slice(1).map((src) => (
-                  <div key={src} className={`rounded-xl overflow-hidden border shadow-sm ${cardBorder}`}>
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={openZoom(src)}
+                    className={`rounded-xl overflow-hidden border shadow-sm text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 ${cardBorder}`}
+                  >
                     <img
                       src={src}
                       alt={title}
-                      className="w-full h-48 md:h-56 object-cover"
+                      className="w-full h-auto max-h-64 md:max-h-72 block"
                       loading="lazy"
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>

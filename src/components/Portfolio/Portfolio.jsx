@@ -10,11 +10,6 @@ function Portfolio() {
 
   useEffect(() => {
     if (isotopeRef.current) {
-      import('glightbox').then((GLightbox) => {
-        GLightbox.default({
-          selector: '.glightbox',
-        })
-      })
       const items = isotopeRef.current.querySelectorAll('.isotope-item')
       items.forEach((item) => {
         item.style.position = 'relative'
@@ -83,9 +78,7 @@ function Portfolio() {
             theme === 'dark' ? 'text-white/80' : 'text-gray-600'
           }`}
         >
-          Welcome to my portfolio! Here, you'll find a collection of projects that I have worked
-          on or am currently working on. These projects showcase my skills, creativity, and
-          dedication to solving real-world problems through technology.
+          A curated set of featured work—projects I've built or am building. Each one highlights my skills, approach, and focus on solving real-world problems with technology.
         </p>
       </div>
 
@@ -136,18 +129,20 @@ function Portfolio() {
                 data-aos="fade-up"
                 data-aos-delay={200 + index * 100}
               >
-                <div
-                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col ${
+                <Link
+                  to={item.detailPage}
+                  title={`View ${item.title} details`}
+                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col block cursor-pointer ${
                     theme === 'dark'
                       ? 'bg-white/10 border border-white/20'
                       : 'bg-white/80 border border-gray-200/50'
-                  } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2`}
+                  } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 no-underline`}
                 >
                   {/* Image Container */}
-                  <div className="relative overflow-hidden rounded-t-2xl aspect-video bg-gray-200">
+                  <div className="relative overflow-hidden rounded-t-2xl bg-gray-200">
                     <img
                       src={item.image}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-auto max-h-[320px] block transition-transform duration-500 group-hover:scale-105"
                       alt={item.title}
                       loading="lazy"
                     />
@@ -158,13 +153,24 @@ function Portfolio() {
                           : 'from-white/80 via-white/40 to-transparent'
                       } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     ></div>
+                    {item.caption && (
+                      <div
+                        className={`absolute bottom-0 left-0 right-0 px-4 py-3 text-sm font-medium z-10 ${
+                          theme === 'dark'
+                            ? 'bg-dark-bg/90 text-white/95'
+                            : 'bg-black/70 text-white'
+                        }`}
+                      >
+                        {item.caption}
+                      </div>
+                    )}
                   </div>
 
-                  {/* Overlay Content */}
+                  {/* Overlay on hover (no icon) */}
                   <div
                     className={`absolute inset-0 ${
                       theme === 'dark' ? 'bg-dark-bg/95' : 'bg-white/95'
-                    } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6 pb-10`}
+                    } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6 pb-10 pointer-events-none`}
                   >
                     <div className="text-center space-y-4">
                       <span
@@ -183,31 +189,6 @@ function Portfolio() {
                       >
                         {item.title}
                       </h4>
-                      <div className="flex gap-4 justify-center pt-4">
-                        <a
-                          href={item.image}
-                          title={item.title}
-                        data-gallery={`portfolio-item-${item.slug}`}
-                          className={`glightbox preview-link w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${
-                            theme === 'dark'
-                              ? 'bg-accent text-white hover:bg-accent/90'
-                              : 'bg-accent text-white hover:bg-accent/90'
-                          } shadow-lg`}
-                        >
-                          <i className="bi bi-zoom-in text-xl"></i>
-                        </a>
-                        <Link
-                          to={item.detailPage}
-                          title="More Details"
-                          className={`details-link w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 ${
-                            theme === 'dark'
-                              ? 'bg-white/20 text-white hover:bg-white/30 border border-white/30'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                          } backdrop-blur-sm shadow-lg`}
-                        >
-                          <i className="bi bi-link-45deg text-xl"></i>
-                        </Link>
-                      </div>
                     </div>
                   </div>
 
@@ -232,7 +213,7 @@ function Portfolio() {
                       Web Project
                     </p>
                   </div>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
