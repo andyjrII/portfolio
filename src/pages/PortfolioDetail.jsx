@@ -90,6 +90,17 @@ function PortfolioDetail() {
     [slug]
   )
 
+  const pageTitle = !detail && !fallbackItem
+    ? 'Project not found'
+    : (detail?.title || fallbackItem?.title || 'Project')
+  useEffect(() => {
+    const defaultTitle = 'Andy James - Portfolio'
+    document.title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle
+    return () => {
+      document.title = defaultTitle
+    }
+  }, [pageTitle])
+
   if (!detail && !fallbackItem) {
     return (
       <div className="portfolio-details-page">
