@@ -8,6 +8,14 @@ Personal portfolio site built with React, Vite, and Tailwind CSS.
 npm install
 ```
 
+Copy environment template and edit if needed:
+
+```bash
+cp .env.example .env
+```
+
+- **`VITE_SITE_URL`** (optional): Your live site URL (e.g. `https://yoursite.com`) for Open Graph and absolute links. Leave empty for relative paths.
+
 ## Development
 
 ```bash
