@@ -103,7 +103,7 @@ function PortfolioDetail() {
                 to="/"
                 className="inline-flex items-center px-5 py-2 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition"
               >
-                Back to portfolio
+                Back to projects
               </Link>
             </div>
           </div>

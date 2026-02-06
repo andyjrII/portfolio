@@ -57,9 +57,9 @@ export const skills = [
 
 // Stats data
 export const stats = [
-  { icon: 'bi-calendar', value: 5, label: 'Years', sublabel: 'of experience' },
-  { icon: 'bi-file-code', value: 89, label: 'Projects', sublabel: 'worked on' },
-  { icon: 'bi-emoji-smile', value: 30, label: 'Clients', sublabel: 'satisfied' },
+  { icon: 'bi-calendar', value: 5, label: 'Years', sublabel: 'of experience', suffix: '+' },
+  { icon: 'bi-file-code', value: 25, label: 'Projects', sublabel: 'worked on', suffix: '+' },
+  { icon: 'bi-emoji-smile', value: 15, label: 'Clients', sublabel: 'satisfied', suffix: '+' },
 ]
 
 // Services data
@@ -264,7 +264,7 @@ export const navItems = [
   { name: 'About', href: '#about', icon: 'bi-person' },
   { name: 'Skills', href: '#skills', icon: 'bi-award' },
   { name: 'Resume', href: '#resume', icon: 'bi-file-earmark-text' },
-  { name: 'Portfolio', href: '#portfolio', icon: 'bi-images' },
+  { name: 'Projects', href: '#portfolio', icon: 'bi-images' },
   { name: 'Services', href: '#services', icon: 'bi-hdd-stack' },
   { name: 'Contact', href: '#contact', icon: 'bi-envelope' },
 ]

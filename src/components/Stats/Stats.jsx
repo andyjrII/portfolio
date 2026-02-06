@@ -1,21 +1,87 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../../contexts/ThemeContext'
 import { stats } from '../../utils/portfolioData'
 
+const DURATION_MS = 2000
+const TICK_MS = 40
+
+function runCounter(setDisplayed) {
+  const startTime = Date.now()
+  const intervalId = setInterval(() => {
+    const elapsed = Date.now() - startTime
+    const progress = Math.min(1, elapsed / DURATION_MS)
+    const easeOut = 1 - Math.pow(1 - progress, 2)
+
+    setDisplayed(
+      stats.map((stat) => Math.floor(easeOut * stat.value))
+    )
+
+    if (progress >= 1) clearInterval(intervalId)
+  }, TICK_MS)
+  return intervalId
+}
+
 function Stats() {
-  const statsRef = useRef(null)
   const { theme } = useTheme()
+  const sectionRef = useRef(null)
+  const [displayed, setDisplayed] = useState(stats.map(() => 0))
+  const startedRef = useRef(false)
+  const intervalRef = useRef(null)
 
   useEffect(() => {
-    if (statsRef.current) {
-      import('@srexi/purecounterjs').then((PureCounter) => {
-        new PureCounter.default()
-      })
+    function startIfInView() {
+      if (startedRef.current) return
+      const section = sectionRef.current
+      if (!section) return
+      const rect = section.getBoundingClientRect()
+      const inView = rect.top < window.innerHeight && rect.bottom > 0
+      if (!inView) return
+      startedRef.current = true
+      intervalRef.current = runCounter(setDisplayed)
+    }
+
+    // Trigger when AOS animates any element inside this section (stats fade-up)
+    const onAosIn = (e) => {
+      const el = e.detail || e.target
+      if (el && sectionRef.current?.contains(el)) startIfInView()
+    }
+
+    // Also check on scroll and on load (section might be in view already)
+    const onScroll = () => startIfInView()
+    const afterLoad = () => {
+      startIfInView()
+      window.removeEventListener('load', afterLoad)
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) startIfInView()
+      },
+      { threshold: 0.01, rootMargin: '0px' }
+    )
+    const t = setTimeout(() => {
+      if (sectionRef.current) observer.observe(sectionRef.current)
+    }, 100)
+
+    document.addEventListener('aos:in', onAosIn)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('load', afterLoad)
+    const t2 = setTimeout(startIfInView, 200)
+
+    return () => {
+      clearTimeout(t)
+      clearTimeout(t2)
+      observer.disconnect()
+      document.removeEventListener('aos:in', onAosIn)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('load', afterLoad)
+      if (intervalRef.current) clearInterval(intervalRef.current)
     }
   }, [])
 
   return (
     <section
+      ref={sectionRef}
       id="stats"
       className={`stats section py-20 relative overflow-hidden ${
         theme === 'dark' ? 'bg-dark-bg' : 'bg-gradient-to-b from-white to-gray-50'
@@ -63,17 +129,25 @@ function Stats() {
               {/* Counter */}
               <div className="mb-4">
                 <span
-                  data-purecounter-start="0"
-                  data-purecounter-end={stat.value}
-                  data-purecounter-duration="2"
-                  className={`purecounter text-6xl font-bold block ${
+                  className={`text-6xl font-bold inline ${
                     theme === 'dark'
                       ? 'text-white bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent'
                       : 'text-heading'
                   }`}
                 >
-                  0
+                  {displayed[index]}
                 </span>
+                {stat.suffix && (
+                  <span
+                    className={`text-6xl font-bold inline ${
+                      theme === 'dark'
+                        ? 'text-white bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent'
+                        : 'text-heading'
+                    }`}
+                  >
+                    {stat.suffix}
+                  </span>
+                )}
               </div>
 
               {/* Label */}
@@ -82,7 +156,7 @@ function Stats() {
                   theme === 'dark' ? 'text-white/90' : 'text-heading'
                 }`}
               >
-                + <strong>{stat.label}</strong>
+                <strong>{stat.label}</strong>
               </p>
               <p
                 className={`text-sm mt-1 ${
