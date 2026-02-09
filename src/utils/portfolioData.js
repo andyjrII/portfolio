@@ -108,10 +108,10 @@ export const socialLinks = [
 // Project detail data
 export const projectDetails = {
   yiaiki: {
-    title: 'YiAiki – On-Demand Errand Marketplace with Real-Time Chat, Bidding & Escrow',
+    title: 'YiAiki',
     role: 'Full-Stack Developer / Indie Hacker',
     timeline: 'Feb 2025 – Present (live, early testing)',
-    outcome: 'Built a full errand marketplace with real-time chat, bidding, notifications, wallet, and escrow.',
+    outcome: 'On-demand errand marketplace with real-time chat, notifications, wallet, bidding & escrow.',
     summary:
       'YiAiki is a multi-sided errand marketplace connecting users with student runners for shopping, deliveries, queue services, bill payments, and more. It includes bidding, wallet funding, escrow protection, and a real-time messaging layer (job-specific and general chats). Built end-to-end as a bootstrapped SaaS, currently live in early testing.',
     context: [
