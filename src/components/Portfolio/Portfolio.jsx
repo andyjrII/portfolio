@@ -1,7 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../../contexts/ThemeContext'
-import { portfolioItems } from '../../utils/portfolioData'
+import { portfolioItems, projectDetails } from '../../utils/portfolioData'
+import {
+  SiReact,
+  SiNestjs,
+  SiPostgresql,
+  SiTailwindcss,
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiDjango,
+  SiBootstrap,
+  SiNextdotjs,
+  SiTypescript,
+  SiVite,
+  SiPrisma,
+  SiRedis,
+  SiSocketdotio,
+  SiRender,
+  SiCloudinary,
+  SiGit,
+  SiPython,
+} from 'react-icons/si'
+import { BiCode } from 'react-icons/bi'
 
 function Portfolio() {
   const isotopeRef = useRef(null)
@@ -40,6 +62,51 @@ function Portfolio() {
   const categoryLabels = {
     '*': 'All',
     web: 'Web',
+  }
+
+  const techIconMap = {
+    React: SiReact,
+    NestJS: SiNestjs,
+    PostgreSQL: SiPostgresql,
+    'Supabase (PostgreSQL)': SiPostgresql,
+    Tailwind: SiTailwindcss,
+    'Tailwind CSS': SiTailwindcss,
+    'Tailwind CSS / custom CSS': SiTailwindcss,
+    HTML: SiHtml5,
+    JavaScript: SiJavascript,
+    CSS: SiCss3,
+    Django: SiDjango,
+    Bootstrap: SiBootstrap,
+    'Next.js': SiNextdotjs,
+    TypeScript: SiTypescript,
+    Vite: SiVite,
+    Prisma: SiPrisma,
+    'Prisma ORM': SiPrisma,
+    Redis: SiRedis,
+    'Socket.IO': SiSocketdotio,
+    Socket: SiSocketdotio,
+    Render: SiRender,
+    Cloudinary: SiCloudinary,
+    'Git / GitHub': SiGit,
+    Git: SiGit,
+    GitHub: SiGit,
+    Python: SiPython,
+  }
+
+  const getTechList = (slug) => {
+    const detail = projectDetails[slug]
+    if (!detail?.stack) return []
+    const all = Object.values(detail.stack).flat()
+    return [...new Set(all)]
+  }
+
+  const getIconForTech = (techName) => {
+    return (
+      techIconMap[techName] ||
+      techIconMap[techName.split(' / ')[0]] ||
+      techIconMap[techName.split(' (')[0]] ||
+      null
+    )
   }
 
   return (
@@ -116,7 +183,7 @@ function Portfolio() {
           data-sort="original-order"
         >
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 isotope-container"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 isotope-container"
             style={{ display: 'grid' }}
             data-aos="fade-up"
             data-aos-delay="200"
@@ -129,17 +196,24 @@ function Portfolio() {
                 data-aos="fade-up"
                 data-aos-delay={200 + index * 100}
               >
-                <Link
-                  to={item.detailPage}
-                  title={`View ${item.title} details`}
-                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col block cursor-pointer ${
+                <div
+                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col ${
                     theme === 'dark'
                       ? 'bg-white/10 border border-white/20'
                       : 'bg-white/80 border border-gray-200/50'
-                  } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 no-underline`}
+                  } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2`}
                 >
                   {/* Image Container */}
                   <div className="relative overflow-hidden rounded-t-2xl bg-gray-200">
+                    <span
+                      className={`absolute top-3 left-3 z-10 inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                        theme === 'dark'
+                          ? 'bg-white text-accent'
+                          : 'bg-heading text-accent'
+                      }`}
+                    >
+                      Web
+                    </span>
                     <img
                       src={item.image}
                       className="w-full h-auto max-h-[320px] block transition-transform duration-500 group-hover:scale-105"
@@ -166,35 +240,24 @@ function Portfolio() {
                     )}
                   </div>
 
-                  {/* Overlay on hover (no icon) */}
+                  {/* Overlay on hover */}
                   <div
                     className={`absolute inset-0 ${
                       theme === 'dark' ? 'bg-dark-bg/95' : 'bg-white/95'
                     } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6 pb-10 pointer-events-none`}
                   >
-                    <div className="text-center space-y-4">
-                      <span
-                        className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                          theme === 'dark'
-                            ? 'bg-accent/20 text-accent'
-                            : 'bg-accent/10 text-accent'
-                        }`}
-                      >
-                        Web Project
-                      </span>
-                      <h4
-                        className={`text-2xl font-bold ${
-                          theme === 'dark' ? 'text-white' : 'text-heading'
-                        }`}
-                      >
-                        {item.title}
-                      </h4>
-                    </div>
+                    <h4
+                      className={`text-2xl font-bold text-center ${
+                        theme === 'dark' ? 'text-white' : 'text-heading'
+                      }`}
+                    >
+                      {item.title}
+                    </h4>
                   </div>
 
                   {/* Bottom Info Bar */}
                   <div
-                    className={`p-4 min-h-[80px] flex flex-col justify-center ${
+                    className={`p-4 flex flex-col justify-center ${
                       theme === 'dark' ? 'bg-white/5' : 'bg-white/50'
                     } backdrop-blur-sm`}
                   >
@@ -205,15 +268,57 @@ function Portfolio() {
                     >
                       {item.title}
                     </h5>
-                    <p
-                      className={`text-sm mt-1 ${
+                    <div
+                      className={`flex flex-nowrap gap-1.5 mt-1.5 items-center overflow-x-auto ${
                         theme === 'dark' ? 'text-white/60' : 'text-gray-600'
                       }`}
+                      style={{ scrollbarWidth: 'thin' }}
                     >
-                      Web Project
-                    </p>
+                      {getTechList(item.slug).map((tech) => {
+                        const Icon = getIconForTech(tech) || BiCode
+                        return (
+                          <span
+                            key={tech}
+                            className="inline-flex flex-shrink-0 items-center justify-center w-6 h-6"
+                            title={tech}
+                            aria-label={tech}
+                          >
+                            <Icon className="w-5 h-5" />
+                          </span>
+                        )
+                      })}
+                    </div>
+                    <div className="flex flex-wrap gap-3 mt-3">
+                      {projectDetails[item.slug]?.links?.demo && (
+                        <a
+                          href={projectDetails[item.slug].links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer no-underline ${
+                            theme === 'dark'
+                              ? 'text-accent hover:text-accent/80'
+                              : 'text-accent hover:text-accent/90'
+                          } transition-colors`}
+                        >
+                          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                          Live Demo
+                        </a>
+                      )}
+                      <Link
+                        to={item.detailPage}
+                        title={`View ${item.title} details`}
+                        className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer no-underline ${
+                          theme === 'dark'
+                            ? 'text-accent hover:text-accent/80'
+                            : 'text-accent hover:text-accent/90'
+                        } transition-colors`}
+                      >
+                        <i className="bi bi-info-circle" aria-hidden="true" />
+                        Details
+                      </Link>
+                    </div>
                   </div>
-                </Link>
+                </div>
               </div>
             ))}
           </div>

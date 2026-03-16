@@ -188,16 +188,6 @@ function PortfolioDetail() {
                   />
                 </button>
                 <div className="w-full flex gap-3 flex-wrap mt-8 justify-center">
-                  {links?.demo && (
-                    <a
-                      href={links.demo}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-5 py-2.5 rounded-lg bg-accent font-semibold transition-all duration-200 hover:scale-[1.03] hover:shadow-lg active:scale-[0.98] text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.4)] hover:text-white"
-                    >
-                      View Live
-                    </a>
-                  )}
                   <button
                     disabled={!hasVideo}
                     onClick={() => {

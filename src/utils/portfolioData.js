@@ -8,6 +8,7 @@ export const portfolioItems = [
     category: 'web',
     image: '/assets/img/portfolio/yiaiki.png',
     detailPage: '/portfolio/yiaiki',
+    technologies: ['React', 'NestJS', 'PostgreSQL', 'Tailwind'],
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ export const portfolioItems = [
     category: 'web',
     image: '/assets/img/portfolio/swbc.png',
     detailPage: '/portfolio/swbc',
+    technologies: ['HTML', 'JavaScript', 'Django', 'PostgreSQL', 'Bootstrap'],
   },
   {
     id: 3,
@@ -26,6 +28,7 @@ export const portfolioItems = [
     category: 'web',
     image: '/assets/img/portfolio/nerdified.png',
     detailPage: '/portfolio/nerdified',
+    technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Tailwind', 'TypeScript'],
   },
 ]
 
@@ -145,7 +148,7 @@ export const projectDetails = {
       'Platform ready to open a new income channel for student errand runners once launched.',
     ],
     links: {
-      demo: 'https://yiaiki-test.onrender.com/',
+      demo: 'https://www.yiaiki.com',
       repo: '',
       video: 'https://www.facebook.com/share/v/17XJbzSXDt/',
     },
@@ -245,7 +248,7 @@ export const projectDetails = {
       'Establishing a scalable foundation for more instructors, course types, and features as the platform progresses.',
     ],
     links: {
-      demo: 'https://nerdified.onrender.com/',
+      demo: 'https://nerdified.vercel.app/',
       repo: '',
     },
     gallery: [
