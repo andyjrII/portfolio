@@ -143,10 +143,14 @@ export const socialLinks = [
 export const projectDetails = {
   yiaiki: {
     title: 'YiAiki',
-    subtitle: 'Student Errand Platform',
+    subtitle: 'On-demand errand platform connecting users with verified student runners.',
     role: 'Full-Stack Developer / Indie Hacker',
-    timeline: 'Feb 2025 – Present (live, early testing)',
+    timeline: 'Feb 2025 – March, 2026 (Live)',
     outcome: 'On-demand errand marketplace with real-time chat, notifications, wallet, bidding & escrow.',
+    problem:
+      'Getting help with small errands often involves calling friends, negotiating with informal runners, or relying on unreliable services. These methods lack transparency, security, and efficient coordination.',
+    solution:
+      'YiAiki streamlines this process by providing a digital platform where users can post errands and receive bids from verified student runners. Built-in messaging, notifications, and escrow payments ensure that tasks are coordinated efficiently and completed with trust.',
     summary:
       'YiAiki is a multi-sided errand marketplace connecting users with student runners for shopping, deliveries, queue services, bill payments, and more. It includes bidding, wallet funding, escrow protection, and a real-time messaging layer (job-specific and general chats). Built end-to-end as a bootstrapped SaaS, currently live in early testing.',
     context: [
@@ -192,16 +196,18 @@ export const projectDetails = {
     ],
     challenges: [
       {
-        title: 'Scalable Backend',
-        challenge: 'Errand lifecycle, bidding, and wallet logic needed to scale with many concurrent users.',
+        title: 'Scalable Backend Architecture',
+        challenge:
+          'The platform needed to support task bidding, messaging, notifications, and wallet transactions without tightly coupling business logic.',
         solution:
-          'Implemented NestJS with Prisma and PostgreSQL for efficient data management and clear domain boundaries.',
+          'Designed a modular backend using NestJS with Prisma and PostgreSQL. This allowed clear domain separation (users, tasks, bids, wallets) and efficient data access while keeping the system maintainable as features expanded.',
       },
       {
-        title: 'Real-Time Updates',
-        challenge: 'Users and runners needed instant visibility into new bids and chat messages.',
+        title: 'Real-Time Communication',
+        challenge:
+          'Users and runners needed instant updates for new bids, messages, and notifications without constantly refreshing the page.',
         solution:
-          'Used Socket.IO for real-time messaging, bid notifications, and unread counters so everyone stays in sync.',
+          'Integrated Socket.IO to power real-time messaging, bid notifications, and unread counters, ensuring both parties stay synchronized during task coordination.',
       },
     ],
     results: [

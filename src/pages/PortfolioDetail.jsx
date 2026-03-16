@@ -148,6 +148,8 @@ function PortfolioDetail() {
   const role = detail?.role
   const timeline = detail?.timeline
   const outcome = detail?.outcome
+  const problem = detail?.problem
+  const solution = detail?.solution
   const context = detail?.context || []
   const responsibilities = detail?.responsibilities || []
   const stack = detail?.stack || {}
@@ -165,16 +167,10 @@ function PortfolioDetail() {
   const flatTechList = useMemo(() => {
     const list = [
       ...(stack.frontend || []),
-      ...(stack.backend || []),
       ...(stack.database || []),
+      ...(stack.backend || []),
     ].filter(Boolean)
-    return [...new Set(list)].slice(0, 6)
-  }, [stack])
-
-  // Overview tech summary (short string)
-  const techSummary = useMemo(() => {
-    const list = [...(stack.frontend || []), ...(stack.backend || []), ...(stack.database || [])]
-    return list.slice(0, 4).join(', ')
+    return [...new Set(list)].slice(0, 8)
   }, [stack])
 
   // Features for Key Features row (4 tiles: use features or derive from responsibilities)
@@ -221,7 +217,7 @@ function PortfolioDetail() {
       )}
       <Header />
       <main className="main">
-        <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="container mx-auto px-6 md:px-10 py-8 max-w-7xl">
           {/* 1. Top project bar */}
           <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200 dark:border-white/10">
             <div className="flex items-center gap-3 flex-wrap">
@@ -250,17 +246,11 @@ function PortfolioDetail() {
           <section className={`mt-8 p-6 rounded-xl border ${cardBg} ${cardBorder}`}>
             <h2 className={`text-xl font-bold mb-3 ${headingClass}`}>Overview</h2>
             <p className={`text-base leading-relaxed ${subTextClass} mb-5`}>{summary}</p>
-            <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-lg ${isDark ? 'bg-white/5' : 'bg-gray-50'} border ${cardBorder}`}>
+            <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-lg ${isDark ? 'bg-white/5' : 'bg-gray-50'} border ${cardBorder}`}>
               {role && (
                 <div>
                   <span className={`font-semibold text-sm ${headingClass}`}>Role: </span>
                   <span className={subTextClass}>{role}</span>
-                </div>
-              )}
-              {techSummary && (
-                <div>
-                  <span className={`font-semibold text-sm ${headingClass}`}>Tech Stack: </span>
-                  <span className={subTextClass}>{techSummary}</span>
                 </div>
               )}
               {timeline && (
@@ -277,13 +267,13 @@ function PortfolioDetail() {
             <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
               <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Problem</h2>
               <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
-                {context[0] || 'Problem statement will be added soon.'}
+                {problem || context[0] || 'Problem statement will be added soon.'}
               </p>
             </div>
             <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
               <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Solution</h2>
               <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
-                {outcome || context[1] || 'Solution details will be added soon.'}
+                {solution || outcome || context[1] || 'Solution details will be added soon.'}
               </p>
             </div>
           </section>
@@ -330,7 +320,7 @@ function PortfolioDetail() {
             </section>
           )}
 
-          {/* 6. Challenges & Solutions rows */}
+          {/* 6. Challenges & Solutions rows (3 columns: title | challenge | solution) */}
           {challengeRows.length > 0 && (
             <section className="mt-8">
               <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Challenges & Solutions</h2>
@@ -338,12 +328,17 @@ function PortfolioDetail() {
                 {challengeRows.map((row, i) => (
                   <div
                     key={row.title + i}
-                    className={`grid grid-cols-1 md:grid-cols-3 gap-3 p-4 ${isDark ? 'odd:bg-white/5 even:bg-white/[0.02]' : 'odd:bg-gray-50 even:bg-white'} border-b border-gray-200 dark:border-white/10 last:border-b-0`}
+                    className={`grid grid-cols-1 md:grid-cols-3 gap-4 p-5 ${isDark ? 'odd:bg-white/5 even:bg-white/[0.02]' : 'odd:bg-gray-50 even:bg-white'} border-b border-gray-200 dark:border-white/10 last:border-b-0`}
                   >
                     <p className={`font-semibold text-sm ${headingClass}`}>{row.title}</p>
-                    <p className={`md:col-span-2 text-sm ${subTextClass}`}>
-                      {row.solution}
-                    </p>
+                    <div className="md:border-l border-gray-200 dark:border-white/10 pl-0 md:pl-4">
+                      <p className={`font-semibold text-xs uppercase tracking-wide mb-1 ${isDark ? 'text-white/70' : 'text-gray-500'}`}>Challenge</p>
+                      <p className={`text-sm leading-relaxed ${subTextClass}`}>{row.challenge ?? '—'}</p>
+                    </div>
+                    <div className="md:border-l border-gray-200 dark:border-white/10 pl-0 md:pl-4">
+                      <p className={`font-semibold text-xs uppercase tracking-wide mb-1 ${isDark ? 'text-white/70' : 'text-gray-500'}`}>Solution</p>
+                      <p className={`text-sm leading-relaxed ${subTextClass}`}>{row.solution}</p>
+                    </div>
                   </div>
                 ))}
               </div>
