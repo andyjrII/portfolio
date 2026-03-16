@@ -3,6 +3,24 @@ import { useParams, Link } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import { projectDetails, portfolioItems } from '../utils/portfolioData'
 import { useTheme } from '../contexts/ThemeContext'
+import {
+  SiReact,
+  SiNestjs,
+  SiPostgresql,
+  SiTailwindcss,
+  SiHtml5,
+  SiJavascript,
+  SiDjango,
+  SiBootstrap,
+  SiNextdotjs,
+  SiTypescript,
+  SiVite,
+  SiPrisma,
+  SiPython,
+  SiGit,
+  SiCloudinary,
+} from 'react-icons/si'
+import { BiCode } from 'react-icons/bi'
 
 function ImageLightbox({ src, alt, onClose }) {
   const handleBackdropClick = (e) => {
@@ -41,38 +59,38 @@ function ImageLightbox({ src, alt, onClose }) {
   )
 }
 
-function Badge({ label }) {
-  return (
-    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-accent/10 text-accent border border-accent/20">
-      {label}
-    </span>
-  )
+// Tech logo map: name or key -> icon component (placeholder-friendly; swap to real logos later)
+const techLogoMap = {
+  React: SiReact,
+  NestJS: SiNestjs,
+  PostgreSQL: SiPostgresql,
+  'Supabase (PostgreSQL)': SiPostgresql,
+  Tailwind: SiTailwindcss,
+  'Tailwind CSS': SiTailwindcss,
+  'Tailwind CSS / custom CSS': SiTailwindcss,
+  HTML: SiHtml5,
+  JavaScript: SiJavascript,
+  CSS: SiHtml5,
+  Django: SiDjango,
+  Bootstrap: SiBootstrap,
+  'Next.js': SiNextdotjs,
+  TypeScript: SiTypescript,
+  Vite: SiVite,
+  Prisma: SiPrisma,
+  'Prisma ORM': SiPrisma,
+  Python: SiPython,
+  'Git / GitHub': SiGit,
+  Git: SiGit,
+  GitHub: SiGit,
+  Cloudinary: SiCloudinary,
 }
 
-function SectionTitle({ title, kicker }) {
-  const { theme } = useTheme()
-  const isDark = theme === 'dark'
+function getTechIcon(techName) {
   return (
-    <div className="flex items-center justify-between gap-4 mb-4">
-      <div>
-        {kicker && <p className="text-xs uppercase tracking-wide text-accent mb-1">{kicker}</p>}
-        <h2 className={`text-2xl font-bold ${isDark ? 'text-white/90' : 'text-heading'}`}>{title}</h2>
-      </div>
-      <div className={`h-px flex-1 ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
-    </div>
-  )
-}
-
-function TextBlockList({ items, className = '' }) {
-  return (
-    <div className={`space-y-4 ${className}`}>
-      {items.map((item) => (
-        <p key={item} className="leading-relaxed">
-          {item}
-        </p>
-      ))}
-      {!items.length && <p className="leading-relaxed">Details coming soon.</p>}
-    </div>
+    techLogoMap[techName] ||
+    techLogoMap[techName.split(' / ')[0]] ||
+    techLogoMap[techName.split(' (')[0]] ||
+    null
   )
 }
 
@@ -81,6 +99,7 @@ function PortfolioDetail() {
   const { theme } = useTheme()
   const isDark = theme === 'dark'
   const [zoomedImage, setZoomedImage] = useState(null)
+  const [screenshotPage, setScreenshotPage] = useState(0)
   const openZoom = useCallback((src) => () => setZoomedImage(src), [])
   const closeZoom = useCallback(() => setZoomedImage(null), [])
 
@@ -124,6 +143,7 @@ function PortfolioDetail() {
   }
 
   const title = detail?.title || fallbackItem?.title || 'Project'
+  const subtitle = detail?.subtitle
   const summary = detail?.summary || 'Project overview coming soon.'
   const role = detail?.role
   const timeline = detail?.timeline
@@ -131,23 +151,68 @@ function PortfolioDetail() {
   const context = detail?.context || []
   const responsibilities = detail?.responsibilities || []
   const stack = detail?.stack || {}
-  const results = detail?.results || []
   const links = detail?.links || {}
   const gallery = detail?.gallery || (fallbackItem ? [fallbackItem.image] : [])
-  const hasVideo = links?.video
-  const headingClass = isDark ? 'text-white/90' : 'text-heading'
-  const subTextClass = isDark ? 'text-white/80' : 'text-gray-700'
-  const cardBg = isDark ? 'bg-white/10' : 'bg-white/80'
-  const cardBorder = isDark ? 'border-white/10' : 'border-gray-100'
-  const outcomeClass = isDark
-    ? 'bg-accent/15 border border-accent/30 text-accent'
-    : 'bg-accent/10 border border-accent/20 text-accent'
-  const codeBtnEnabled = isDark
-    ? 'bg-white/10 text-white border-white/20 hover:bg-white/15'
-    : 'bg-white text-heading border-gray-200 hover:bg-gray-50'
-  const codeBtnDisabled = isDark
-    ? 'bg-white/5 text-white/40 border-white/10 cursor-not-allowed'
-    : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+  const features = detail?.features || []
+  const challenges = detail?.challenges || []
+
+  const headingClass = isDark ? 'text-white' : 'text-heading'
+  const subTextClass = isDark ? 'text-white/80' : 'text-gray-600'
+  const cardBg = isDark ? 'bg-white/5' : 'bg-white'
+  const cardBorder = isDark ? 'border-white/10' : 'border-gray-200'
+
+  // Flatten stack for tech band (first 5–6 primary techs)
+  const flatTechList = useMemo(() => {
+    const list = [
+      ...(stack.frontend || []),
+      ...(stack.backend || []),
+      ...(stack.database || []),
+    ].filter(Boolean)
+    return [...new Set(list)].slice(0, 6)
+  }, [stack])
+
+  // Overview tech summary (short string)
+  const techSummary = useMemo(() => {
+    const list = [...(stack.frontend || []), ...(stack.backend || []), ...(stack.database || [])]
+    return list.slice(0, 4).join(', ')
+  }, [stack])
+
+  // Features for Key Features row (4 tiles: use features or derive from responsibilities)
+  const featureTiles = useMemo(() => {
+    if (features.length >= 4) return features.slice(0, 4)
+    if (features.length > 0) {
+      const pad = responsibilities.slice(0, 4 - features.length).map((text) => ({ title: '', description: text }))
+      return [...features, ...pad].slice(0, 4)
+    }
+    return responsibilities.slice(0, 4).map((text) => ({ title: '', description: text }))
+  }, [features, responsibilities])
+
+  // Challenge rows (title left, solution right)
+  const challengeRows = useMemo(() => {
+    if (challenges.length > 0) return challenges
+    return [
+      { title: 'Challenge 1', solution: detail?.results?.[0] || 'Details coming soon.' },
+      { title: 'Challenge 2', solution: detail?.results?.[1] || 'Details coming soon.' },
+    ].slice(0, 2)
+  }, [challenges, detail?.results])
+
+  const screenshotPages = useMemo(() => {
+    const pages = []
+    for (let i = 0; i < gallery.length; i += 2) {
+      pages.push(gallery.slice(i, i + 2))
+    }
+    return pages
+  }, [gallery])
+
+  const currentScreenshots = screenshotPages[screenshotPage] || []
+
+  const goPrevScreens = () => {
+    setScreenshotPage((prev) => (prev - 1 + screenshotPages.length) % screenshotPages.length)
+  }
+
+  const goNextScreens = () => {
+    setScreenshotPage((prev) => (prev + 1) % screenshotPages.length)
+  }
 
   return (
     <div className="portfolio-details-page">
@@ -156,100 +221,141 @@ function PortfolioDetail() {
       )}
       <Header />
       <main className="main">
-        <div className="container mx-auto px-4 py-12 space-y-12">
-          {/* Hero / Summary */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            <div className="space-y-5">
-              <div className="flex items-center gap-3 flex-wrap">
-                {role && <Badge label={role} />}
-                {timeline && <Badge label={timeline} />}
-              </div>
-              <h1 className={`text-4xl font-bold leading-tight ${headingClass}`}>{title}</h1>
-              <p className={`text-lg leading-relaxed ${subTextClass}`}>{summary}</p>
-              {outcome && (
-                <div className={`p-5 rounded-xl font-semibold leading-relaxed ${outcomeClass}`}>
-                  {outcome}
-                </div>
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
+          {/* 1. Top project bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200 dark:border-white/10">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className={`text-2xl md:text-3xl font-bold ${headingClass}`}>{title}</h1>
+              {subtitle && (
+                <>
+                  <span className="text-gray-400 dark:text-white/50">|</span>
+                  <span className={`text-sm ${subTextClass}`}>{subtitle}</span>
+                </>
               )}
             </div>
-            {/* Hero image */}
-            {gallery?.[0] && (
-              <div className="flex flex-col items-start">
-                <button
-                  type="button"
-                  onClick={openZoom(gallery[0])}
-                  className="w-full text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 rounded-2xl overflow-hidden"
-                >
-                  <img
-                    src={gallery[0]}
-                    alt={title}
-                    className="w-full h-auto max-h-[50vh] block"
-                    loading="lazy"
-                  />
-                </button>
-                <div className="w-full flex gap-3 flex-wrap mt-8 justify-center">
-                  <button
-                    disabled={!hasVideo}
-                    onClick={() => {
-                      if (hasVideo) window.open(links.video, '_blank', 'noopener,noreferrer')
-                    }}
-                    className={`px-5 py-2.5 rounded-lg font-semibold border transition-all duration-200 ${
-                      hasVideo
-                        ? `${codeBtnEnabled} hover:scale-[1.03] hover:shadow-md hover:border-accent/40 active:scale-[0.98]`
-                        : codeBtnDisabled
-                    }`}
-                  >
-                    Video Demo
-                  </button>
-                </div>
-              </div>
+            {links?.demo && (
+              <a
+                href={links.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent text-white font-semibold text-sm hover:bg-accent/90 transition"
+              >
+                <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                Live Demo
+              </a>
             )}
           </div>
 
-          {/* Context & Goals */}
-          <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-3 ${cardBg} ${cardBorder}`}>
-            <SectionTitle title="Context & Goals" />
-            <TextBlockList items={context} className={`${subTextClass} text-lg`} />
-          </div>
-
-          {/* Responsibilities */}
-          <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-3 ${cardBg} ${cardBorder}`}>
-            <SectionTitle title="Responsibilities" />
-            <TextBlockList items={responsibilities} className={`${subTextClass} text-lg`} />
-          </div>
-
-          {/* Stack */}
-          <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-4 ${cardBg} ${cardBorder}`}>
-            <SectionTitle title="Stack & Tools" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.entries(stack).map(([group, items]) => (
-                <div key={group} className="space-y-2">
-                  <p className={`text-sm font-semibold uppercase tracking-wide ${headingClass}`}>
-                    {group}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {items.map((item) => (
-                      <Badge key={item} label={item} />
-                    ))}
-                  </div>
+          {/* 2. Overview band (full width) */}
+          <section className={`mt-8 p-6 rounded-xl border ${cardBg} ${cardBorder}`}>
+            <h2 className={`text-xl font-bold mb-3 ${headingClass}`}>Overview</h2>
+            <p className={`text-base leading-relaxed ${subTextClass} mb-5`}>{summary}</p>
+            <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-lg ${isDark ? 'bg-white/5' : 'bg-gray-50'} border ${cardBorder}`}>
+              {role && (
+                <div>
+                  <span className={`font-semibold text-sm ${headingClass}`}>Role: </span>
+                  <span className={subTextClass}>{role}</span>
                 </div>
-              ))}
-              {!Object.keys(stack).length && <p className="text-gray-600">Details coming soon.</p>}
+              )}
+              {techSummary && (
+                <div>
+                  <span className={`font-semibold text-sm ${headingClass}`}>Tech Stack: </span>
+                  <span className={subTextClass}>{techSummary}</span>
+                </div>
+              )}
+              {timeline && (
+                <div>
+                  <span className={`font-semibold text-sm ${headingClass}`}>Duration: </span>
+                  <span className={subTextClass}>{timeline}</span>
+                </div>
+              )}
             </div>
-          </div>
+          </section>
 
-          {/* Results */}
-          <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-3 ${cardBg} ${cardBorder}`}>
-            <SectionTitle title="Results / Impact" />
-            <TextBlockList items={results} className={`${subTextClass} text-lg`} />
-          </div>
+          {/* 3. The Problem / The Solution row */}
+          <section className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
+              <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Problem</h2>
+              <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
+                {context[0] || 'Problem statement will be added soon.'}
+              </p>
+            </div>
+            <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
+              <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Solution</h2>
+              <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
+                {outcome || context[1] || 'Solution details will be added soon.'}
+              </p>
+            </div>
+          </section>
 
-          {/* Gallery */}
-          {gallery?.length > 1 && (
-            <div className={`p-6 rounded-2xl backdrop-blur border shadow-sm space-y-3 ${cardBg} ${cardBorder}`}>
-              <SectionTitle title="Gallery" />
+          {/* 4. Key Features row (4 tiles) */}
+          {featureTiles.length > 0 && (
+            <section className="mt-8">
+              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Key Features</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {gallery.slice(1).map((src) => (
+                {featureTiles.map((f, i) => (
+                  <div
+                    key={i}
+                    className={`p-4 rounded-xl border flex flex-col items-center text-center ${cardBg} ${cardBorder}`}
+                  >
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-accent/20 text-accent' : 'bg-accent/10 text-accent'}`}>
+                      <i className="bi bi-grid-3x3-gap-fill text-2xl" />
+                    </div>
+                    {f.title && <p className={`font-semibold text-sm mb-1 ${headingClass}`}>{f.title}</p>}
+                    <p className={`text-xs ${subTextClass}`}>{f.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 5. Architecture & Tech Stack band (logos + names) */}
+          {flatTechList.length > 0 && (
+            <section className={`mt-8 p-8 rounded-xl ${isDark ? 'bg-[#0a1628]' : 'bg-heading'} text-white`}>
+              <h2 className="text-xl font-bold mb-6 text-white">Architecture & Tech Stack</h2>
+              <div className="flex flex-wrap justify-center gap-8">
+                {flatTechList.map((tech) => {
+                  const Icon = getTechIcon(tech) || BiCode
+                  const displayName = tech.split(' (')[0].split(' / ')[0]
+                  return (
+                    <div key={tech} className="flex flex-col items-center gap-2">
+                      <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center">
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                      <span className="text-sm font-medium text-white/90">{displayName}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* 6. Challenges & Solutions rows */}
+          {challengeRows.length > 0 && (
+            <section className="mt-8">
+              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Challenges & Solutions</h2>
+              <div className="space-y-0 rounded-xl border overflow-hidden border-gray-200 dark:border-white/10">
+                {challengeRows.map((row, i) => (
+                  <div
+                    key={row.title + i}
+                    className={`grid grid-cols-1 md:grid-cols-3 gap-3 p-4 ${isDark ? 'odd:bg-white/5 even:bg-white/[0.02]' : 'odd:bg-gray-50 even:bg-white'} border-b border-gray-200 dark:border-white/10 last:border-b-0`}
+                  >
+                    <p className={`font-semibold text-sm ${headingClass}`}>{row.title}</p>
+                    <p className={`md:col-span-2 text-sm ${subTextClass}`}>
+                      {row.solution}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* 7. Project Screenshots – carousel (2x2 per slide) */}
+          {screenshotPages.length > 0 && (
+            <section className="mt-8">
+              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Project Screenshots</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {currentScreenshots.map((src) => (
                   <button
                     key={src}
                     type="button"
@@ -259,12 +365,50 @@ function PortfolioDetail() {
                     <img
                       src={src}
                       alt={title}
-                      className="w-full h-auto max-h-64 md:max-h-72 block"
+                      className="w-full h-auto max-h-[260px] object-cover block"
                       loading="lazy"
                     />
                   </button>
                 ))}
               </div>
+              {screenshotPages.length > 1 && (
+                <div className="flex items-center justify-center gap-4 mt-4">
+                  <button
+                    type="button"
+                    onClick={goPrevScreens}
+                    className="w-9 h-9 rounded-full border border-gray-300 dark:border-white/30 flex items-center justify-center text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition"
+                    aria-label="Previous screenshots"
+                  >
+                    <i className="bi bi-chevron-left" />
+                  </button>
+                  <span className={`text-xs ${subTextClass}`}>
+                    {screenshotPage + 1} / {screenshotPages.length}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goNextScreens}
+                    className="w-9 h-9 rounded-full border border-gray-300 dark:border-white/30 flex items-center justify-center text-sm hover:bg-gray-100 dark:hover:bg-white/10 transition"
+                    aria-label="Next screenshots"
+                  >
+                    <i className="bi bi-chevron-right" />
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
+
+          {/* 8. Bottom CTA bar */}
+          {links?.demo && (
+            <div className="mt-8 flex justify-center">
+              <a
+                href={links.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition shadow-md"
+              >
+                <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                View Live Demo
+              </a>
             </div>
           )}
         </div>
@@ -274,4 +418,3 @@ function PortfolioDetail() {
 }
 
 export default PortfolioDetail
-

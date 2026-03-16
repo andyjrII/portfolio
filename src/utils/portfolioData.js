@@ -1,4 +1,4 @@
-// Portfolio items data (featured: 3 projects)
+// Portfolio items data (featured projects)
 export const portfolioItems = [
   {
     id: 1,
@@ -6,7 +6,7 @@ export const portfolioItems = [
     title: 'YiAiki',
     caption: 'On-Demand Errand Marketplace with Real-Time Chat, Bidding & Escrow',
     category: 'web',
-    image: '/assets/img/portfolio/yiaiki.png',
+    image: '/assets/img/portfolio/yiaiki/yiaiki.png',
     detailPage: '/portfolio/yiaiki',
     technologies: ['React', 'NestJS', 'PostgreSQL', 'Tailwind'],
   },
@@ -16,7 +16,7 @@ export const portfolioItems = [
     title: 'SWBC Website',
     caption: 'Church website with CRM, devotionals, bookstore, sermon downloads, and online giving.',
     category: 'web',
-    image: '/assets/img/portfolio/swbc.png',
+    image: '/assets/img/portfolio/swbc/swbc.png',
     detailPage: '/portfolio/swbc',
     technologies: ['HTML', 'JavaScript', 'Django', 'PostgreSQL', 'Bootstrap'],
   },
@@ -26,9 +26,39 @@ export const portfolioItems = [
     title: 'Nerdified',
     caption: 'Live, instructor-led learning platform for courses, scheduling, and real-time classes.',
     category: 'web',
-    image: '/assets/img/portfolio/nerdified.png',
+    image: '/assets/img/portfolio/nerdified/nerdified.png',
     detailPage: '/portfolio/nerdified',
     technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Tailwind', 'TypeScript'],
+  },
+  {
+    id: 4,
+    slug: 'wisssh',
+    title: 'Wisssh',
+    caption: 'Wishlist-style experience for saving and sharing what matters most.',
+    category: 'web',
+    image: '/assets/img/portfolio/wisssh/wisssh.png',
+    detailPage: '/portfolio/wisssh',
+    technologies: ['React', 'NestJS', 'PostgreSQL', 'Tailwind'],
+  },
+  {
+    id: 5,
+    slug: 'campuscart',
+    title: 'CampusCart',
+    caption: 'Campus-focused marketplace for students to buy, sell, and deliver items.',
+    category: 'web',
+    image: '/assets/img/portfolio/campuscart/campuscart.png',
+    detailPage: '/portfolio/campuscart',
+    technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Tailwind'],
+  },
+  {
+    id: 6,
+    slug: 'munai',
+    title: 'MunAI',
+    caption: 'AI-first assistant for everyday productivity, planning, and learning.',
+    category: 'web',
+    image: '/assets/img/portfolio/munai/munai.png',
+    detailPage: '/portfolio/munai',
+    technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind'],
   },
 ]
 
@@ -101,17 +131,19 @@ export const services = [
 
 // Social links
 export const socialLinks = [
-  { name: 'twitter', url: 'https://twitter.com/andyjrii', icon: 'bi-twitter-x' },
-  { name: 'facebook', url: 'https://facebook.com/asjames3', icon: 'bi-facebook' },
-  { name: 'instagram', url: 'https://www.instagram.com/andyjr_ii', icon: 'bi-instagram' },
-  { name: 'linkedin', url: 'https://www.linkedin.com/in/andyjr002', icon: 'bi-linkedin' },
   { name: 'github', url: 'https://github.com/andyjrII', icon: 'bi-github' },
+  { name: 'linkedin', url: 'https://www.linkedin.com/in/andyjr002', icon: 'bi-linkedin' },
+  { name: 'facebook', url: 'https://facebook.com/asjames3', icon: 'bi-facebook' },
+  { name: 'instagram', url: 'https://instagram.com/andyjr_ii', icon: 'bi-instagram' },
+  { name: 'twitter', url: 'https://twitter.com/andyjrii', icon: 'bi-twitter-x' },
+  
 ]
 
 // Project detail data
 export const projectDetails = {
   yiaiki: {
     title: 'YiAiki',
+    subtitle: 'Student Errand Platform',
     role: 'Full-Stack Developer / Indie Hacker',
     timeline: 'Feb 2025 – Present (live, early testing)',
     outcome: 'On-demand errand marketplace with real-time chat, notifications, wallet, bidding & escrow.',
@@ -140,6 +172,38 @@ export const projectDetails = {
       'version control': ['Git / GitHub'],
       hosting: ['Render'],
     },
+    features: [
+      {
+        title: 'Task Listings & Bidding',
+        description: 'Users post errands and receive competitive bids from verified student runners.',
+      },
+      {
+        title: 'Secure Payments & Escrow',
+        description: 'Wallet and escrow flows protect both users and runners during each errand.',
+      },
+      {
+        title: 'Real-Time Chat & Notifications',
+        description: 'In-app messaging and alerts keep everyone in sync from request to completion.',
+      },
+      {
+        title: 'Rating & Reviews',
+        description: 'Users and runners can rate each other after completed errands for trust and quality.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Scalable Backend',
+        challenge: 'Errand lifecycle, bidding, and wallet logic needed to scale with many concurrent users.',
+        solution:
+          'Implemented NestJS with Prisma and PostgreSQL for efficient data management and clear domain boundaries.',
+      },
+      {
+        title: 'Real-Time Updates',
+        challenge: 'Users and runners needed instant visibility into new bids and chat messages.',
+        solution:
+          'Used Socket.IO for real-time messaging, bid notifications, and unread counters so everyone stays in sync.',
+      },
+    ],
     results: [
       'Built and deployed an early-testing version with end-to-end errand, bidding, wallet, and chat features.',
       'In testing: early testers report faster task fulfillment and improved communication flow.',
@@ -153,15 +217,17 @@ export const projectDetails = {
       video: 'https://www.facebook.com/share/v/17XJbzSXDt/',
     },
     gallery: [
-      '/assets/img/portfolio/yiaiki.png',
-      '/assets/img/portfolio/yiaiki1.png',
-      '/assets/img/portfolio/yiaiki2.png',
-      '/assets/img/portfolio/yiaiki3.png',
-      '/assets/img/portfolio/yiaiki4.png',
+      '/assets/img/portfolio/yiaiki/yiaiki.png',
+      '/assets/img/portfolio/yiaiki/yiaiki1.png',
+      '/assets/img/portfolio/yiaiki/yiaiki2.png',
+      '/assets/img/portfolio/yiaiki/yiaiki3.png',
+      '/assets/img/portfolio/yiaiki/yiaiki4.png',
+      '/assets/img/portfolio/yiaiki/yiaiki5.png',
     ],
   },
   swbc: {
     title: 'SWBC Website',
+    subtitle: 'Church Website & Digital Giving',
     role: 'Full Stack Developer',
     timeline: 'January 2024 to present (in testing)',
     outcome: 'A church website with CRM for posting devotionals, book store, sermon downloads, and online giving.',
@@ -188,6 +254,29 @@ export const projectDetails = {
       'version control': ['Git / GitHub'],
       hosting: ['Render'],
     },
+    features: [
+      {
+        title: 'Devotionals & Content Management',
+        description: 'Church administrators publish daily devotionals and updates from a simple dashboard.',
+      },
+      {
+        title: 'Online Bookstore',
+        description: 'Members can browse and purchase books and resources online.',
+      },
+      {
+        title: 'Sermon Downloads & Giving',
+        description: 'Media downloads and Paystack-powered giving support digital ministry.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Unifying content in one place',
+        challenge:
+          'Information, sermons, and devotionals were scattered across different channels with no single source of truth.',
+        solution:
+          'Built a centralized, easy-to-manage site and CMS so the church can publish and organize content in one system.',
+      },
+    ],
     results: [
       'Built a centralized digital platform for church information, sermons, devotionals, and events, ready to replace fragmented communication channels.',
       'Designed to improve member access to sermons and devotionals for spiritual engagement beyond physical services.',
@@ -200,15 +289,16 @@ export const projectDetails = {
       repo: '',
     },
     gallery: [
-      '/assets/img/portfolio/swbc.png',
-      '/assets/img/portfolio/swbc1.png',
-      '/assets/img/portfolio/swbc2.png',
-      '/assets/img/portfolio/swbc3.png',
-      '/assets/img/portfolio/swbc4.png',
+      '/assets/img/portfolio/swbc/swbc.png',
+      '/assets/img/portfolio/swbc/swbc1.png',
+      '/assets/img/portfolio/swbc/swbc2.png',
+      '/assets/img/portfolio/swbc/swbc3.png',
+      '/assets/img/portfolio/swbc/swbc4.png',
     ],
   },
   nerdified: {
     title: 'Nerdified',
+    subtitle: 'Live, Instructor-Led Learning',
     role: 'Full Stack, Indie Hacker',
     timeline: 'February 2024 to present (in development)',
     outcome:
@@ -240,6 +330,28 @@ export const projectDetails = {
       'version control': ['Git / GitHub'],
       hosting: ['Render'],
     },
+    features: [
+      {
+        title: 'Live Classes & Scheduling',
+        description: 'Students book real-time classes with tutors based on availability and time zones.',
+      },
+      {
+        title: 'Multi-Instructor Marketplace',
+        description: 'Tutors create courses, manage pricing, and build audiences in one platform.',
+      },
+      {
+        title: 'Messaging & Notifications',
+        description: 'Real-time chat and alerts keep tutors and learners aligned between sessions.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Balancing flexibility and structure',
+        challenge: 'Both tutors and learners needed flexible schedules without creating conflicts.',
+        solution:
+          'Implemented robust scheduling logic with clear time slots, conflict checks, and time-zone support.',
+      },
+    ],
     results: [
       'Building a live, instructor-led learning marketplace so tutors have one place to create courses and students can book and attend real-time classes.',
       'Designed to let tutors earn through teaching with structured onboarding, scheduling, and payout flows.',
@@ -252,11 +364,110 @@ export const projectDetails = {
       repo: '',
     },
     gallery: [
-      '/assets/img/portfolio/nerdified.png',
-      '/assets/img/portfolio/nerdified1.png',
-      '/assets/img/portfolio/nerdified2.png',
-      '/assets/img/portfolio/nerdified3.png',
-      '/assets/img/portfolio/nerdified4.png',
+      '/assets/img/portfolio/nerdified/nerdified.png',
+      '/assets/img/portfolio/nerdified/nerdified1.png',
+      '/assets/img/portfolio/nerdified/nerdified2.png',
+      '/assets/img/portfolio/nerdified/nerdified3.png',
+      '/assets/img/portfolio/nerdified/nerdified4.png',
+    ],
+  },
+  wisssh: {
+    title: 'Wisssh',
+    subtitle: 'Modern Wishlist & Gifting',
+    role: 'Full-Stack Developer',
+    timeline: 'Details coming soon',
+    outcome: 'A wishlist-style platform for saving, organizing, and sharing things users care about.',
+    summary: 'Wisssh is a modern wishlist experience designed to make it easy to capture, organize, and share items, ideas, and goals with friends, family, or communities.',
+    context: ['Detailed context coming soon.'],
+    responsibilities: ['Detailed responsibilities coming soon.'],
+    stack: {
+      frontend: ['React', 'Tailwind CSS'],
+      backend: ['NestJS'],
+      database: ['PostgreSQL'],
+      integrations: [],
+      'version control': ['Git / GitHub'],
+      hosting: [],
+    },
+    features: [],
+    challenges: [],
+    results: ['Impact and outcomes will be documented soon.'],
+    links: {
+      demo: '',
+      repo: '',
+    },
+    gallery: [
+      '/assets/img/portfolio/wisssh/wisssh.png',
+      '/assets/img/portfolio/wisssh/wisssh1.png',
+      '/assets/img/portfolio/wisssh/wisssh2.png',
+      '/assets/img/portfolio/wisssh/wisssh3.png',
+      '/assets/img/portfolio/wisssh/wisssh4.png',
+      '/assets/img/portfolio/wisssh/wisssh5.png',
+    ],
+  },
+  campuscart: {
+    title: 'CampusCart',
+    subtitle: 'Student Marketplace & Delivery',
+    role: 'Full-Stack Developer',
+    timeline: 'Details coming soon',
+    outcome: 'A campus-focused marketplace where students can buy, sell, and request delivery of items around campus.',
+    summary: 'CampusCart connects students who need items, books, or food with fellow students willing to sell or deliver them across campus.',
+    context: ['Detailed context coming soon.'],
+    responsibilities: ['Detailed responsibilities coming soon.'],
+    stack: {
+      frontend: ['Next.js', 'Tailwind CSS'],
+      backend: ['NestJS'],
+      database: ['PostgreSQL'],
+      integrations: [],
+      'version control': ['Git / GitHub'],
+      hosting: [],
+    },
+    features: [],
+    challenges: [],
+    results: ['Impact and outcomes will be documented soon.'],
+    links: {
+      demo: '',
+      repo: '',
+    },
+    gallery: [
+      '/assets/img/portfolio/campuscart/campuscart.png',
+      '/assets/img/portfolio/campuscart/campuscart1.png',
+      '/assets/img/portfolio/campuscart/campuscart2.png',
+      '/assets/img/portfolio/campuscart/campuscart3.png',
+      '/assets/img/portfolio/campuscart/campuscart4.png',
+      '/assets/img/portfolio/campuscart/campuscart5.png',
+    ],
+  },
+  munai: {
+    title: 'MunAI',
+    subtitle: 'AI Productivity Assistant',
+    role: 'Full-Stack Developer',
+    timeline: 'Details coming soon',
+    outcome: 'An AI-first assistant that helps users plan, learn, and stay productive across tasks.',
+    summary: 'MunAI combines conversational AI with structured tools to help users manage tasks, goals, and learning plans from a single interface.',
+    context: ['Detailed context coming soon.'],
+    responsibilities: ['Detailed responsibilities coming soon.'],
+    stack: {
+      frontend: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+      backend: ['NestJS'],
+      database: ['PostgreSQL'],
+      integrations: [],
+      'version control': ['Git / GitHub'],
+      hosting: [],
+    },
+    features: [],
+    challenges: [],
+    results: ['Impact and outcomes will be documented soon.'],
+    links: {
+      demo: '',
+      repo: '',
+    },
+    gallery: [
+      '/assets/img/portfolio/munai/munai.png',
+      '/assets/img/portfolio/munai/munai1.png',
+      '/assets/img/portfolio/munai/munai2.png',
+      '/assets/img/portfolio/munai/munai3.png',
+      '/assets/img/portfolio/munai/munai4.png',
+      '/assets/img/portfolio/munai/munai5.png',
     ],
   },
 }

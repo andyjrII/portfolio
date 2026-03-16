@@ -75,7 +75,7 @@ function Header() {
       ></i>
       <header
         id="header"
-        className={`header flex flex-col fixed top-0 left-0 bottom-0 w-[260px] p-5 transition-all duration-500 ease-in-out overflow-y-auto z-[997] ${
+        className={`header flex flex-col fixed top-0 left-0 bottom-0 w-[260px] p-2 transition-all duration-500 ease-in-out overflow-y-auto z-[997] ${
           isMenuOpen ? 'header-show' : ''
         } ${
           theme === 'dark'

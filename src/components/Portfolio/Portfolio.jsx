@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useTheme } from '../../contexts/ThemeContext'
 import { portfolioItems, projectDetails } from '../../utils/portfolioData'
 import {
@@ -23,7 +22,6 @@ import {
   SiGit,
   SiPython,
 } from 'react-icons/si'
-import { BiCode } from 'react-icons/bi'
 
 function Portfolio() {
   const isotopeRef = useRef(null)
@@ -274,19 +272,21 @@ function Portfolio() {
                       }`}
                       style={{ scrollbarWidth: 'thin' }}
                     >
-                      {getTechList(item.slug).map((tech) => {
-                        const Icon = getIconForTech(tech) || BiCode
-                        return (
-                          <span
-                            key={tech}
-                            className="inline-flex flex-shrink-0 items-center justify-center w-6 h-6"
-                            title={tech}
-                            aria-label={tech}
-                          >
-                            <Icon className="w-5 h-5" />
-                          </span>
-                        )
-                      })}
+                      {getTechList(item.slug)
+                        .filter((tech) => getIconForTech(tech))
+                        .map((tech) => {
+                          const Icon = getIconForTech(tech)
+                          return (
+                            <span
+                              key={tech}
+                              className="inline-flex flex-shrink-0 items-center justify-center w-6 h-6 cursor-pointer"
+                              title={tech}
+                              aria-label={tech}
+                            >
+                              <Icon className="w-5 h-5" />
+                            </span>
+                          )
+                        })}
                     </div>
                     <div className="flex flex-wrap gap-3 mt-3">
                       {projectDetails[item.slug]?.links?.demo && (
@@ -304,8 +304,10 @@ function Portfolio() {
                           Live Demo
                         </a>
                       )}
-                      <Link
-                        to={item.detailPage}
+                      <a
+                        href={item.detailPage}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         title={`View ${item.title} details`}
                         className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer no-underline ${
                           theme === 'dark'
@@ -315,7 +317,7 @@ function Portfolio() {
                       >
                         <i className="bi bi-info-circle" aria-hidden="true" />
                         Details
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>
