@@ -21,6 +21,8 @@ import {
   SiCloudinary,
   SiGit,
   SiPython,
+  SiPaypal,
+  SiMaildotru,
 } from 'react-icons/si'
 
 function Portfolio() {
@@ -85,6 +87,8 @@ function Portfolio() {
     Socket: SiSocketdotio,
     Render: SiRender,
     Cloudinary: SiCloudinary,
+    Paystack: SiPaypal,
+    Brevio: SiMaildotru,
     'Git / GitHub': SiGit,
     Git: SiGit,
     GitHub: SiGit,
@@ -195,7 +199,7 @@ function Portfolio() {
                 data-aos-delay={200 + index * 100}
               >
                 <div
-                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col ${
+                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col cursor-pointer ${
                     theme === 'dark'
                       ? 'bg-white/10 border border-white/20'
                       : 'bg-white/80 border border-gray-200/50'
@@ -225,6 +229,40 @@ function Portfolio() {
                           : 'from-white/80 via-white/40 to-transparent'
                       } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     ></div>
+                    {/* Hover overlay: Details & Live Demo centered */}
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 ${
+                        theme === 'dark' ? 'bg-black/50' : 'bg-black/40'
+                      }`}
+                    >
+                      {projectDetails[item.slug]?.links?.demo && (
+                        <a
+                          href={projectDetails[item.slug].links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold no-underline text-white bg-gray-900 hover:bg-gray-800 transition-colors shadow-lg"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                          Live Demo
+                        </a>
+                      )}
+                      <a
+                        href={item.detailPage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`View ${item.title} details`}
+                        className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium no-underline transition-colors ${
+                          theme === 'dark'
+                            ? 'bg-white/20 text-white hover:bg-white/30 border border-white/40'
+                            : 'bg-white/90 text-heading hover:bg-white border border-white'
+                        }`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <i className="bi bi-info-circle" aria-hidden="true" />
+                        Details
+                      </a>
+                    </div>
                     {item.caption && (
                       <div
                         className={`absolute bottom-0 left-0 right-0 px-4 py-3 text-sm font-medium z-10 ${
@@ -236,21 +274,6 @@ function Portfolio() {
                         {item.caption}
                       </div>
                     )}
-                  </div>
-
-                  {/* Overlay on hover */}
-                  <div
-                    className={`absolute inset-0 ${
-                      theme === 'dark' ? 'bg-dark-bg/95' : 'bg-white/95'
-                    } backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center flex-col p-6 pb-10 pointer-events-none`}
-                  >
-                    <h4
-                      className={`text-2xl font-bold text-center ${
-                        theme === 'dark' ? 'text-white' : 'text-heading'
-                      }`}
-                    >
-                      {item.title}
-                    </h4>
                   </div>
 
                   {/* Bottom Info Bar */}
@@ -287,37 +310,6 @@ function Portfolio() {
                             </span>
                           )
                         })}
-                    </div>
-                    <div className="flex flex-wrap gap-3 mt-3">
-                      {projectDetails[item.slug]?.links?.demo && (
-                        <a
-                          href={projectDetails[item.slug].links.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer no-underline ${
-                            theme === 'dark'
-                              ? 'text-accent hover:text-accent/80'
-                              : 'text-accent hover:text-accent/90'
-                          } transition-colors`}
-                        >
-                          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                          Live Demo
-                        </a>
-                      )}
-                      <a
-                        href={item.detailPage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={`View ${item.title} details`}
-                        className={`inline-flex items-center gap-1.5 text-sm font-medium cursor-pointer no-underline ${
-                          theme === 'dark'
-                            ? 'text-accent hover:text-accent/80'
-                            : 'text-accent hover:text-accent/90'
-                        } transition-colors`}
-                      >
-                        <i className="bi bi-info-circle" aria-hidden="true" />
-                        Details
-                      </a>
                     </div>
                   </div>
                 </div>

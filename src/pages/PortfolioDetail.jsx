@@ -83,6 +83,8 @@ const techLogoMap = {
   Git: SiGit,
   GitHub: SiGit,
   Cloudinary: SiCloudinary,
+  Paystack: BiCode,
+  Brevio: BiCode,
 }
 
 function getTechIcon(techName) {
@@ -163,14 +165,15 @@ function PortfolioDetail() {
   const cardBg = isDark ? 'bg-white/5' : 'bg-white'
   const cardBorder = isDark ? 'border-white/10' : 'border-gray-200'
 
-  // Flatten stack for tech band (first 5–6 primary techs)
+  // Flatten stack for tech band (frontend, database, backend, integrations)
   const flatTechList = useMemo(() => {
     const list = [
       ...(stack.frontend || []),
       ...(stack.database || []),
       ...(stack.backend || []),
+      ...(stack.integrations || []),
     ].filter(Boolean)
-    return [...new Set(list)].slice(0, 8)
+    return [...new Set(list)].slice(0, 10)
   }, [stack])
 
   // Features for Key Features row (4 tiles: use features or derive from responsibilities)
@@ -299,20 +302,20 @@ function PortfolioDetail() {
             </section>
           )}
 
-          {/* 5. Architecture & Tech Stack band (logos + names) */}
+          {/* 5. Architecture & Tech Stack band (logos + names, up to 10 in one row) */}
           {flatTechList.length > 0 && (
             <section className={`mt-8 p-8 rounded-xl ${isDark ? 'bg-[#0a1628]' : 'bg-heading'} text-white`}>
               <h2 className="text-xl font-bold mb-6 text-white">Architecture & Tech Stack</h2>
-              <div className="flex flex-wrap justify-center gap-8">
+              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-10 gap-4 justify-items-center">
                 {flatTechList.map((tech) => {
                   const Icon = getTechIcon(tech) || BiCode
                   const displayName = tech.split(' (')[0].split(' / ')[0]
                   return (
-                    <div key={tech} className="flex flex-col items-center gap-2">
-                      <div className="w-14 h-14 rounded-xl bg-white/10 flex items-center justify-center">
-                        <Icon className="w-8 h-8 text-white" />
+                    <div key={tech} className="flex flex-col items-center gap-1.5">
+                      <div className="w-11 h-11 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <span className="text-sm font-medium text-white/90">{displayName}</span>
+                      <span className="text-xs font-medium text-white/90 text-center leading-tight">{displayName}</span>
                     </div>
                   )
                 })}

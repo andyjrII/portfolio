@@ -144,7 +144,7 @@ export const projectDetails = {
   yiaiki: {
     title: 'YiAiki',
     subtitle: 'On-demand errand platform connecting users with verified student runners.',
-    role: 'Full-Stack Developer / Indie Hacker',
+    role: 'Full-Stack Developer',
     timeline: 'Feb 2025 – March, 2026 (Live)',
     outcome: 'On-demand errand marketplace with real-time chat, notifications, wallet, bidding & escrow.',
     problem:
@@ -165,16 +165,16 @@ export const projectDetails = {
       'Built the entire frontend (React + Vite): dashboards for users/runners, chat UI, errand creation, bid management.',
       'Integrated Socket.IO for real-time messaging, bid notifications, and unread counters.',
       'Developed wallet top-up, balance checks, escrow release workflows.',
-      'Implemented secure file uploads (user images, runner IDs) via Cloudinary; email notifications via SendGrid.',
+      'Implemented secure file uploads (user images, runner IDs) via Cloudinary.',
       'Managed infra, deployment, DB schema, cron jobs, monitoring; ongoing QA and iteration during early testing.',
     ],
     stack: {
-      frontend: ['React', 'Vite', 'Tailwind CSS / custom CSS'],
-      backend: ['NestJS', 'REST API', 'Socket.IO', 'JWT Authentication', 'Cron Jobs'],
-      database: ['Supabase (PostgreSQL)', 'Prisma ORM'],
-      integrations: ['Cloudinary (file uploads)', 'SendGrid (email notifications)', 'In-app notifications (real-time)'],
+      frontend: ['React', 'Vite', 'TypeScript', 'Tailwind CSS / custom CSS'],
+      backend: ['NestJS', 'Socket.IO', 'JWT'],
+      database: ['PostgreSQL', 'Prisma ORM'],
+      integrations: ['Paystack (payments)', 'Cloudinary (file uploads)', 'Brevio (email)'],
       'version control': ['Git / GitHub'],
-      hosting: ['Render'],
+      hosting: [],
     },
     features: [
       {
@@ -233,12 +233,16 @@ export const projectDetails = {
   },
   swbc: {
     title: 'SWBC Website',
-    subtitle: 'Church Website & Digital Giving',
+    subtitle: 'A church platform for sermons, devotionals, and spiritual resources.',
     role: 'Full Stack Developer',
-    timeline: 'January 2024 to present (in testing)',
+    timeline: 'January 2024 to February 2026 (in testing)',
     outcome: 'A church website with CRM for posting devotionals, book store, sermon downloads, and online giving.',
+    problem:
+      'The church needed a centralized digital platform to share sermons, devotionals, and announcements while also providing members with access to spiritual resources and ways to support the ministry online.',
+    solution:
+      'Built a modern church website with an integrated admin system for publishing devotionals, managing sermon downloads, selling books, and enabling online giving, making it easier for the church to engage its community digitally.',
     summary:
-      'SWBC (Soul Winning Believers Church) is a church website designed to showcase the ministry, service times, gallery, and news & events, while also providing features such as devotionals management, sermon downloads, an online bookstore, and secure online giving to support digital ministry and member engagement.',
+      'SWBC (Soul Winning Believers Church) website is a church website designed to showcase the ministry, service times, gallery, and news & events, while also providing features such as devotionals management, sermon downloads, an online bookstore, and secure online giving to support digital ministry and member engagement.',
     context: [
       'Church needed a professional online presence to share service times, beliefs, and events.',
       'Required a CRM for posting of devotionals and manage content.',
@@ -270,17 +274,28 @@ export const projectDetails = {
         description: 'Members can browse and purchase books and resources online.',
       },
       {
-        title: 'Sermon Downloads & Giving',
-        description: 'Media downloads and Paystack-powered giving support digital ministry.',
+        title: 'Sermon Downloads',
+        description: 'Media downloads support digital ministry, with sermon files stored on Cloudinary.',
+      },
+      {
+        title: 'Online Giving',
+        description: 'Paystack-powered giving enables members to support the ministry online.',
       },
     ],
     challenges: [
       {
-        title: 'Unifying content in one place',
+        title: 'Centralized Content Management',
         challenge:
-          'Information, sermons, and devotionals were scattered across different channels with no single source of truth.',
+          'Sermons, devotionals, and church information were spread across different platforms, making updates difficult and content hard to locate.',
         solution:
-          'Built a centralized, easy-to-manage site and CMS so the church can publish and organize content in one system.',
+          'Built a centralized website and CMS that allows administrators to manage and publish all church content from one platform.',
+      },
+      {
+        title: 'Managing Sermon Distribution',
+        challenge:
+          'The church needed a reliable way to publish and distribute sermon recordings for members who could not attend services.',
+        solution:
+          'Implemented a structured sermon archive with downloadable audio messages, allowing members to easily access and download teachings.',
       },
     ],
     results: [
@@ -300,6 +315,7 @@ export const projectDetails = {
       '/assets/img/portfolio/swbc/swbc2.png',
       '/assets/img/portfolio/swbc/swbc3.png',
       '/assets/img/portfolio/swbc/swbc4.png',
+      '/assets/img/portfolio/swbc/swbc5.png',
     ],
   },
   nerdified: {
@@ -334,7 +350,7 @@ export const projectDetails = {
       realTime: ['WebSockets (chat)', 'LiveKit (video)', 'Redis'],
       integrations: ['Paystack (payments)', 'Cloudinary'],
       'version control': ['Git / GitHub'],
-      hosting: ['Render'],
+      hosting: [],
     },
     features: [
       {
