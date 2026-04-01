@@ -34,7 +34,7 @@ export const portfolioItems = [
     id: 4,
     slug: 'wisssh',
     title: 'Wisssh',
-    caption: 'Wishlist-style experience for saving and sharing what matters most.',
+    caption: 'A special moment gifting platform, one page, one link, gifts that match the moment.',
     category: 'web',
     image: '/assets/img/portfolio/wisssh/wisssh.png',
     detailPage: '/portfolio/wisssh',
@@ -395,26 +395,81 @@ export const projectDetails = {
   },
   wisssh: {
     title: 'Wisssh',
-    subtitle: 'Modern Wishlist & Gifting',
+    subtitle: 'A structured gifting/celebration coordination platform.',
     role: 'Full-Stack Developer',
-    timeline: 'Details coming soon',
-    outcome: 'A wishlist-style platform for saving, organizing, and sharing things users care about.',
-    summary: 'Wisssh is a modern wishlist experience designed to make it easy to capture, organize, and share items, ideas, and goals with friends, family, or communities.',
-    context: ['Detailed context coming soon.'],
+    timeline: 'March 2026 – March 2026 (Live)',
+    outcome:
+      'A single-page moment hub for weddings, birthdays, graduations, baby showers, naming ceremonies, retirement parties, and more.',
+    problem:
+      'During special occasions like weddings, birthdays, and baby showers, gift coordination is often fragmented across chats and conversations, leading to repeated explanations, unclear expectations, and uncoordinated gifting.',
+    solution:
+      'Wisssh provides a single, shareable page where hosts can present their celebration, list gift wishes or contribution goals, and allow guests to support the moment in a clear and organized way.',
+    summary:
+      'Wisssh helps you create a single page for weddings, birthdays, graduations, baby showers, naming ceremonies, retirement parties, and more. Instead of explaining gift preferences across messages, you share one link and let loved ones support the moment in a way that feels thoughtful.',
+    context: [
+      'Gift preferences and contribution goals are often scattered across chats, leading to confusion and repeated explanations.',
+      'Wisssh centralizes celebration details, wishes, and giving into one link that is easy to share and easy to understand.',
+    ],
     responsibilities: ['Detailed responsibilities coming soon.'],
     stack: {
-      frontend: ['React', 'Tailwind CSS'],
-      backend: ['NestJS'],
-      database: ['PostgreSQL'],
-      integrations: [],
+      frontend: ['TypeScript', 'Next.js', 'Tailwind CSS'],
+      backend: ['Node.js', 'Socket.IO', 'JWT'],
+      database: ['Prisma', 'PostgreSQL'],
+      integrations: ['Cloudinary', 'Paystack'],
       'version control': ['Git / GitHub'],
       hosting: [],
     },
-    features: [],
-    challenges: [],
+    features: [
+      {
+        title: 'Shareable Moment Pages',
+        description: 'Create a celebration page with a custom slug and share one link anywhere.',
+      },
+      {
+        title: 'Wishlist & Gift Curation',
+        description: 'Add gift ideas with external links—product details are auto-extracted into a clean wishlist.',
+      },
+      {
+        title: 'Contribution & Wallet System',
+        description: 'Guests contribute on-platform; funds are held securely and withdrawable by the host.',
+      },
+      {
+        title: 'Event Updates & Communication',
+        description: 'Post updates to keep guests informed and reduce repeated messages across channels.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Structured gifting from unstructured inputs',
+        challenge:
+          'Users can add gift ideas from anywhere (external product links), which are unstructured and inconsistent in format.',
+        solution:
+          'Implemented link parsing and normalization to extract key product details (title, image, price) into a consistent wishlist format for a uniform experience.',
+      },
+      {
+        title: 'Managing contributions & fund integrity',
+        challenge:
+          'Monetary contributions require accurate tracking, consistency, and secure withdrawals without balance conflicts.',
+        solution:
+          'Designed a wallet system with transaction tracking and balance computation so contributions are reliably recorded and funds can be safely withdrawn by the host.',
+      },
+      {
+        title: 'Shareable, collision-free moment links',
+        challenge:
+          'Each moment needs a unique, shareable URL while preventing collisions (duplicate slugs) and broken links.',
+        solution:
+          'Implemented slug generation and validation to enforce uniqueness and keep moment pages stable and easy to share.',
+      },
+      {
+        title: 'Centralizing distributed interactions',
+        challenge:
+          'Wishes, updates, and contributions can become fragmented across channels, creating coordination issues and poor UX.',
+        solution:
+          'Designed a unified data model that brings all moment activity into a single page so hosts and guests can manage everything in one structured interface.',
+      },
+    ],
     results: ['Impact and outcomes will be documented soon.'],
     links: {
-      demo: '',
+      demo: 'https://wisssh.vercel.app',
       repo: '',
     },
     gallery: [
@@ -428,26 +483,77 @@ export const projectDetails = {
   },
   campuscart: {
     title: 'CampusCart',
-    subtitle: 'Student Marketplace & Delivery',
+    subtitle: 'Campus-focused marketplace with integrated peer-to-peer commerce and delivery.',
     role: 'Full-Stack Developer',
-    timeline: 'Details coming soon',
+    timeline: 'February 2026 – Present (Ongoing)',
     outcome: 'A campus-focused marketplace where students can buy, sell, and request delivery of items around campus.',
-    summary: 'CampusCart connects students who need items, books, or food with fellow students willing to sell or deliver them across campus.',
+    problem:
+      'Students often need to buy, sell, or request services within their campus, but existing options are fragmented—relying on informal chats, social media groups, or external marketplaces that are not tailored to the campus environment. This leads to poor visibility, lack of trust, and difficulty coordinating transactions and deliveries.',
+    solution:
+      'CampusCart provides a centralized platform where students can list products or services, discover offers within their campus, and complete transactions in a structured way. By also enabling students to act as delivery agents, the platform introduces a localized logistics layer that makes it easier to fulfill orders efficiently within the campus community.',
+    summary:
+      'CampusCart is a campus-focused marketplace that enables students to buy and sell products or services within their school environment, while also supporting a student-powered delivery system. It simplifies peer-to-peer commerce by bringing listings, communication, and order fulfillment into a single flow—students can create product or service listings, browse offers within their campus, and connect with others to complete transactions.',
     context: ['Detailed context coming soon.'],
     responsibilities: ['Detailed responsibilities coming soon.'],
     stack: {
       frontend: ['Next.js', 'Tailwind CSS'],
-      backend: ['NestJS'],
-      database: ['PostgreSQL'],
-      integrations: [],
+      backend: ['NestJS', 'Socket.IO', 'JWT'],
+      database: ['PostgreSQL', 'Prisma'],
+      integrations: ['Paystack', 'Cloudinary'],
       'version control': ['Git / GitHub'],
       hosting: [],
     },
-    features: [],
-    challenges: [],
+    features: [
+      {
+        title: 'Campus-Restricted Marketplace',
+        description: 'Discovery and listings tailored to a student’s campus for relevance and trust.',
+      },
+      {
+        title: 'Products + Services Listings',
+        description: 'Support for both physical items and service offerings under one catalog.',
+      },
+      {
+        title: 'Secure Checkout & Payments',
+        description: 'Cart and checkout flow with protected payments to reduce friction and fraud.',
+      },
+      {
+        title: 'Student-Powered Delivery',
+        description: 'On-campus delivery handled by students for fast, localized order fulfillment.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Multi-Role System (Buyers, Sellers, Delivery Agents)',
+        challenge:
+          'The platform needed to support different user roles (buyers, sellers, and delivery agents), each with distinct permissions and workflows, without creating tightly coupled logic.',
+        solution:
+          'Designed a role-based system that separates user capabilities (listing products/services, purchasing, delivering) while sharing a unified account structure, ensuring flexibility and scalability as new roles or features are introduced.',
+      },
+      {
+        title: 'Handling Both Products and Services',
+        challenge:
+          'Unlike typical marketplaces that focus only on physical goods, the platform needed to support both products and services, which have different data structures and transaction flows.',
+        solution:
+          'Implemented a flexible listing model that accommodates both product-based and service-based entries, allowing consistent browsing and interaction while supporting different use cases under a unified system.',
+      },
+      {
+        title: 'Coordinating Peer-to-Peer Delivery',
+        challenge:
+          'Transactions required a way to handle delivery between students without relying on external logistics providers, while ensuring coordination between buyer, seller, and delivery agent.',
+        solution:
+          'Introduced a delivery agent system where students can opt in to handle deliveries, enabling a decentralized logistics layer and allowing orders to be fulfilled within the campus ecosystem.',
+      },
+      {
+        title: 'Trust & Safety in a Closed Marketplace',
+        challenge:
+          'Peer-to-peer marketplaces often face trust issues, especially when users are transacting directly.',
+        solution:
+          'Designed the platform around a campus-restricted model, where users are part of the same environment, reducing risk and improving trust through shared context and controlled access.',
+      },
+    ],
     results: ['Impact and outcomes will be documented soon.'],
     links: {
-      demo: '',
+      demo: 'https://campus-cart-web.vercel.app/',
       repo: '',
     },
     gallery: [

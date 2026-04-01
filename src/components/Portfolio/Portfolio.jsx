@@ -185,7 +185,7 @@ function Portfolio() {
           data-sort="original-order"
         >
           <div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 isotope-container"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 isotope-container"
             style={{ display: 'grid' }}
             data-aos="fade-up"
             data-aos-delay="200"
@@ -229,51 +229,38 @@ function Portfolio() {
                           : 'from-white/80 via-white/40 to-transparent'
                       } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     ></div>
-                    {/* Hover overlay: Details & Live Demo centered */}
-                    <div
-                      className={`absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 ${
-                        theme === 'dark' ? 'bg-black/50' : 'bg-black/40'
-                      }`}
-                    >
-                      {projectDetails[item.slug]?.links?.demo && (
+                    {/* Hover actions (moved to where description used to be) */}
+                    <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex items-center justify-center gap-3">
+                        {projectDetails[item.slug]?.links?.demo && (
+                          <a
+                            href={projectDetails[item.slug].links.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold no-underline text-white bg-gray-900 hover:bg-gray-800 transition-colors shadow-lg"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                            Live
+                          </a>
+                        )}
                         <a
-                          href={projectDetails[item.slug].links.demo}
+                          href={item.detailPage}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold no-underline text-white bg-gray-900 hover:bg-gray-800 transition-colors shadow-lg"
+                          title={`View ${item.title} details`}
+                          className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium no-underline transition-colors shadow-lg ${
+                            theme === 'dark'
+                              ? 'bg-white/20 text-white hover:bg-white/30 border border-white/40'
+                              : 'bg-white/90 text-heading hover:bg-white border border-white'
+                          }`}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                          Live Demo
+                          <i className="bi bi-info-circle" aria-hidden="true" />
+                          Details
                         </a>
-                      )}
-                      <a
-                        href={item.detailPage}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={`View ${item.title} details`}
-                        className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium no-underline transition-colors ${
-                          theme === 'dark'
-                            ? 'bg-white/20 text-white hover:bg-white/30 border border-white/40'
-                            : 'bg-white/90 text-heading hover:bg-white border border-white'
-                        }`}
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <i className="bi bi-info-circle" aria-hidden="true" />
-                        Details
-                      </a>
-                    </div>
-                    {item.caption && (
-                      <div
-                        className={`absolute bottom-0 left-0 right-0 px-4 py-3 text-sm font-medium z-10 ${
-                          theme === 'dark'
-                            ? 'bg-dark-bg/90 text-white/95'
-                            : 'bg-black/70 text-white'
-                        }`}
-                      >
-                        {item.caption}
                       </div>
-                    )}
+                    </div>
                   </div>
 
                   {/* Bottom Info Bar */}
@@ -289,28 +276,9 @@ function Portfolio() {
                     >
                       {item.title}
                     </h5>
-                    <div
-                      className={`flex flex-nowrap gap-1.5 mt-1.5 items-center overflow-x-auto ${
-                        theme === 'dark' ? 'text-white/60' : 'text-gray-600'
-                      }`}
-                      style={{ scrollbarWidth: 'thin' }}
-                    >
-                      {getTechList(item.slug)
-                        .filter((tech) => getIconForTech(tech))
-                        .map((tech) => {
-                          const Icon = getIconForTech(tech)
-                          return (
-                            <span
-                              key={tech}
-                              className="inline-flex flex-shrink-0 items-center justify-center w-6 h-6 cursor-pointer"
-                              title={tech}
-                              aria-label={tech}
-                            >
-                              <Icon className="w-5 h-5" />
-                            </span>
-                          )
-                        })}
-                    </div>
+                    <p className={`mt-2 text-xs leading-relaxed ${theme === 'dark' ? 'text-white/75' : 'text-gray-600'}`}>
+                      {item.caption || '—'}
+                    </p>
                   </div>
                 </div>
               </div>

@@ -19,8 +19,10 @@ import {
   SiPython,
   SiGit,
   SiCloudinary,
+  SiNodedotjs,
+  SiSocketdotio,
 } from 'react-icons/si'
-import { BiCode } from 'react-icons/bi'
+import { BiCode, BiKey, BiSolidCreditCard } from 'react-icons/bi'
 
 function ImageLightbox({ src, alt, onClose }) {
   const handleBackdropClick = (e) => {
@@ -78,12 +80,15 @@ const techLogoMap = {
   Vite: SiVite,
   Prisma: SiPrisma,
   'Prisma ORM': SiPrisma,
+  'Node.js': SiNodedotjs,
+  'Socket.IO': SiSocketdotio,
+  JWT: BiKey,
   Python: SiPython,
   'Git / GitHub': SiGit,
   Git: SiGit,
   GitHub: SiGit,
   Cloudinary: SiCloudinary,
-  Paystack: BiCode,
+  Paystack: BiSolidCreditCard,
   Brevio: BiCode,
 }
 
@@ -240,7 +245,7 @@ function PortfolioDetail() {
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent text-white font-semibold text-sm hover:bg-accent/90 transition"
               >
                 <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                Live Demo
+                Live
               </a>
             )}
           </div>
@@ -405,7 +410,7 @@ function PortfolioDetail() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition shadow-md"
               >
                 <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                View Live Demo
+                View Live
               </a>
             </div>
           )}
