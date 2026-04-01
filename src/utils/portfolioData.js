@@ -54,7 +54,7 @@ export const portfolioItems = [
     id: 6,
     slug: 'munai',
     title: 'MunAI',
-    caption: 'AI-first assistant for everyday productivity, planning, and learning.',
+    caption: 'AI voice transcriptions, live captions, voiceovers, and real-time voice Q&A—one platform.',
     category: 'web',
     image: '/assets/img/portfolio/munai/munai.png',
     detailPage: '/portfolio/munai',
@@ -567,26 +567,77 @@ export const projectDetails = {
   },
   munai: {
     title: 'MunAI',
-    subtitle: 'AI Productivity Assistant',
+    subtitle: 'AI transcription, live captioning, voiceovers, and real-time voice Q&A.',
     role: 'Full-Stack Developer',
-    timeline: 'Details coming soon',
+    timeline: 'December 2025 – February 2026 (Live)',
     outcome: 'An AI-first assistant that helps users plan, learn, and stay productive across tasks.',
-    summary: 'MunAI combines conversational AI with structured tools to help users manage tasks, goals, and learning plans from a single interface.',
+    problem:
+      'Creators, students, teams, and media houses waste hours manually transcribing audio/video, creating subtitles, or generating voiceovers across separate tools. Live events also need low-latency captions, and once text exists, users still struggle to quickly extract meaning, action items, or answers—especially hands-free.',
+    solution:
+      'MunAI consolidates transcription, live captioning, and text-to-speech into one platform with fast processing and export formats (TXT/SRT/VTT). After generating transcripts or voiceovers, it adds real-time voice Q&A so users can ask questions out loud and get instant clarification without switching apps.',
+    summary:
+      'MunAI is an AI audio platform for fast, accurate transcription and accessibility. Users can upload audio/video to generate transcripts with speaker labels and exports (TXT, SRT, VTT), run real-time live captioning for streams and events, and produce natural voiceovers with text-to-speech. After generating a transcript or voiceover, MunAI also enables low-latency voice Q&A so users can ask questions out loud and get instant answers—without switching tools.',
     context: ['Detailed context coming soon.'],
     responsibilities: ['Detailed responsibilities coming soon.'],
     stack: {
-      frontend: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      backend: ['NestJS'],
-      database: ['PostgreSQL'],
-      integrations: [],
+      frontend: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Redux'],
+      backend: ['NestJS', 'JWT', 'OpenAI'],
+      database: ['Prisma', 'PostgreSQL'],
+      integrations: ['Redis'],
       'version control': ['Git / GitHub'],
       hosting: [],
     },
-    features: [],
-    challenges: [],
+    features: [
+      {
+        title: 'Batch Transcription + Exports',
+        description: 'Convert audio/video to text with speaker labels, timestamps, and exports (TXT/SRT/VTT).',
+      },
+      {
+        title: 'Live Captioning',
+        description: 'Real-time captions for streams and events with low latency.',
+      },
+      {
+        title: 'Text-to-Speech Voiceovers',
+        description: 'Generate natural voiceovers for content, ads, and e-learning in minutes.',
+      },
+      {
+        title: 'Talk to the AI — Out Loud',
+        description: 'Ask questions via voice after transcription or TTS and get instant answers hands-free.',
+      },
+    ],
+    challenges: [
+      {
+        title: 'Low-latency live captioning',
+        challenge:
+          'Live captions must feel real-time for streams and events while handling noisy audio and variable network conditions.',
+        solution:
+          'Designed a streaming pipeline that incrementally processes audio and updates captions continuously, prioritizing fast partial results with stable final text.',
+      },
+      {
+        title: 'Accurate, readable transcripts at scale',
+        challenge:
+          'Raw speech-to-text output can be hard to use without structure (speaker labels, timestamps) and must remain reliable across long recordings.',
+        solution:
+          'Implemented structured transcript generation with speaker labeling and time alignment, producing clean outputs that stay usable for review and sharing.',
+      },
+      {
+        title: 'Exports and downstream compatibility',
+        challenge:
+          'Users need transcripts and captions to work across editors and platforms (subtitles, notes, sharing) without manual reformatting.',
+        solution:
+          'Added standardized exports (TXT/SRT/VTT) and consistent formatting so outputs plug into common workflows immediately.',
+      },
+      {
+        title: 'Voice Q&A without switching context',
+        challenge:
+          'After transcription or voiceover, users still need a fast way to ask questions and get clarity—hands-free—without jumping between tools.',
+        solution:
+          'Integrated real-time voice Q&A tied to each transcript/asset, enabling low-friction follow-up questions and instant answers from the same workflow.',
+      },
+    ],
     results: ['Impact and outcomes will be documented soon.'],
     links: {
-      demo: '',
+      demo: 'https://www.munai.dev/',
       repo: '',
     },
     gallery: [

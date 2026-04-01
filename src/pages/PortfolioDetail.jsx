@@ -21,6 +21,9 @@ import {
   SiCloudinary,
   SiNodedotjs,
   SiSocketdotio,
+  SiRedux,
+  SiOpenai,
+  SiRedis,
 } from 'react-icons/si'
 import { BiCode, BiKey, BiSolidCreditCard } from 'react-icons/bi'
 
@@ -90,6 +93,9 @@ const techLogoMap = {
   Cloudinary: SiCloudinary,
   Paystack: BiSolidCreditCard,
   Brevio: BiCode,
+  Redux: SiRedux,
+  OpenAI: SiOpenai,
+  Redis: SiRedis,
 }
 
 function getTechIcon(techName) {

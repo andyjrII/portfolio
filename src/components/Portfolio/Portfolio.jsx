@@ -230,7 +230,7 @@ function Portfolio() {
                       } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
                     ></div>
                     {/* Hover actions (moved to where description used to be) */}
-                    <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                       <div className="flex items-center justify-center gap-3">
                         {projectDetails[item.slug]?.links?.demo && (
                           <a
