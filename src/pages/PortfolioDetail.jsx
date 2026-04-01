@@ -214,6 +214,10 @@ function PortfolioDetail() {
     return pages
   }, [gallery])
 
+  const otherProjects = useMemo(() => {
+    return portfolioItems.filter((p) => p.slug !== slug)
+  }, [slug])
+
   const currentScreenshots = screenshotPages[screenshotPage] || []
 
   const goPrevScreens = () => {
@@ -419,6 +423,37 @@ function PortfolioDetail() {
                 View Live
               </a>
             </div>
+          )}
+
+          {/* 9. Other Projects */}
+          {otherProjects.length > 0 && (
+            <section className="mt-10">
+              <div className="flex items-end justify-between gap-4 mb-4">
+                <h2 className={`text-xl font-bold ${headingClass}`}>Other Projects</h2>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                {otherProjects.map((p) => (
+                  <Link
+                    key={p.slug}
+                    to={p.detailPage}
+                    className={`group rounded-xl overflow-hidden border ${cardBorder} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-white hover:bg-gray-50'} transition`}
+                  >
+                    <div className="relative overflow-hidden bg-gray-200">
+                      <img
+                        src={p.image}
+                        alt={p.title}
+                        className="w-full h-28 sm:h-32 lg:h-28 object-cover block transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="p-3">
+                      <p className={`font-semibold text-sm ${headingClass}`}>{p.title}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
           )}
         </div>
       </main>
