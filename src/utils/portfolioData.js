@@ -12,6 +12,16 @@ export const portfolioItems = [
   },
   {
     id: 2,
+    slug: 'wisssh',
+    title: 'Wisssh',
+    caption: 'A special moment gifting platform, one page, one link, gifts that match the moment.',
+    category: 'web',
+    image: '/assets/img/portfolio/wisssh/wisssh.png',
+    detailPage: '/portfolio/wisssh',
+    technologies: ['React', 'NestJS', 'PostgreSQL', 'Tailwind'],
+  },
+  {
+    id: 3,
     slug: 'swbc',
     title: 'SWBC Website',
     caption: 'Church website with CRM, devotionals, bookstore, sermon downloads, and online giving.',
@@ -21,7 +31,7 @@ export const portfolioItems = [
     technologies: ['HTML', 'JavaScript', 'Django', 'PostgreSQL', 'Bootstrap'],
   },
   {
-    id: 3,
+    id: 4,
     slug: 'nerdified',
     title: 'Nerdified',
     caption: 'Live, instructor-led learning platform for courses, scheduling, and real-time classes.',
@@ -29,16 +39,6 @@ export const portfolioItems = [
     image: '/assets/img/portfolio/nerdified/nerdified.png',
     detailPage: '/portfolio/nerdified',
     technologies: ['Next.js', 'NestJS', 'PostgreSQL', 'Tailwind', 'TypeScript'],
-  },
-  {
-    id: 4,
-    slug: 'wisssh',
-    title: 'Wisssh',
-    caption: 'A special moment gifting platform, one page, one link, gifts that match the moment.',
-    category: 'web',
-    image: '/assets/img/portfolio/wisssh/wisssh.png',
-    detailPage: '/portfolio/wisssh',
-    technologies: ['React', 'NestJS', 'PostgreSQL', 'Tailwind'],
   },
   {
     id: 5,
@@ -469,7 +469,7 @@ export const projectDetails = {
     ],
     results: ['Impact and outcomes will be documented soon.'],
     links: {
-      demo: 'https://wisssh.vercel.app',
+      demo: 'https://www.wisssh.com',
       repo: '',
     },
     gallery: [
