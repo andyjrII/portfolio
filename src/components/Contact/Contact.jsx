@@ -23,7 +23,6 @@ function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission delay
     setTimeout(() => {
       const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(
         formData.subject
@@ -43,82 +42,86 @@ function Contact() {
     { icon: 'bi-envelope', label: 'Email', value: personalInfo.email },
   ]
 
+  const inputClass = `w-full px-3 py-2.5 text-sm rounded-lg border transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent ${
+    theme === 'dark'
+      ? 'bg-white/10 border-white/20 text-white placeholder-white/50 focus:bg-white/15'
+      : 'bg-white border-gray-300 text-gray-900 focus:bg-white'
+  }`
+
+  const labelClass = `block mb-1.5 text-sm font-semibold ${
+    theme === 'dark' ? 'text-white' : 'text-heading'
+  }`
+
   return (
     <section
       id="contact"
-      className={`contact section py-20 ${
+      className={`contact section py-16 md:py-20 ${
         theme === 'dark' ? 'bg-dark-bg' : 'bg-gradient-to-b from-gray-50 to-white'
       }`}
     >
       <div className="container mx-auto px-4 section-title" data-aos="fade-up">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <span
-            className={`inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4 ${
+            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 tracking-wide ${
               theme === 'dark'
-                ? 'bg-accent/20 text-accent border border-accent/30'
+                ? 'bg-accent/20 text-accent-400 border border-accent-400/30'
                 : 'bg-accent/10 text-accent border border-accent/20'
             }`}
           >
             Get In Touch
           </span>
           <h2
-            className={`text-4xl lg:text-5xl font-bold mb-6 ${
+            className={`text-3xl md:text-4xl font-bold mb-4 tracking-tight ${
               theme === 'dark' ? 'text-white' : 'text-heading'
             }`}
           >
             Let's Work Together
           </h2>
-          <div
-            className={`w-24 h-1 mx-auto rounded-full ${
-              theme === 'dark' ? 'bg-accent' : 'bg-accent'
-            }`}
-          ></div>
+          <div className="w-16 h-0.5 mx-auto rounded-full bg-accent dark:bg-accent-400" />
         </div>
         <p
-          className={`max-w-3xl mx-auto text-center text-lg ${
-            theme === 'dark' ? 'text-white/80' : 'text-gray-600'
+          className={`max-w-2xl mx-auto text-center text-base ${
+            theme === 'dark' ? 'text-white/90' : 'text-gray-600'
           }`}
         >
-          Have questions or need assistance with a project? I'm here to help! Whether you're
-          looking to build a website, require technical support, or are interested in mentorship
-          or training, feel free to reach out.
+          Got a project in mind, or just want to talk shop? I read every message.
         </p>
       </div>
 
-      <div className="container mx-auto px-4 mt-16" data-aos="fade-up" data-aos-delay="100">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="container mx-auto px-4 mt-10" data-aos="fade-up" data-aos-delay="100">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-6xl mx-auto">
           {/* Contact Info Cards */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-3">
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className={`p-6 rounded-xl backdrop-blur-md border transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 ${
+                className={`p-4 rounded-xl border transition-colors duration-300 ${
                   theme === 'dark'
-                    ? 'bg-white/10 border-white/20 hover:bg-white/15 hover:border-accent/30'
-                    : 'bg-white/80 border-gray-200/50 hover:bg-white hover:border-accent/30'
-                } shadow-lg`}
+                    ? 'bg-white/5 border-white/10 hover:border-accent-400/40'
+                    : 'bg-white border-gray-200/70 hover:border-accent/40 shadow-sm'
+                }`}
                 data-aos="fade-right"
                 data-aos-delay={200 + index * 100}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3">
                   <div
-                    className={`p-3 rounded-lg ${
+                    className={`p-2 rounded-md flex-shrink-0 ${
                       theme === 'dark' ? 'bg-accent/20' : 'bg-accent/10'
                     }`}
                   >
-                    <i className={`bi ${info.icon} text-2xl text-accent`}></i>
+                    <i className={`bi ${info.icon} text-lg text-accent dark:text-accent-400`}></i>
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3
-                      className={`text-lg font-bold mb-1 ${
+                      className={`text-sm font-bold mb-0.5 ${
                         theme === 'dark' ? 'text-white' : 'text-heading'
                       }`}
                     >
                       {info.label}
                     </h3>
                     <p
-                      className={`${
-                        theme === 'dark' ? 'text-white/80' : 'text-gray-600'
+                      className={`text-sm break-words ${
+                        theme === 'dark' ? 'text-white/85' : 'text-gray-600'
                       }`}
                     >
                       {info.value}
@@ -133,57 +136,34 @@ function Contact() {
           <div className="lg:col-span-7">
             <form
               id="contact-form"
-              className={`php-email-form p-8 rounded-2xl backdrop-blur-md border ${
+              className={`php-email-form p-5 md:p-6 rounded-xl border ${
                 theme === 'dark'
-                  ? 'bg-white/10 border-white/20'
-                  : 'bg-white/80 border-gray-200/50'
-              } shadow-xl`}
+                  ? 'bg-white/5 border-white/10'
+                  : 'bg-white border-gray-200/70 shadow-sm'
+              }`}
               onSubmit={handleSubmit}
               data-aos="fade-left"
               data-aos-delay="200"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div className="relative">
-                  <label
-                    htmlFor="name-field"
-                    className={`block mb-2 font-semibold ${
-                      theme === 'dark' ? 'text-white' : 'text-heading'
-                    }`}
-                  >
-                    Your Name
-                  </label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label htmlFor="name-field" className={labelClass}>Your Name</label>
                   <input
                     type="text"
                     name="name"
                     id="name-field"
-                    className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent ${
-                      theme === 'dark'
-                        ? 'bg-white/10 border-white/20 text-white placeholder-white/50 focus:bg-white/15'
-                        : 'bg-white border-gray-300 text-gray-900 focus:bg-white'
-                    }`}
+                    className={inputClass}
                     placeholder="John Doe"
                     required
                     value={formData.name}
                     onChange={handleChange}
                   />
                 </div>
-
-                <div className="relative">
-                  <label
-                    htmlFor="email-field"
-                    className={`block mb-2 font-semibold ${
-                      theme === 'dark' ? 'text-white' : 'text-heading'
-                    }`}
-                  >
-                    Your Email
-                  </label>
+                <div>
+                  <label htmlFor="email-field" className={labelClass}>Your Email</label>
                   <input
                     type="email"
-                    className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent ${
-                      theme === 'dark'
-                        ? 'bg-white/10 border-white/20 text-white placeholder-white/50 focus:bg-white/15'
-                        : 'bg-white border-gray-300 text-gray-900 focus:bg-white'
-                    }`}
+                    className={inputClass}
                     name="email"
                     id="email-field"
                     placeholder="john@example.com"
@@ -194,22 +174,11 @@ function Contact() {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <label
-                  htmlFor="subject-field"
-                  className={`block mb-2 font-semibold ${
-                    theme === 'dark' ? 'text-white' : 'text-heading'
-                  }`}
-                >
-                  Subject
-                </label>
+              <div className="mb-4">
+                <label htmlFor="subject-field" className={labelClass}>Subject</label>
                 <input
                   type="text"
-                  className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent ${
-                    theme === 'dark'
-                      ? 'bg-white/10 border-white/20 text-white placeholder-white/50 focus:bg-white/15'
-                      : 'bg-white border-gray-300 text-gray-900 focus:bg-white'
-                  }`}
+                  className={inputClass}
                   name="subject"
                   id="subject-field"
                   placeholder="Project Inquiry"
@@ -219,21 +188,10 @@ function Contact() {
                 />
               </div>
 
-              <div className="mb-6">
-                <label
-                  htmlFor="message-field"
-                  className={`block mb-2 font-semibold ${
-                    theme === 'dark' ? 'text-white' : 'text-heading'
-                  }`}
-                >
-                  Message
-                </label>
+              <div className="mb-4">
+                <label htmlFor="message-field" className={labelClass}>Message</label>
                 <textarea
-                  className={`w-full px-4 py-3 rounded-lg border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent resize-none ${
-                    theme === 'dark'
-                      ? 'bg-white/10 border-white/20 text-white placeholder-white/50 focus:bg-white/15'
-                      : 'bg-white border-gray-300 text-gray-900 focus:bg-white'
-                  }`}
+                  className={`${inputClass} resize-none`}
                   name="message"
                   rows="5"
                   id="message-field"
@@ -248,10 +206,10 @@ function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
                     theme === 'dark'
-                      ? 'bg-accent text-white hover:bg-accent/90 shadow-lg shadow-accent/30'
-                      : 'bg-accent text-white hover:bg-accent/90 shadow-lg shadow-accent/20'
+                      ? 'bg-accent-500 text-white hover:bg-accent-400 shadow-md shadow-accent/30'
+                      : 'bg-accent text-white hover:bg-accent-700 shadow-md shadow-accent/20'
                   }`}
                 >
                   {isSubmitting ? (
@@ -276,4 +234,3 @@ function Contact() {
 }
 
 export default Contact
-

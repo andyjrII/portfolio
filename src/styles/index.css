@@ -9,6 +9,7 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --heading-font: 'Raleway', sans-serif;
   --nav-font: 'Poppins', sans-serif;
+  --accent-color: #1e40af;
 }
 
 /* Smooth scroll */
@@ -23,14 +24,11 @@ body {
   font-family: var(--default-font);
 }
 
-a {
-  color: var(--accent-color, #149ddd);
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-a:hover {
-  color: color-mix(in srgb, var(--accent-color, #149ddd), transparent 25%);
+/* Base anchor color for any unstyled inline link. Specificity kept at 0 with
+   :where() so Tailwind utilities (text-white, text-accent, etc.) always win.
+   No global hover rule — components define their own hover behavior. */
+:where(a) {
+  color: var(--accent-color, #1e40af);
   text-decoration: none;
 }
 
@@ -42,6 +40,34 @@ h5,
 h6 {
   color: var(--heading-color, #050d18);
   font-family: var(--heading-font);
+}
+
+/* Global focus-visible ring for keyboard accessibility */
+:focus {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-color, #1e40af);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Reduced motion: disable decorative loops */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Preloader */
@@ -59,8 +85,8 @@ h6 {
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #149ddd;
-  border-top-color: #e2eefd;
+  border: 6px solid #1e40af;
+  border-top-color: #dbeafe;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -112,7 +138,7 @@ h6 {
   width: 24px;
   height: 24px;
   margin: 0 10px -6px 0;
-  border: 3px solid var(--accent-color, #149ddd);
+  border: 3px solid var(--accent-color, #1e40af);
   border-top-color: var(--surface-color, #ffffff);
   animation: php-email-form-loading 1s linear infinite;
 }
@@ -128,7 +154,7 @@ h6 {
 
 /* Custom utility classes */
 .light-background {
-  --background-color: #f4fafd;
+  --background-color: #f4f6fb;
   --surface-color: #ffffff;
 }
 
@@ -138,6 +164,23 @@ h6 {
   --heading-color: #ffffff;
   --surface-color: #151f2b;
   --contrast-color: #ffffff;
+}
+
+/* Gradient text utility with solid-color fallback for clip-text failures */
+.gradient-text {
+  color: var(--accent-color, #1e40af);
+  background: linear-gradient(90deg, #1e40af, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (-webkit-background-clip: text) {
+  .gradient-text {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--accent-color, #1e40af);
+  }
 }
 
 /* Header Styles */
@@ -160,7 +203,7 @@ h6 {
 
 .header .header-toggle {
   color: var(--contrast-color, #ffffff);
-  background-color: var(--accent-color, #149ddd);
+  background-color: var(--accent-color, #1e40af);
   font-size: 22px;
   display: flex;
   align-items: center;
@@ -178,69 +221,53 @@ h6 {
 
 .header .header-toggle:hover {
   color: var(--contrast-color, #ffffff);
-  background-color: color-mix(in srgb, var(--accent-color, #149ddd) 90%, white 15%);
+  background-color: color-mix(in srgb, var(--accent-color, #1e40af) 90%, white 15%);
 }
 
-/* Navigation Menu */
-.navmenu a,
-.navmenu a:focus {
-  color: var(--nav-color, #a8a9b4);
-  padding: 15px 10px;
+/* Navigation Menu — typography only; spacing/colors handled by component */
+.navmenu a {
   font-family: var(--nav-font);
-  font-size: 16px;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
   white-space: nowrap;
-  transition: 0.3s;
-  width: 100%;
 }
 
-.navmenu a .navicon,
-.navmenu a:focus .navicon {
-  font-size: 20px;
-  margin-right: 10px;
+/* Sidebar scrollbar — thin and tinted with the accent palette so it blends */
+.header {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--accent-color, #1e40af), transparent 65%) transparent;
 }
 
-.navmenu a:hover,
-.navmenu .active,
-.navmenu .active:focus {
-  color: var(--nav-hover-color, #ffffff);
+.header::-webkit-scrollbar {
+  width: 5px;
 }
 
-/* Section Styles */
+.header::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.header::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--accent-color, #1e40af), transparent 65%);
+  border-radius: 999px;
+}
+
+.header::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--accent-color, #1e40af), transparent 35%);
+}
+
+/* Section Styles — vertical rhythm tokens */
 .section {
-  padding: 60px 0;
+  padding: 4rem 0;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 5rem 0;
+  }
 }
 
 .section-title {
   text-align: center;
-  padding-bottom: 30px;
-}
-
-.section-title h2 {
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-}
-
-.section-title h2::after {
-  content: '';
-  position: absolute;
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: var(--accent-color, #149ddd);
-  bottom: 0;
-  left: calc(50% - 25px);
-}
-
-.section-title p {
-  margin-bottom: 0;
+  padding-bottom: 24px;
 }
 
 /* Main Content */
@@ -272,6 +299,8 @@ h6 {
   --contrast-color: #ffffff;
   --nav-color: #a8a9b4;
   --nav-hover-color: #ffffff;
+  /* In dark mode, links/inline accents lean lighter so they read against the dark bg */
+  --accent-color: #3b82f6;
 }
 
 .dark body {
@@ -292,7 +321,8 @@ h6 {
   --surface-color: #ffffff;
   --contrast-color: #ffffff;
   --nav-color: #6b7280;
-  --nav-hover-color: #149ddd;
+  --nav-hover-color: #1e40af;
+  --accent-color: #1e40af;
 }
 
 .light body {
@@ -301,7 +331,7 @@ h6 {
 }
 
 .light .light-background {
-  --background-color: #f4fafd;
+  --background-color: #f4f6fb;
   --surface-color: #ffffff;
 }
 
@@ -326,32 +356,3 @@ h6 {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
-
-/* Portfolio Grid - 3 columns and reset positioning */
-.isotope-container {
-  display: grid !important;
-  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-  gap: 1.5rem !important;
-}
-
-@media (min-width: 768px) {
-  .isotope-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  .isotope-container {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-}
-
-.isotope-item {
-  width: 100% !important;
-  position: relative !important;
-  left: auto !important;
-  top: auto !important;
-  transform: none !important;
-  margin: 0 !important;
-}
-

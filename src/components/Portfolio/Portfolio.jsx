@@ -1,289 +1,171 @@
-import { useEffect, useRef, useState } from 'react'
 import { useTheme } from '../../contexts/ThemeContext'
 import { portfolioItems, projectDetails } from '../../utils/portfolioData'
-import {
-  SiReact,
-  SiNestjs,
-  SiPostgresql,
-  SiTailwindcss,
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiDjango,
-  SiBootstrap,
-  SiNextdotjs,
-  SiTypescript,
-  SiVite,
-  SiPrisma,
-  SiRedis,
-  SiSocketdotio,
-  SiRender,
-  SiCloudinary,
-  SiGit,
-  SiPython,
-  SiPaypal,
-  SiMaildotru,
-} from 'react-icons/si'
 
 function Portfolio() {
-  const isotopeRef = useRef(null)
   const { theme } = useTheme()
-  const [activeFilter, setActiveFilter] = useState('*')
-
-  useEffect(() => {
-    if (isotopeRef.current) {
-      const items = isotopeRef.current.querySelectorAll('.isotope-item')
-      items.forEach((item) => {
-        item.style.position = 'relative'
-        item.style.left = 'auto'
-        item.style.top = 'auto'
-        item.style.transform = 'none'
-        item.style.display = ''
-      })
-    }
-  }, [])
-
-
-  const handleFilter = () => {
-    // Filters are disabled for now (all projects are web)
-  }
-
-  // Future platform filters (uncomment when mobile/desktop projects are added):
-  // const categories = ['*', 'web', 'mobile', 'desktop']
-  // const categoryLabels = {
-  //   '*': 'All',
-  //   web: 'Web',
-  //   mobile: 'Mobile',
-  //   desktop: 'Desktop',
-  // }
-  // Current filters (all projects are web):
-
-  const categories = ['*', 'web']
-  const categoryLabels = {
-    '*': 'All',
-    web: 'Web',
-  }
-
-  const techIconMap = {
-    React: SiReact,
-    NestJS: SiNestjs,
-    PostgreSQL: SiPostgresql,
-    'Supabase (PostgreSQL)': SiPostgresql,
-    Tailwind: SiTailwindcss,
-    'Tailwind CSS': SiTailwindcss,
-    'Tailwind CSS / custom CSS': SiTailwindcss,
-    HTML: SiHtml5,
-    JavaScript: SiJavascript,
-    CSS: SiCss3,
-    Django: SiDjango,
-    Bootstrap: SiBootstrap,
-    'Next.js': SiNextdotjs,
-    TypeScript: SiTypescript,
-    Vite: SiVite,
-    Prisma: SiPrisma,
-    'Prisma ORM': SiPrisma,
-    Redis: SiRedis,
-    'Socket.IO': SiSocketdotio,
-    Socket: SiSocketdotio,
-    Render: SiRender,
-    Cloudinary: SiCloudinary,
-    Paystack: SiPaypal,
-    Brevio: SiMaildotru,
-    'Git / GitHub': SiGit,
-    Git: SiGit,
-    GitHub: SiGit,
-    Python: SiPython,
-  }
-
-  const getTechList = (slug) => {
-    const detail = projectDetails[slug]
-    if (!detail?.stack) return []
-    const all = Object.values(detail.stack).flat()
-    return [...new Set(all)]
-  }
-
-  const getIconForTech = (techName) => {
-    return (
-      techIconMap[techName] ||
-      techIconMap[techName.split(' / ')[0]] ||
-      techIconMap[techName.split(' (')[0]] ||
-      null
-    )
-  }
 
   return (
     <section
       id="portfolio"
-      className={`portfolio section py-20 ${
+      className={`portfolio section py-16 md:py-20 ${
         theme === 'dark' ? 'bg-dark-bg' : 'bg-gradient-to-b from-gray-50 to-white'
       }`}
     >
       <div className="container mx-auto px-4 section-title" data-aos="fade-up">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <span
-            className={`inline-block px-4 py-2 rounded-full text-sm font-semibold mb-4 ${
+            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3 tracking-wide ${
               theme === 'dark'
-                ? 'bg-accent/20 text-accent border border-accent/30'
+                ? 'bg-accent/20 text-accent-400 border border-accent-400/30'
                 : 'bg-accent/10 text-accent border border-accent/20'
             }`}
           >
             My Work
           </span>
           <h2
-            className={`text-4xl lg:text-5xl font-bold mb-6 ${
+            className={`text-3xl md:text-4xl font-bold mb-4 tracking-tight ${
               theme === 'dark' ? 'text-white' : 'text-heading'
             }`}
           >
             Featured Projects
           </h2>
-          <div
-            className={`w-24 h-1 mx-auto rounded-full ${
-              theme === 'dark' ? 'bg-accent' : 'bg-accent'
-            }`}
-          ></div>
+          <div className="w-16 h-0.5 mx-auto rounded-full bg-accent dark:bg-accent-400" />
         </div>
         <p
-          className={`max-w-3xl mx-auto text-center text-lg ${
-            theme === 'dark' ? 'text-white/80' : 'text-gray-600'
+          className={`max-w-2xl mx-auto text-center text-base ${
+            theme === 'dark' ? 'text-white/90' : 'text-gray-600'
           }`}
         >
-          A curated set of featured work—projects I've built or am building. Each one highlights my skills, approach, and focus on solving real-world problems with technology.
+          A curated set of featured work — projects I've built or am building. Each one highlights
+          my skills, approach, and focus on solving real-world problems with technology.
         </p>
       </div>
 
-      {/*
-        Filter Buttons (commented out because all projects are web for now).
-        Uncomment and adjust when adding other platforms.
-        <div className="container mx-auto px-4 mb-8" data-aos="fade-up" data-aos-delay="100">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => handleFilter(category === '*' ? '*' : `.filter-${category}`)}
-                className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                  activeFilter === (category === '*' ? '*' : `.filter-${category}`)
-                    ? theme === 'dark'
-                      ? 'bg-accent text-white shadow-lg shadow-accent/30'
-                      : 'bg-accent text-white shadow-lg shadow-accent/20'
-                    : theme === 'dark'
-                    ? 'bg-white/10 text-white/70 hover:bg-white/15 border border-white/20'
-                    : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200/50'
-                } backdrop-blur-md`}
-              >
-                {categoryLabels[category]}
-              </button>
-            ))}
-          </div>
-        </div>
-      */}
-
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 mt-10">
         <div
-          className="isotope-layout"
-          data-default-filter="*"
-          data-layout="masonry"
-          data-sort="original-order"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 isotope-container"
-            style={{ display: 'grid' }}
-            data-aos="fade-up"
-            data-aos-delay="200"
-            ref={isotopeRef}
-          >
-            {portfolioItems.map((item, index) => (
-              <div
+          {portfolioItems.map((item, index) => {
+            const demoLink = projectDetails[item.slug]?.links?.demo
+            return (
+              <article
                 key={item.id}
-                className={`isotope-item filter-${item.category} portfolio-item`}
+                className={`portfolio-item group relative overflow-hidden rounded-xl flex flex-col transition-all duration-300 ${
+                  theme === 'dark'
+                    ? 'bg-white/5 border border-white/10 hover:border-accent-400/40'
+                    : 'bg-white border border-gray-200/70 hover:border-accent/40 shadow-sm hover:shadow-lg'
+                }`}
                 data-aos="fade-up"
                 data-aos-delay={200 + index * 100}
               >
-                <div
-                  className={`portfolio-content h-full relative overflow-hidden rounded-2xl group flex flex-col cursor-pointer ${
-                    theme === 'dark'
-                      ? 'bg-white/10 border border-white/20'
-                      : 'bg-white/80 border border-gray-200/50'
-                  } backdrop-blur-md shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2`}
-                >
-                  {/* Image Container */}
-                  <div className="relative overflow-hidden rounded-t-2xl bg-gray-200">
-                    <span
-                      className={`absolute top-3 left-3 z-10 inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                        theme === 'dark'
-                          ? 'bg-white text-accent'
-                          : 'bg-heading text-accent'
-                      }`}
-                    >
-                      Web
-                    </span>
-                    <img
-                      src={item.image}
-                      className="w-full h-auto max-h-[320px] block transition-transform duration-500 group-hover:scale-105"
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t ${
-                        theme === 'dark'
-                          ? 'from-dark-bg/80 via-dark-bg/40 to-transparent'
-                          : 'from-white/80 via-white/40 to-transparent'
-                      } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                    ></div>
-                    {/* Hover actions (moved to where description used to be) */}
-                    <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="flex items-center justify-center gap-3">
-                        {projectDetails[item.slug]?.links?.demo && (
-                          <a
-                            href={projectDetails[item.slug].links.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold no-underline text-white bg-gray-900 hover:bg-gray-800 transition-colors shadow-lg"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                            Live
-                          </a>
-                        )}
+                {/* Image */}
+                <div className="relative overflow-hidden bg-gray-200 aspect-[16/10]">
+                  <span
+                    className={`absolute top-2.5 left-2.5 z-10 inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wide ${
+                      theme === 'dark'
+                        ? 'bg-white/90 text-accent'
+                        : 'bg-heading text-white'
+                    }`}
+                  >
+                    Web
+                  </span>
+                  <img
+                    src={item.image}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                  {/* Desktop hover overlay with actions */}
+                  <div
+                    className={`hidden md:flex absolute inset-0 items-end justify-center pb-4 px-4 bg-gradient-to-t ${
+                      theme === 'dark'
+                        ? 'from-dark-bg/85 via-dark-bg/40 to-transparent'
+                        : 'from-black/75 via-black/30 to-transparent'
+                    } opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      {demoLink && (
                         <a
-                          href={item.detailPage}
+                          href={demoLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          title={`View ${item.title} details`}
-                          className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium no-underline transition-colors shadow-lg ${
-                            theme === 'dark'
-                              ? 'bg-white/20 text-white hover:bg-white/30 border border-white/40'
-                              : 'bg-white/90 text-heading hover:bg-white border border-white'
-                          }`}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold no-underline text-white hover:text-white bg-accent hover:bg-accent-700 transition-colors shadow-md"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <i className="bi bi-info-circle" aria-hidden="true" />
-                          Details
+                          <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                          Live
                         </a>
-                      </div>
+                      )}
+                      <a
+                        href={item.detailPage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`View ${item.title} details`}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-md text-xs font-semibold no-underline text-heading hover:text-heading bg-white hover:bg-gray-50 transition-colors shadow-md"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <i className="bi bi-info-circle" aria-hidden="true" />
+                        Details
+                      </a>
                     </div>
                   </div>
+                </div>
 
-                  {/* Bottom Info Bar */}
-                  <div
-                    className={`p-4 flex flex-col justify-center ${
-                      theme === 'dark' ? 'bg-white/5' : 'bg-white/50'
-                    } backdrop-blur-sm`}
+                {/* Body */}
+                <div
+                  className={`p-4 flex flex-col flex-1 ${
+                    theme === 'dark' ? 'bg-transparent' : 'bg-transparent'
+                  }`}
+                >
+                  <h5
+                    className={`font-semibold text-sm md:text-base mb-1.5 ${
+                      theme === 'dark' ? 'text-white' : 'text-heading'
+                    }`}
                   >
-                    <h5
-                      className={`font-semibold text-lg ${
-                        theme === 'dark' ? 'text-white' : 'text-heading'
+                    {item.title}
+                  </h5>
+                  <p
+                    className={`text-xs leading-relaxed flex-1 ${
+                      theme === 'dark' ? 'text-white/75' : 'text-gray-600'
+                    }`}
+                  >
+                    {item.caption || '—'}
+                  </p>
+
+                  {/* Mobile-only action row (hidden on md+, where actions appear on hover) */}
+                  <div className="mt-3 flex items-center gap-2 md:hidden">
+                    {demoLink && (
+                      <a
+                        href={demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold no-underline text-white hover:text-white bg-accent hover:bg-accent-700 transition-colors"
+                      >
+                        <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                        Live
+                      </a>
+                    )}
+                    <a
+                      href={item.detailPage}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`View ${item.title} details`}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold no-underline transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-white/10 text-white border border-white/20 hover:bg-white/15'
+                          : 'bg-gray-100 text-heading border border-gray-200 hover:bg-gray-200'
                       }`}
                     >
-                      {item.title}
-                    </h5>
-                    <p className={`mt-2 text-xs leading-relaxed ${theme === 'dark' ? 'text-white/75' : 'text-gray-600'}`}>
-                      {item.caption || '—'}
-                    </p>
+                      <i className="bi bi-info-circle" aria-hidden="true" />
+                      Details
+                    </a>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -291,4 +173,3 @@ function Portfolio() {
 }
 
 export default Portfolio
-

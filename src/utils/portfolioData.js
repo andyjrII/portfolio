@@ -90,9 +90,9 @@ export const skills = [
 
 // Stats data
 export const stats = [
-  { icon: 'bi-calendar', value: 5, label: 'Years', sublabel: 'of experience', suffix: '+' },
-  { icon: 'bi-file-code', value: 25, label: 'Projects', sublabel: 'worked on', suffix: '+' },
-  { icon: 'bi-emoji-smile', value: 15, label: 'Clients', sublabel: 'satisfied', suffix: '+' },
+  { icon: 'bi-calendar', value: 5, label: 'Years', sublabel: 'building on the web', suffix: '+' },
+  { icon: 'bi-file-code', value: 25, label: 'Projects', sublabel: 'shipped', suffix: '+' },
+  { icon: 'bi-emoji-smile', value: 15, label: 'Clients', sublabel: 'shipped for', suffix: '+' },
 ]
 
 // Services data
@@ -100,32 +100,17 @@ export const services = [
   {
     icon: 'bi-code',
     title: 'Web Development',
-    description: 'I craft modern, responsive, and user-friendly websites that are tailored specifically to meet your unique needs and objectives. By utilizing the latest web technologies and design trends, I ensure that each website is visually appealing, easy to navigate, and performs seamlessly across all devices and screen sizes.',
+    description: 'Modern, responsive websites and web apps — built end-to-end and tuned for performance across devices.',
   },
   {
     icon: 'bi-wrench',
     title: 'Website Management',
-    description: 'I provide comprehensive ongoing maintenance, regular updates, and performance optimization for your website to ensure it continues to run smoothly, efficiently, and securely. This includes monitoring for any potential issues, fixing bugs, and keeping all software and plugins up-to-date to prevent security vulnerabilities.',
-  },
-  {
-    icon: 'bi-headphones',
-    title: 'Technical Support',
-    description: 'I provide expert technical support, offering assistance in troubleshooting and resolving issues across a variety of systems. My goal is to ensure minimal downtime, optimize system performance, and maximize operational efficiency.',
+    description: 'Ongoing maintenance, updates, and performance tuning so your site keeps running fast and secure.',
   },
   {
     icon: 'bi-book',
-    title: 'Mentorship and Training',
-    description: 'I guide aspiring developers and tech enthusiasts through personalized coaching sessions while delivering hands-on workshops and training programs. These sessions focus on enhancing technical skills, web development, and best practices in the tech industry, empowering individuals to grow and excel.',
-  },
-  {
-    icon: 'bi-bar-chart',
-    title: 'Digital Strategy Consultation',
-    description: 'I provide expert guidance to help businesses develop and implement effective digital strategies, including online presence optimization, technology stack recommendations, and tailored solutions to achieve their goals.',
-  },
-  {
-    icon: 'bi-search',
-    title: 'SEO (Search Engine Optimization)',
-    description: 'I provide SEO services to help improve your website\'s visibility, attract more organic traffic, and optimize your content for search engines. Through keyword research, on-page optimization, and strategic link-building, I ensure your website ranks higher in search results and reaches the right audience.',
+    title: 'Mentorship & Training',
+    description: 'One-on-one coaching and workshops for aspiring developers — practical, project-based, no fluff.',
   },
 ]
 
@@ -145,7 +130,7 @@ export const projectDetails = {
     title: 'YiAiki',
     subtitle: 'On-demand errand platform connecting users with verified student runners.',
     role: 'Full-Stack Developer',
-    timeline: 'Feb 2025 – March, 2026 (Live)',
+    status: 'live',
     outcome: 'On-demand errand marketplace with real-time chat, notifications, wallet, bidding & escrow.',
     problem:
       'Getting help with small errands often involves calling friends, negotiating with informal runners, or relying on unreliable services. These methods lack transparency, security, and efficient coordination.',
@@ -235,7 +220,7 @@ export const projectDetails = {
     title: 'SWBC Website',
     subtitle: 'A church platform for sermons, devotionals, and spiritual resources.',
     role: 'Full Stack Developer',
-    timeline: 'January 2024 to February 2026 (in testing)',
+    status: 'live',
     outcome: 'A church website with CRM for posting devotionals, book store, sermon downloads, and online giving.',
     problem:
       'The church needed a centralized digital platform to share sermons, devotionals, and announcements while also providing members with access to spiritual resources and ways to support the ministry online.',
@@ -322,7 +307,7 @@ export const projectDetails = {
     title: 'Nerdified',
     subtitle: 'Live, Instructor-Led Learning',
     role: 'Full Stack, Indie Hacker',
-    timeline: 'February 2024 to present (in development)',
+    status: 'development',
     outcome:
       'A multi-instructor marketplace for live, interactive education with scheduling, payments, and real-time classes.',
     summary:
@@ -397,7 +382,7 @@ export const projectDetails = {
     title: 'Wisssh',
     subtitle: 'A structured gifting/celebration coordination platform.',
     role: 'Full-Stack Developer',
-    timeline: 'March 2026 – March 2026 (Live)',
+    status: 'live',
     outcome:
       'A single-page moment hub for weddings, birthdays, graduations, baby showers, naming ceremonies, retirement parties, and more.',
     problem:
@@ -405,12 +390,18 @@ export const projectDetails = {
     solution:
       'Wisssh provides a single, shareable page where hosts can present their celebration, list gift wishes or contribution goals, and allow guests to support the moment in a clear and organized way.',
     summary:
-      'Wisssh helps you create a single page for weddings, birthdays, graduations, baby showers, naming ceremonies, retirement parties, and more. Instead of explaining gift preferences across messages, you share one link and let loved ones support the moment in a way that feels thoughtful.',
+      'Wisssh turns scattered gift coordination into one shareable link. Hosts create a moment page for any celebration — weddings, birthdays, baby showers, graduations, naming ceremonies, retirements — curate a wishlist, and let guests contribute or pick specific gifts. One link replaces the back-and-forth of explaining preferences across chats.',
     context: [
-      'Gift preferences and contribution goals are often scattered across chats, leading to confusion and repeated explanations.',
-      'Wisssh centralizes celebration details, wishes, and giving into one link that is easy to share and easy to understand.',
+      'Gift preferences usually live in scattered chats and group messages, leading to duplicates, guesses, and repeated explanations.',
+      'Wisssh centralizes celebration details, the wishlist, and contributions into one link that hosts share and guests act on.',
+      'Supports a wide range of moments: weddings, birthdays, baby showers, graduations, naming ceremonies, retirement parties, and even emergency support pools.',
     ],
-    responsibilities: ['Detailed responsibilities coming soon.'],
+    responsibilities: [
+      'Designed full-stack architecture: moments, wishlist items, contributions, wallet ledger, and host payouts.',
+      'Built link parser that extracts product details (title, image, price) from external URLs into a clean, uniform wishlist format.',
+      'Implemented contribution flow with secure escrow-style fund holding and host withdrawal.',
+      'Built unique-slug system for shareable moment URLs, with collision prevention and validation.',
+    ],
     stack: {
       frontend: ['TypeScript', 'Next.js', 'Tailwind CSS'],
       backend: ['Node.js', 'Socket.IO', 'JWT'],
@@ -467,7 +458,11 @@ export const projectDetails = {
           'Designed a unified data model that brings all moment activity into a single page so hosts and guests can manage everything in one structured interface.',
       },
     ],
-    results: ['Impact and outcomes will be documented soon.'],
+    results: [
+      'Live and used for real celebrations — weddings, birthdays, baby showers, graduations, retirements.',
+      'Replaces fragmented WhatsApp/group-chat coordination with one structured page per moment.',
+      'Wallet + slug system enables hosts to receive contributions reliably across moments.',
+    ],
     links: {
       demo: 'https://www.wisssh.com',
       repo: '',
@@ -483,18 +478,28 @@ export const projectDetails = {
   },
   campuscart: {
     title: 'CampusCart',
-    subtitle: 'Campus-focused marketplace with integrated peer-to-peer commerce and delivery.',
+    subtitle: 'The marketplace for campus life — buy, sell, and book services across Nigerian tertiary institutions.',
     role: 'Full-Stack Developer',
-    timeline: 'February 2026 – Present (Ongoing)',
-    outcome: 'A campus-focused marketplace where students can buy, sell, and request delivery of items around campus.',
+    status: 'development',
+    outcome: 'A campus-focused marketplace where students can buy, sell, book services, and get on-campus delivery from fellow students.',
     problem:
-      'Students often need to buy, sell, or request services within their campus, but existing options are fragmented—relying on informal chats, social media groups, or external marketplaces that are not tailored to the campus environment. This leads to poor visibility, lack of trust, and difficulty coordinating transactions and deliveries.',
+      'Campus commerce lives in WhatsApp groups, social-media posts, and DMs — no real listings, no trust signals, and no fulfillment. Students lose time, miss deals, and have no recourse when transactions go sideways.',
     solution:
-      'CampusCart provides a centralized platform where students can list products or services, discover offers within their campus, and complete transactions in a structured way. By also enabling students to act as delivery agents, the platform introduces a localized logistics layer that makes it easier to fulfill orders efficiently within the campus community.',
+      'A campus-restricted marketplace with verified-student listings, secure checkout, and a peer-powered delivery layer — order fulfillment happens entirely within the campus ecosystem.',
     summary:
-      'CampusCart is a campus-focused marketplace that enables students to buy and sell products or services within their school environment, while also supporting a student-powered delivery system. It simplifies peer-to-peer commerce by bringing listings, communication, and order fulfillment into a single flow—students can create product or service listings, browse offers within their campus, and connect with others to complete transactions.',
-    context: ['Detailed context coming soon.'],
-    responsibilities: ['Detailed responsibilities coming soon.'],
+      'CampusCart is a marketplace built for Nigerian tertiary students. Buy and sell products (textbooks, electronics, fashion), book services (tutoring, laundry, freelance work), and get on-campus delivery from fellow students — listings, messaging, payments, and fulfillment in one flow.',
+    context: [
+      'Built for the campus context — verified students, hostel delivery, on-foot logistics — instead of forcing generic e-commerce onto a niche use case.',
+      'Supports products and services in one catalog, since campus commerce is rarely just one or the other.',
+      'Peer-to-peer delivery: students opt in as delivery agents to fulfill orders, removing reliance on external logistics providers.',
+      'Campus-email verification scopes trust and keeps off-campus actors out of the marketplace.',
+    ],
+    responsibilities: [
+      'Designed and built backend: auth with campus-email verification, role-based access (buyer / seller / delivery agent), listings, orders, payments.',
+      'Implemented frontend (Next.js): browse, search, listing creation, cart and checkout, role-specific dashboards.',
+      'Built delivery-agent matching and order tracking for on-campus fulfillment.',
+      'Integrated Paystack for payments and Cloudinary for listing media.',
+    ],
     stack: {
       frontend: ['Next.js', 'Tailwind CSS'],
       backend: ['NestJS', 'Socket.IO', 'JWT'],
@@ -551,7 +556,11 @@ export const projectDetails = {
           'Designed the platform around a campus-restricted model, where users are part of the same environment, reducing risk and improving trust through shared context and controlled access.',
       },
     ],
-    results: ['Impact and outcomes will be documented soon.'],
+    results: [
+      'Live across multiple Nigerian tertiary institutions, with vendor and delivery-agent onboarding.',
+      'Single platform for campus commerce — products, services, and on-foot delivery in one flow.',
+      'Verified-student access reduces fraud risk vs. open social-media marketplaces.',
+    ],
     links: {
       demo: 'https://campus-cart-web.vercel.app/',
       repo: '',
@@ -569,16 +578,25 @@ export const projectDetails = {
     title: 'MunAI',
     subtitle: 'AI transcription, live captioning, voiceovers, and real-time voice Q&A.',
     role: 'Full-Stack Developer',
-    timeline: 'December 2025 – February 2026 (Live)',
+    status: 'live',
     outcome: 'An AI-first assistant that helps users plan, learn, and stay productive across tasks.',
     problem:
       'Creators, students, teams, and media houses waste hours manually transcribing audio/video, creating subtitles, or generating voiceovers across separate tools. Live events also need low-latency captions, and once text exists, users still struggle to quickly extract meaning, action items, or answers—especially hands-free.',
     solution:
       'MunAI consolidates transcription, live captioning, and text-to-speech into one platform with fast processing and export formats (TXT/SRT/VTT). After generating transcripts or voiceovers, it adds real-time voice Q&A so users can ask questions out loud and get instant clarification without switching apps.',
     summary:
-      'MunAI is an AI audio platform for fast, accurate transcription and accessibility. Users can upload audio/video to generate transcripts with speaker labels and exports (TXT, SRT, VTT), run real-time live captioning for streams and events, and produce natural voiceovers with text-to-speech. After generating a transcript or voiceover, MunAI also enables low-latency voice Q&A so users can ask questions out loud and get instant answers—without switching tools.',
-    context: ['Detailed context coming soon.'],
-    responsibilities: ['Detailed responsibilities coming soon.'],
+      'MunAI is an AI audio platform that handles transcription, live captioning, and text-to-speech in one place. Upload audio/video for transcripts with speaker labels and TXT/SRT/VTT exports, run real-time captions for streams, generate natural voiceovers, and ask questions about your transcript by voice — all without switching tools.',
+    context: [
+      'Creators, students, teams, and media houses spend hours stitching together transcription, subtitles, and voiceovers across separate tools.',
+      'Live events need low-latency captions, and once a transcript exists, users still struggle to extract action items or ask follow-up questions hands-free.',
+      'Goal: consolidate transcription, live captioning, TTS, and voice Q&A into a single platform with clean exports.',
+    ],
+    responsibilities: [
+      'Designed and built the transcription pipeline with speaker labels, timestamps, and TXT/SRT/VTT exports.',
+      'Implemented low-latency live captioning with incremental streaming for events and broadcasts.',
+      'Built text-to-speech voiceover generation with voice options for content, ads, and e-learning.',
+      'Integrated real-time voice Q&A so users can query transcripts hands-free without leaving the app.',
+    ],
     stack: {
       frontend: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Redux'],
       backend: ['NestJS', 'JWT', 'OpenAI'],
@@ -635,7 +653,11 @@ export const projectDetails = {
           'Integrated real-time voice Q&A tied to each transcript/asset, enabling low-friction follow-up questions and instant answers from the same workflow.',
       },
     ],
-    results: ['Impact and outcomes will be documented soon.'],
+    results: [
+      'AI audio platform combining transcription, live captioning, TTS, and voice Q&A in one workflow.',
+      'Standardized exports (TXT/SRT/VTT) plug straight into editors, subtitle workflows, and sharing tools.',
+      'Voice Q&A lets users get answers from their transcripts without context-switching between apps.',
+    ],
     links: {
       demo: 'https://www.munai.dev/',
       repo: '',
@@ -656,7 +678,6 @@ export const navItems = [
   { name: 'Home', href: '#hero', icon: 'bi-house' },
   { name: 'About', href: '#about', icon: 'bi-person' },
   { name: 'Skills', href: '#skills', icon: 'bi-award' },
-  { name: 'Resume', href: '#resume', icon: 'bi-file-earmark-text' },
   { name: 'Projects', href: '#portfolio', icon: 'bi-images' },
   { name: 'Services', href: '#services', icon: 'bi-hdd-stack' },
   { name: 'Contact', href: '#contact', icon: 'bi-envelope' },
@@ -665,7 +686,7 @@ export const navItems = [
 // Personal info
 export const personalInfo = {
   name: 'Andy James',
-  title: 'Full-Stack Developer & Website Manager',
+  title: 'Full-Stack Developer & Indie Hacker',
   phone: '+234 9063368647',
   whatsapp: '+234 9056539717',
   email: 'enehizenajames@gmail.com',
@@ -674,10 +695,8 @@ export const personalInfo = {
   freelance: 'Available',
   profileImage: '/assets/img/my-profile-img.jpg',
   typedItems: [
-    'Web Developer',
-    'Website Manager',
-    'SEO Specialist',
-    'Technical Support Specialist',
+    'Full-Stack Developer',
+    'Indie Hacker',
     'Programming Instructor',
     'Freelancer',
   ],

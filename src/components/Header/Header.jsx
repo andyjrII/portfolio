@@ -99,18 +99,18 @@ function Header() {
         </button>
 
         {/* Profile Image */}
-        <div className="profile-img mt-6 mb-5">
+        <div className="profile-img mt-6 mb-3">
           <div
-            className={`relative w-[120px] h-[120px] mx-auto rounded-full p-1 ${
+            className={`relative w-[96px] h-[96px] mx-auto rounded-full p-0.5 ${
               theme === 'dark'
-                ? 'bg-gradient-to-br from-accent/30 to-accent/10'
-                : 'bg-gradient-to-br from-accent/20 to-gray-200/50'
+                ? 'bg-gradient-to-br from-accent-400/40 to-accent/10'
+                : 'bg-gradient-to-br from-accent/30 to-gray-200/50'
             }`}
           >
             <img
               src={personalInfo.profileImage}
               alt={personalInfo.name}
-              className="w-full h-full rounded-full object-cover border-4 border-transparent"
+              className="w-full h-full rounded-full object-cover border-2 border-transparent"
               style={{ filter: 'none' }}
             />
           </div>
@@ -119,54 +119,69 @@ function Header() {
         {/* Logo */}
         <Link
           to="/"
-          className="logo flex items-center justify-center mb-5 group"
+          className="logo flex items-center justify-center mb-4 group"
           onClick={() => isHomePage && handleNavClick('#hero')}
         >
           <h1
-            className={`sitename text-xl font-bold m-0 transition-all duration-300 ${
+            className={`sitename text-base font-bold m-0 transition-all duration-300 ${
               theme === 'dark' ? 'text-white' : 'text-heading'
-            } group-hover:text-accent`}
+            } group-hover:text-accent dark:group-hover:text-accent-400`}
           >
             {personalInfo.name}
           </h1>
         </Link>
 
-        {/* Social Links with Glassmorphism */}
-        <div className="social-links text-center mb-5">
+        {/* Social Links */}
+        <div className="social-links flex items-center justify-center gap-2 mb-4">
           {socialLinks.map((social) => (
             <a
               key={social.name}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${social.name} inline-flex items-center justify-center mx-0.5 rounded-full text-center w-10 h-10 transition-all duration-300 transform hover:scale-110 hover:rotate-5 ${
+              className={`${social.name} inline-flex items-center justify-center rounded-full w-9 h-9 transition-colors duration-300 ${
                 theme === 'dark'
-                  ? 'bg-white/10 text-white/80 hover:bg-accent/30 hover:text-accent backdrop-blur-sm border border-white/10'
-                  : 'bg-gray-100/80 text-gray-700 hover:bg-accent hover:text-white backdrop-blur-sm border border-gray-200/50'
+                  ? 'bg-white/10 text-white/80 hover:bg-accent/30 hover:text-accent-400 border border-white/10'
+                  : 'bg-gray-100 text-gray-700 hover:bg-accent hover:text-white border border-gray-200/60'
               }`}
             >
-              <i className={`bi ${social.icon} text-base`}></i>
+              <i className={`bi ${social.icon} text-sm leading-none flex items-center justify-center`}></i>
             </a>
           ))}
         </div>
 
         {/* Navigation Menu */}
-        <nav id="navmenu" className="navmenu">
-          <ul className="list-none p-0 m-0">
+        <nav id="navmenu" className="navmenu mt-1">
+          <ul className="list-none p-0 m-0 space-y-0.5">
             {navItems.map((item) => {
               const sectionId = item.href.substring(1)
               const isActive = activeSection === sectionId
-              const navLinkClass = `relative flex items-center py-2.5 px-3 rounded-lg transition-all duration-300 group text-sm ${
+              const navLinkClass = `relative flex items-center pl-4 pr-3 py-3 rounded-md text-base font-medium transition-colors duration-200 group ${
                 isActive
                   ? theme === 'dark'
-                    ? 'bg-accent/20 text-accent border-l-4 border-accent'
-                    : 'bg-accent/10 text-accent border-l-4 border-accent'
+                    ? 'bg-accent-500/25 text-accent-300'
+                    : 'bg-accent/15 text-accent'
                   : theme === 'dark'
-                  ? 'text-white/70 hover:text-white hover:bg-white/5'
-                  : 'text-gray-700 hover:text-accent hover:bg-gray-100/50'
+                  ? 'text-white/65 hover:text-white hover:bg-white/[0.04]'
+                  : 'text-gray-600 hover:text-accent hover:bg-gray-50'
+              }`
+              const indicator = isActive ? (
+                <span
+                  className={`absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full ${
+                    theme === 'dark' ? 'bg-accent-400' : 'bg-accent'
+                  }`}
+                  aria-hidden="true"
+                />
+              ) : null
+              const iconClass = `bi ${item.icon} navicon mr-2.5 text-xl ${
+                isActive
+                  ? theme === 'dark'
+                    ? 'text-accent-300'
+                    : 'text-accent'
+                  : ''
               }`
               return (
-                <li key={item.name} className="mb-1">
+                <li key={item.name}>
                   {isHomePage ? (
                     <a
                       href={item.href}
@@ -176,19 +191,9 @@ function Header() {
                       }}
                       className={navLinkClass}
                     >
-                      <i
-                        className={`bi ${item.icon} navicon mr-2.5 text-lg transition-transform duration-300 group-hover:scale-110 ${
-                          isActive ? 'text-accent' : ''
-                        }`}
-                      ></i>
-                      <span className="font-medium">{item.name}</span>
-                      {isActive && (
-                        <div
-                          className={`absolute right-4 w-2 h-2 rounded-full ${
-                            theme === 'dark' ? 'bg-accent' : 'bg-accent'
-                          } animate-pulse`}
-                        ></div>
-                      )}
+                      {indicator}
+                      <i className={iconClass}></i>
+                      <span>{item.name}</span>
                     </a>
                   ) : (
                     <Link
@@ -196,19 +201,9 @@ function Header() {
                       onClick={() => setIsMenuOpen(false)}
                       className={navLinkClass}
                     >
-                      <i
-                        className={`bi ${item.icon} navicon mr-2.5 text-lg transition-transform duration-300 group-hover:scale-110 ${
-                          isActive ? 'text-accent' : ''
-                        }`}
-                      ></i>
-                      <span className="font-medium">{item.name}</span>
-                      {isActive && (
-                        <div
-                          className={`absolute right-4 w-2 h-2 rounded-full ${
-                            theme === 'dark' ? 'bg-accent' : 'bg-accent'
-                          } animate-pulse`}
-                        ></div>
-                      )}
+                      {indicator}
+                      <i className={iconClass}></i>
+                      <span>{item.name}</span>
                     </Link>
                   )}
                 </li>

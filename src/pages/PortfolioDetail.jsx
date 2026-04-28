@@ -159,12 +159,8 @@ function PortfolioDetail() {
   const subtitle = detail?.subtitle
   const summary = detail?.summary || 'Project overview coming soon.'
   const role = detail?.role
-  const timeline = detail?.timeline
-  const outcome = detail?.outcome
-  const problem = detail?.problem
-  const solution = detail?.solution
-  const context = detail?.context || []
   const responsibilities = detail?.responsibilities || []
+  const status = detail?.status
   const stack = detail?.stack || {}
   const links = detail?.links || {}
   const gallery = detail?.gallery || (fallbackItem ? [fallbackItem.image] : [])
@@ -172,9 +168,9 @@ function PortfolioDetail() {
   const challenges = detail?.challenges || []
 
   const headingClass = isDark ? 'text-white' : 'text-heading'
-  const subTextClass = isDark ? 'text-white/80' : 'text-gray-600'
+  const subTextClass = isDark ? 'text-white/85' : 'text-gray-600'
   const cardBg = isDark ? 'bg-white/5' : 'bg-white'
-  const cardBorder = isDark ? 'border-white/10' : 'border-gray-200'
+  const cardBorder = isDark ? 'border-white/10' : 'border-gray-200/70'
 
   // Flatten stack for tech band (frontend, database, backend, integrations)
   const flatTechList = useMemo(() => {
@@ -207,15 +203,17 @@ function PortfolioDetail() {
   }, [challenges, detail?.results])
 
   const screenshotPages = useMemo(() => {
+    // Skip gallery[0] — it's already shown as the hero shot at the top of the page.
+    const rest = gallery.slice(1)
     const pages = []
-    for (let i = 0; i < gallery.length; i += 2) {
-      pages.push(gallery.slice(i, i + 2))
+    for (let i = 0; i < rest.length; i += 2) {
+      pages.push(rest.slice(i, i + 2))
     }
     return pages
   }, [gallery])
 
   const otherProjects = useMemo(() => {
-    return portfolioItems.filter((p) => p.slug !== slug)
+    return portfolioItems.filter((p) => p.slug !== slug).slice(0, 4)
   }, [slug])
 
   const currentScreenshots = screenshotPages[screenshotPage] || []
@@ -235,102 +233,153 @@ function PortfolioDetail() {
       )}
       <Header />
       <main className="main">
-        <div className="container mx-auto px-6 md:px-10 py-8 max-w-7xl">
-          {/* 1. Top project bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200 dark:border-white/10">
-            <div className="flex items-center gap-3 flex-wrap">
-              <h1 className={`text-2xl md:text-3xl font-bold ${headingClass}`}>{title}</h1>
-              {subtitle && (
-                <>
-                  <span className="text-gray-400 dark:text-white/50">|</span>
-                  <span className={`text-sm ${subTextClass}`}>{subtitle}</span>
-                </>
+        <div className="container mx-auto px-6 md:px-10 py-10 md:py-12 max-w-7xl">
+          {/* 0. Back link */}
+          <Link
+            to="/#portfolio"
+            className={`inline-flex items-center gap-1.5 text-sm font-medium mb-6 transition-colors ${
+              isDark ? 'text-white/70 hover:text-accent-300' : 'text-gray-600 hover:text-accent'
+            }`}
+          >
+            <i className="bi bi-arrow-left" aria-hidden="true" />
+            All projects
+          </Link>
+
+          {/* 1. Hero row — project details on the left, image on the right */}
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            {/* Left col: title, subtitle, summary, meta, Live button */}
+            <div className="flex flex-col">
+              <div className="flex flex-wrap items-start justify-between gap-3 pb-5 border-b border-gray-200 dark:border-white/10">
+                <div className="space-y-1.5 min-w-0">
+                  <h1 className={`text-3xl md:text-4xl font-bold tracking-tight ${headingClass}`}>{title}</h1>
+                  {subtitle && (
+                    <p className={`text-sm md:text-base ${subTextClass}`}>{subtitle}</p>
+                  )}
+                </div>
+                {links?.demo && (
+                  <a
+                    href={links.demo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-white hover:text-white font-semibold text-sm hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-400 transition-colors flex-shrink-0"
+                  >
+                    <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
+                    Live
+                  </a>
+                )}
+              </div>
+
+              <p className={`mt-5 text-base leading-relaxed ${subTextClass}`}>{summary}</p>
+
+              {(role || status) && (
+                <div className={`mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm ${subTextClass}`}>
+                  {role && (
+                    <span>
+                      <span className={`font-semibold ${headingClass}`}>Role: </span>
+                      {role}
+                    </span>
+                  )}
+                  {status && (
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
+                        status === 'live'
+                          ? isDark
+                            ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          : isDark
+                          ? 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                          : 'bg-amber-50 text-amber-700 border-amber-200'
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          status === 'live' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
+                        }`}
+                      />
+                      {status === 'live' ? 'Live' : 'In Development'}
+                    </span>
+                  )}
+                </div>
               )}
             </div>
-            {links?.demo && (
-              <a
-                href={links.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-accent text-white font-semibold text-sm hover:bg-accent/90 transition"
+
+            {/* Right col: hero shot */}
+            {gallery[0] && (
+              <button
+                type="button"
+                onClick={openZoom(gallery[0])}
+                className={`block w-full rounded-xl overflow-hidden border cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 ${cardBorder} ${
+                  isDark ? 'bg-white/5' : 'bg-gray-50'
+                }`}
+                aria-label={`Open ${title} screenshot`}
               >
-                <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                Live
-              </a>
+                <img
+                  src={gallery[0]}
+                  alt={title}
+                  className="w-full h-auto object-contain block"
+                  loading="eager"
+                />
+              </button>
             )}
-          </div>
-
-          {/* 2. Overview band (full width) */}
-          <section className={`mt-8 p-6 rounded-xl border ${cardBg} ${cardBorder}`}>
-            <h2 className={`text-xl font-bold mb-3 ${headingClass}`}>Overview</h2>
-            <p className={`text-base leading-relaxed ${subTextClass} mb-5`}>{summary}</p>
-            <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-lg ${isDark ? 'bg-white/5' : 'bg-gray-50'} border ${cardBorder}`}>
-              {role && (
-                <div>
-                  <span className={`font-semibold text-sm ${headingClass}`}>Role: </span>
-                  <span className={subTextClass}>{role}</span>
-                </div>
-              )}
-              {timeline && (
-                <div>
-                  <span className={`font-semibold text-sm ${headingClass}`}>Duration: </span>
-                  <span className={subTextClass}>{timeline}</span>
-                </div>
-              )}
-            </div>
           </section>
 
-          {/* 3. The Problem / The Solution row */}
-          <section className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
-              <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Problem</h2>
-              <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
-                {problem || context[0] || 'Problem statement will be added soon.'}
-              </p>
-            </div>
-            <div className={`p-6 rounded-xl border min-h-[180px] flex flex-col ${cardBg} ${cardBorder}`}>
-              <h2 className={`text-lg font-bold mb-3 ${headingClass}`}>The Solution</h2>
-              <p className={`text-sm leading-relaxed flex-1 ${subTextClass}`}>
-                {solution || outcome || context[1] || 'Solution details will be added soon.'}
-              </p>
-            </div>
-          </section>
-
-          {/* 4. Key Features row (4 tiles) */}
+          {/* 3. Key Features row (4 tiles, numbered badges) */}
           {featureTiles.length > 0 && (
-            <section className="mt-8">
-              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Key Features</h2>
+            <section className="mt-10">
+              <h2 className={`text-lg md:text-xl font-bold tracking-tight mb-4 ${headingClass}`}>Key Features</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {featureTiles.map((f, i) => (
                   <div
                     key={i}
-                    className={`p-4 rounded-xl border flex flex-col items-center text-center ${cardBg} ${cardBorder}`}
+                    className={`p-5 rounded-xl border transition-colors ${cardBg} ${cardBorder} hover:border-accent/40 dark:hover:border-accent-400/40 ${isDark ? '' : 'shadow-sm'}`}
                   >
-                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center mb-3 ${isDark ? 'bg-accent/20 text-accent' : 'bg-accent/10 text-accent'}`}>
-                      <i className="bi bi-grid-3x3-gap-fill text-2xl" />
-                    </div>
-                    {f.title && <p className={`font-semibold text-sm mb-1 ${headingClass}`}>{f.title}</p>}
-                    <p className={`text-xs ${subTextClass}`}>{f.description}</p>
+                    <span
+                      className={`inline-block text-xs font-bold tracking-wider mb-3 ${
+                        isDark ? 'text-accent-400' : 'text-accent'
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {f.title && <p className={`font-semibold text-sm mb-1.5 ${headingClass}`}>{f.title}</p>}
+                    <p className={`text-xs leading-relaxed ${subTextClass}`}>{f.description}</p>
                   </div>
                 ))}
               </div>
             </section>
           )}
 
-          {/* 5. Architecture & Tech Stack band (logos + names, up to 10 in one row) */}
+          {/* 5. Architecture & Tech Stack band */}
           {flatTechList.length > 0 && (
-            <section className={`mt-8 p-8 rounded-xl ${isDark ? 'bg-[#0a1628]' : 'bg-heading'} text-white`}>
-              <h2 className="text-xl font-bold mb-6 text-white">Architecture & Tech Stack</h2>
-              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-10 gap-4 justify-items-center">
-                {flatTechList.map((tech) => {
+            <section
+              className={`mt-10 p-6 md:p-7 rounded-xl ${
+                isDark
+                  ? 'bg-[#0a1628] border border-white/5 text-white'
+                  : 'bg-gray-50 border border-gray-200/70 text-heading'
+              }`}
+            >
+              <h2 className={`text-lg md:text-xl font-bold tracking-tight mb-6 ${isDark ? 'text-white' : 'text-heading'}`}>
+                Architecture & Tech Stack
+              </h2>
+              <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-8 gap-4 justify-items-center">
+                {flatTechList.slice(0, 8).map((tech) => {
                   const Icon = getTechIcon(tech) || BiCode
                   const displayName = tech.split(' (')[0].split(' / ')[0]
                   return (
                     <div key={tech} className="flex flex-col items-center gap-1.5">
-                      <div className="w-11 h-11 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-6 h-6 text-white" />
+                      <div
+                        className={`w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                          isDark ? 'bg-white/10' : 'bg-white border border-gray-200/70'
+                        }`}
+                      >
+                        <Icon className={`w-6 h-6 ${isDark ? 'text-white' : 'text-heading'}`} />
                       </div>
-                      <span className="text-xs font-medium text-white/90 text-center leading-tight">{displayName}</span>
+                      <span
+                        className={`text-xs font-medium text-center leading-tight ${
+                          isDark ? 'text-white/90' : 'text-gray-700'
+                        }`}
+                      >
+                        {displayName}
+                      </span>
                     </div>
                   )
                 })}
@@ -341,7 +390,7 @@ function PortfolioDetail() {
           {/* 6. Challenges & Solutions rows (3 columns: title | challenge | solution) */}
           {challengeRows.length > 0 && (
             <section className="mt-8">
-              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Challenges & Solutions</h2>
+              <h2 className={`text-lg md:text-xl font-bold tracking-tight mb-4 ${headingClass}`}>Challenges & Solutions</h2>
               <div className="space-y-0 rounded-xl border overflow-hidden border-gray-200 dark:border-white/10">
                 {challengeRows.map((row, i) => (
                   <div
@@ -365,20 +414,20 @@ function PortfolioDetail() {
 
           {/* 7. Project Screenshots – carousel (2x2 per slide) */}
           {screenshotPages.length > 0 && (
-            <section className="mt-8">
-              <h2 className={`text-xl font-bold mb-4 ${headingClass}`}>Project Screenshots</h2>
+            <section className="mt-10">
+              <h2 className={`text-lg md:text-xl font-bold tracking-tight mb-4 ${headingClass}`}>Project Screenshots</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {currentScreenshots.map((src) => (
                   <button
                     key={src}
                     type="button"
                     onClick={openZoom(src)}
-                    className={`rounded-xl overflow-hidden border shadow-sm text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 ${cardBorder}`}
+                    className={`rounded-xl overflow-hidden border shadow-sm text-left cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-accent/50 ${cardBorder} ${isDark ? 'bg-white/5' : 'bg-gray-50'}`}
                   >
                     <img
                       src={src}
                       alt={title}
-                      className="w-full h-auto max-h-[260px] object-cover block"
+                      className="w-full h-auto max-h-[360px] object-contain block"
                       loading="lazy"
                     />
                   </button>
@@ -410,39 +459,24 @@ function PortfolioDetail() {
             </section>
           )}
 
-          {/* 8. Bottom CTA bar */}
-          {links?.demo && (
-            <div className="mt-8 flex justify-center">
-              <a
-                href={links.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition shadow-md"
-              >
-                <i className="bi bi-box-arrow-up-right" aria-hidden="true" />
-                View Live
-              </a>
-            </div>
-          )}
-
-          {/* 9. Other Projects */}
+          {/* 8. Other Projects */}
           {otherProjects.length > 0 && (
-            <section className="mt-10">
-              <div className="flex items-end justify-between gap-4 mb-4">
-                <h2 className={`text-xl font-bold ${headingClass}`}>Other Projects</h2>
+            <section className="mt-12">
+              <div className="flex items-end justify-between gap-4 mb-5">
+                <h2 className={`text-lg md:text-xl font-bold tracking-tight ${headingClass}`}>Other Projects</h2>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {otherProjects.map((p) => (
                   <Link
                     key={p.slug}
                     to={p.detailPage}
-                    className={`group rounded-xl overflow-hidden border ${cardBorder} ${isDark ? 'bg-white/5 hover:bg-white/10' : 'bg-white hover:bg-gray-50'} transition`}
+                    className={`group rounded-xl overflow-hidden border transition-all duration-300 hover:-translate-y-0.5 ${cardBorder} ${isDark ? 'bg-white/5 hover:border-accent-400/40' : 'bg-white hover:border-accent/40 shadow-sm hover:shadow-md'}`}
                   >
-                    <div className="relative overflow-hidden bg-gray-200">
+                    <div className="relative overflow-hidden bg-gray-200 aspect-[16/10]">
                       <img
                         src={p.image}
                         alt={p.title}
-                        className="w-full h-28 sm:h-32 lg:h-28 object-cover block transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-cover block transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
