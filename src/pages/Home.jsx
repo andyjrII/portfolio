@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Header from '../components/Header/Header'
 import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
+import Stats from '../components/Stats/Stats'
 import Skills from '../components/Skills/Skills'
 import Portfolio from '../components/Portfolio/Portfolio'
 import Services from '../components/Services/Services'
@@ -57,6 +58,7 @@ function Home() {
       <main className="main">
         <Hero />
         <About />
+        <Stats />
         <Skills />
         <Portfolio />
         <Services />

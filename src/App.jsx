@@ -1,9 +1,14 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { validateEnv } from './utils/envValidation'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import Home from './pages/Home'
 import PortfolioDetail from './pages/PortfolioDetail'
 import NotFound from './pages/NotFound'
+
+// Validate environment variables on app startup
+validateEnv()
 
 const siteUrl = import.meta.env.VITE_SITE_URL || ''
 
@@ -16,15 +21,17 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </ErrorBoundary>
   )
 }
 
